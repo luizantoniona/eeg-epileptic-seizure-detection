@@ -7,5 +7,6 @@ CREATE TABLE summary_info
     nr_seizures INTEGER,
     start_seizure INTEGER,
     end_seizure INTEGER,
-    nr_channels INTEGER 
+    nr_channels INTEGER,
+    PRIMARY KEY (file_name)
 );
