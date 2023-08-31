@@ -5,8 +5,8 @@ CREATE TABLE summary_info
     start_time TIME,
     end_time TIME,
     nr_seizures INTEGER,
-    start_seizure INTEGER,
-    end_seizure INTEGER,
+    start_seizure VARCHAR(500),
+    end_seizure VARCHAR(500),
     nr_channels INTEGER,
     ds_channels VARCHAR(500),
     PRIMARY KEY (file_name)
