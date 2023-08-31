@@ -7,7 +7,8 @@ INSERT INTO summary_info
     nr_seizures,
     start_seizure,
     end_seizure,
-    nr_channels 
+    nr_channels,
+    ds_channels
 )
 VALUES (
     %s,
