@@ -8,5 +8,6 @@ CREATE TABLE summary_info
     start_seizure INTEGER,
     end_seizure INTEGER,
     nr_channels INTEGER,
+    ds_channels VARCHAR(500),
     PRIMARY KEY (file_name)
 );

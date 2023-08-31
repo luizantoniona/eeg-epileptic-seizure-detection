@@ -23,7 +23,7 @@ def execute_from_file(filename):
         except:
             print("Erro ao executar")
 
-def insert_sumarry_data(record_name, file_name, start_time, end_time, nr_seizures, start_seizure, end_seizure, nr_channels ):
+def insert_sumarry_data(record_name, file_name, start_time, end_time, nr_seizures, start_seizure, end_seizure, nr_channels, ds_channels ):
 
     fd = open("./database/sql/insert_summary_info.sql", 'r')
     sql_file = fd.read()
@@ -34,7 +34,7 @@ def insert_sumarry_data(record_name, file_name, start_time, end_time, nr_seizure
     command = sql_file
 
     try:
-        db.cursor().execute(command, [record_name, file_name, start_time, end_time, nr_seizures, start_seizure, end_seizure, nr_channels ])
+        db.cursor().execute(command, [record_name, file_name, start_time, end_time, nr_seizures, start_seizure, end_seizure, nr_channels, ds_channels ])
         db.commit()
     except:
         print("Registro já existe")
