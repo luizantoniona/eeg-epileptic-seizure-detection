@@ -1,6 +1,8 @@
 import mysql.connector
 import database.databaseinfo as dbinfo
 
+DEBUG = False
+
 def connect():
     return mysql.connector.connect(user=dbinfo.username(),
                               password=dbinfo.password(),                              
@@ -33,8 +35,18 @@ def insert_sumarry_data(record_name, file_name, start_time, end_time, nr_seizure
 
     command = sql_file
 
+    if(DEBUG):
+        print(record_name,
+              file_name,
+              start_time,
+              end_time,
+              nr_seizures,
+              start_seizure,
+              end_seizure,
+              nr_channels)
+
     try:
         db.cursor().execute(command, [record_name, file_name, start_time, end_time, nr_seizures, start_seizure, end_seizure, nr_channels ])
         db.commit()
     except:
-        print("Não foi possivel inserir o registro")
+        print("Registro já existe")
