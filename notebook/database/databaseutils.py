@@ -36,3 +36,18 @@ def insert_sumarry_data(record_name, file_name, start_time, end_time, nr_seizure
         db.commit()
     except:
         print("Registro já existe")
+
+def summary_by_name(file_name):
+        
+    fd = open("./database/sql/select_summary_by_name.sql", 'r')
+    sql_file = fd.read()
+    fd.close()
+
+    db = connect()
+    cursor = db.cursor(buffered=True)
+
+    try:
+        cursor.execute(sql_file, [file_name])
+        return cursor.fetchone()
+    except:
+        print("Não há registro para o nome")
