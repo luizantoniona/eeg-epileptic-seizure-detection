@@ -31,10 +31,8 @@ def insert_sumarry_data(record_name, file_name, start_time, end_time, nr_seizure
 
     db = connect()
 
-    command = sql_file
-
     try:
-        db.cursor().execute(command, [record_name, file_name, start_time, end_time, nr_seizures, start_seizure, end_seizure, nr_channels, ds_channels ])
+        db.cursor().execute(sql_file, [record_name, file_name, start_time, end_time, nr_seizures, start_seizure, end_seizure, nr_channels, ds_channels ])
         db.commit()
     except:
         print("Registro já existe")
