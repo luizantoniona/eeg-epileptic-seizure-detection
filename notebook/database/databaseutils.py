@@ -44,7 +44,7 @@ def summary_by_name(file_name):
     fd.close()
 
     db = connect()
-    cursor = db.cursor(buffered=True)
+    cursor = db.cursor(buffered=True, dictionary=True)
 
     try:
         cursor.execute(sql_file, [file_name])
