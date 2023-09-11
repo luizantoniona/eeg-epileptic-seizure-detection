@@ -4,10 +4,10 @@ class SummaryModel:
     start_time = ""
     end_time = ""
     nr_seizures = 0
-    start_seizure = ""
-    end_seizure = ""
+    start_seizure = []
+    end_seizure = []
     nr_channels = 0
-    ds_channels = ""
+    ds_channels = []
 
     def __init__(self, record_name, file_name, start_time, end_time, nr_seizures, start_seizure, end_seizure, nr_channels, ds_channels):
         self.record_name = record_name
