@@ -77,6 +77,3 @@ def raw_data(summary_model):
   except:
     OSError
     return pd.DataFrame(), None
-
-def raw_edf(summary_model):
-  return mne.io.read_raw_edf("../data/" + summary_model.record_name + "/" + summary_model.file_name, include=selected_channels())
