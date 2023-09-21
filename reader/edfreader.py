@@ -49,7 +49,7 @@ def mne_object(data, freq, events = None):
 
 def raw_data(summary_model):
   try: 
-    edf_file = pyedflib.EdfReader("../data/" + summary_model.record_name + "/" + summary_model.file_name)
+    edf_file = pyedflib.EdfReader("data/" + summary_model.record_name + "/" + summary_model.file_name)
 
     channel_names = edf_file.getSignalLabels()
     channel_freq = edf_file.getSampleFrequencies()
