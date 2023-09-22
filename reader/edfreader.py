@@ -4,7 +4,8 @@ import pandas as pd
 import mne
 import numpy as np
 
-def selected_channels(): return [
+def selected_channels():
+  return [
     'P8-O2',
     'CZ-PZ',
     'T8-P8',
@@ -23,7 +24,7 @@ def selected_channels(): return [
     'FP1-F3',
     'P3-O1',
     'F8-T8'
-]
+  ]
 
 def mne_object(data, freq, events = None):
   info = mne.create_info(ch_names=list(data.columns), 
@@ -49,7 +50,7 @@ def mne_object(data, freq, events = None):
 
 def raw_data(summary_model):
   try: 
-    edf_file = pyedflib.EdfReader("data/" + summary_model.record_name + "/" + summary_model.file_name)
+    edf_file = pyedflib.EdfReader("./data/" + summary_model.record_name + "/" + summary_model.file_name)
 
     channel_names = edf_file.getSignalLabels()
     channel_freq = edf_file.getSampleFrequencies()
@@ -70,9 +71,10 @@ def raw_data(summary_model):
     data_frame = data_frame.set_index('Time')
     data_frame.columns.name = 'Channel'
 
-    seizures = [[int(x) for x in summary_model.start_seizure], [int(x) for x in summary_model.end_seizure]]
-
-    return mne_object(data_frame, channel_freq[0], events = seizures if summary_model.nr_seizures > 0 else None)
+    return mne_object(data_frame,
+                      channel_freq[0],
+                      events = [[int(x) for x in summary_model.start_seizure], [int(x) for x in summary_model.end_seizure]]
+                      if summary_model.nr_seizures > 0 else None)
 
   except:
     OSError
