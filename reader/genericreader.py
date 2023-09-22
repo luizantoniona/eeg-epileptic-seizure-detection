@@ -1,4 +1,4 @@
 import mne
 
-def read(summary_model):
-    return ""
+def read_generic(summary_model):
+    return mne.io.read_raw("./data/" + summary_model.record_name + "/" + summary_model.file_name)
