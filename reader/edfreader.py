@@ -48,18 +48,18 @@ def mne_object(data, freq, events = None):
 
   return raw
 
-def raw_data(summary_model):
+def raw_data(summary_model, selected_channels = selected_channels()):
   try: 
     edf_file = pyedflib.EdfReader("./data/" + summary_model.record_name + "/" + summary_model.file_name)
 
     channel_names = edf_file.getSignalLabels()
     channel_freq = edf_file.getSampleFrequencies()
 
-    sigbufs = np.zeros((edf_file.getNSamples()[0],len(selected_channels())))
-    for i, channel in enumerate(selected_channels()):
+    sigbufs = np.zeros((edf_file.getNSamples()[0],len(selected_channels)))
+    for i, channel in enumerate(selected_channels):
       sigbufs[:, i] = edf_file.readSignal(channel_names.index(channel))
     
-    data_frame = pd.DataFrame(sigbufs, columns = selected_channels()).astype('float32')
+    data_frame = pd.DataFrame(sigbufs, columns = selected_channels).astype('float32')
     
     index_increase = np.linspace(0,
                                  len(data_frame)/channel_freq[0],
