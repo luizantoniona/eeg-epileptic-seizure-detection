@@ -51,3 +51,18 @@ def summary_by_name(file_name):
         return cursor.fetchone()
     except:
         print("Não há registro para o nome")
+
+def all_summary():
+
+    fd = open("./database/sql/select_all_summary.sql", 'r')
+    sql_file = fd.read()
+    fd.close()
+
+    db = connect()
+    cursor = db.cursor(buffered=True, dictionary=True)
+
+    try:
+        cursor.execute(sql_file)
+        return cursor.fetchall()
+    except:
+        print("Não há registros")
