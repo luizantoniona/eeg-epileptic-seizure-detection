@@ -22,3 +22,6 @@ class SummaryModel:
 
     def __str__(self):
         return f"{self.record_name}:({self.file_name})"
+    
+    def fullpath(self):
+        return "./data/" + self.record_name + "/" + self.file_name
