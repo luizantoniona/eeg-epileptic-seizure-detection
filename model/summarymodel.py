@@ -25,3 +25,9 @@ class SummaryModel:
     
     def fullpath(self):
         return "./data/" + self.record_name + "/" + self.file_name
+    
+    def time_of_seizure(self, nr_seizure = 0):
+        if nr_seizure > self.nr_seizures:
+            return 0
+        else:
+            return self.start_seizure[nr_seizure - 1]
