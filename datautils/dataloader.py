@@ -25,3 +25,12 @@ def load_mne_objects():
     print(len(all_mne_object))
 
     return all_mne_object
+
+def time_objects():
+    return ""
+
+def psd_objects():
+    return ""
+
+def spec_objects():
+    return ""
