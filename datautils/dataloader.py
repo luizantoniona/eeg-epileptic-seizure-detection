@@ -27,7 +27,14 @@ def load_mne_objects():
     return all_mne_object
 
 def time_objects():
-    return ""
+    all_time_objects = []
+
+    for time_data in load_mne_objects():
+        all_time_objects.append(time_data.get_data())
+
+    print(len(all_time_objects))
+
+    return all_time_objects
 
 def psd_objects():
     return ""
