@@ -37,7 +37,15 @@ def time_objects():
     return all_time_objects
 
 def psd_objects():
-    return ""
+    all_psd_objects = []
+
+    for time_object in time_objects():
+        all_psd_objects.append(time_object.compute_psd())
+
+    print(len(all_psd_objects))
+
+    return all_psd_objects
 
 def spec_objects():
+    ##TODO: Calcular o espectro de potência de cada time_object
     return ""
