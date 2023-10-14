@@ -1,3 +1,5 @@
+import reader.reader as reader
+import re
 class SummaryModel:
     record_name = ""
     file_name = ""
@@ -9,7 +11,7 @@ class SummaryModel:
     nr_channels = 0
     ds_channels = []
 
-    def __init__(self, record_name, file_name, start_time, end_time, nr_seizures, start_seizure, end_seizure, nr_channels, ds_channels):
+    def __init__(self, record_name, file_name, start_time, end_time, nr_seizures, start_seizure, end_seizure, nr_channels, ds_channels, rename = False):
         self.record_name = record_name
         self.file_name = file_name
         self.start_time = start_time
@@ -19,6 +21,26 @@ class SummaryModel:
         self.end_seizure = end_seizure
         self.nr_channels = nr_channels
         self.ds_channels = ds_channels
+
+        time_data = reader.mne_edf(self)
+
+        if( rename ):
+            replace_dict = {}
+            drop_list = []
+            for channel_name in time_data.info['ch_names']:
+                name_change = re.findall('\w+',channel_name)[0].title()
+                if name_change in list(replace_dict.values()):
+                    drop_list.append(channel_name)
+                else:
+                    replace_dict[channel_name] = name_change
+
+            time_data.drop_channels(drop_list)
+            time_data.rename_channels(replace_dict)
+            time_data.set_montage('standard_1020')
+            
+        self.time_data = time_data
+        self.psd_data = time_data.copy().compute_psd()
+        self.spec_data = "" #TODO: Calcular Espectro de Potência
 
     def __str__(self):
         return f"{self.record_name}:({self.file_name})"
