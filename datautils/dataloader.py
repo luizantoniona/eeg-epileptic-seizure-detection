@@ -29,8 +29,8 @@ def load_mne_objects():
 def time_objects():
     all_time_objects = []
 
-    for time_data in load_mne_objects():
-        all_time_objects.append(time_data.get_data())
+    for mne_object in load_mne_objects():
+        all_time_objects.append(mne_object.get_data())
 
     print(len(all_time_objects))
 
@@ -39,13 +39,18 @@ def time_objects():
 def psd_objects():
     all_psd_objects = []
 
-    for time_object in time_objects():
-        all_psd_objects.append(time_object.compute_psd())
+    for mne_object in load_mne_objects():
+        all_psd_objects.append(mne_object.compute_psd())
 
     print(len(all_psd_objects))
 
     return all_psd_objects
 
 def spec_objects():
+    all_spec_objects = []
+
     ##TODO: Calcular o espectro de potência de cada time_object
-    return ""
+
+    print(len(all_spec_objects))
+
+    return all_spec_objects
