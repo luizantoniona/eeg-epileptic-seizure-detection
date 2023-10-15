@@ -45,23 +45,15 @@ class SummaryModel:
             return self.end_seizure[nr_seizure - 1]
         
     def compute_mne_objects(self, rename = False):
-
-        time_data = reader.mne_edf(self)
-
-        if( rename ):
-            replace_dict = {}
-            drop_list = []
-            for channel_name in time_data.info['ch_names']:
-                name_change = re.findall('\w+',channel_name)[0].title()
-                if name_change in list(replace_dict.values()):
-                    drop_list.append(channel_name)
-                else:
-                    replace_dict[channel_name] = name_change
-
-            time_data.drop_channels(drop_list)
-            time_data.rename_channels(replace_dict)
-            time_data.set_montage('standard_1020')
+        mne_object = reader.mne_edf(self, rename)
             
-        self.time_data = time_data
-        self.psd_data = time_data.copy().compute_psd()
+        self.time_data = mne_object
+        self.psd_data = mne_object.copy().compute_psd()
+        self.spec_data = "" #TODO: Calcular Espectro de Potência
+
+    def compute_all_raw(self, rename = False):
+        mne_object = reader.mne_edf(self, rename)
+            
+        self.time_data = mne_object.get_data()
+        self.psd_data = mne_object.compute_psd().get_data()
         self.spec_data = "" #TODO: Calcular Espectro de Potência

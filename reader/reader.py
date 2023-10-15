@@ -1,5 +1,6 @@
 import mne
 import numpy as np
+import re
 
 def selected_channels():
   return [
@@ -23,7 +24,21 @@ def selected_channels():
     'F8-T8'
   ]
 
-def mne_edf(summary_model):
+def rename_channels(self, mne_object):
+  replace_dict = {}
+  drop_list = []
+  for channel_name in mne_object.info['ch_names']:
+      name_change = re.findall('\w+',channel_name)[0].title()
+      if name_change in list(replace_dict.values()):
+          drop_list.append(channel_name)
+      else:
+          replace_dict[channel_name] = name_change
+
+  mne_object.drop_channels(drop_list)
+  mne_object.rename_channels(replace_dict)
+  mne_object.set_montage('standard_1020')
+
+def mne_edf(summary_model, rename = False):
   mne_model = mne.io.read_raw_edf(summary_model.fullpath(), include=selected_channels())
 
   if summary_model.nr_seizures > 0:
@@ -39,6 +54,8 @@ def mne_edf(summary_model):
     mne_model.set_annotations(mne.Annotations(np.array(start_times),
                                               np.array(duration),
                                               np.array(event_name)))
+    if( rename ):
+      rename_channels(mne_model)
 
   return mne_model
 
