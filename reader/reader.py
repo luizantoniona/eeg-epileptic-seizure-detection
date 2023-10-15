@@ -34,7 +34,7 @@ def mne_edf(summary_model):
     for seizure_index in range(summary_model.nr_seizures):
       start_times.append(summary_model.start_seizure[seizure_index])
       duration.append(summary_model.end_seizure[seizure_index] - summary_model.start_seizure[seizure_index])
-      event_name.append('Ictal' + str(seizure_index))
+      event_name.append('Anomaly - ' + str(seizure_index))
 
     mne_model.set_annotations(mne.Annotations(np.array(start_times),
                                               np.array(duration),
