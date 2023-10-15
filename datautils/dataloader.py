@@ -11,8 +11,6 @@ def load_summaries():
     for db_object in db_objects:
         all_summaries.append(converter.model_from_tuple( db_object ))
 
-    print(len(all_summaries))
-
     return all_summaries
 
 def load_mne_objects():
@@ -22,8 +20,6 @@ def load_mne_objects():
     for summary in load_summaries():
         all_mne_object.append(reader.mne_edf(summary))
 
-    print(len(all_mne_object))
-
     return all_mne_object
 
 def time_objects():
@@ -32,17 +28,13 @@ def time_objects():
     for mne_object in load_mne_objects():
         all_time_objects.append(mne_object.get_data())
 
-    print(len(all_time_objects))
-
     return all_time_objects
 
 def psd_objects():
     all_psd_objects = []
 
     for mne_object in load_mne_objects():
-        all_psd_objects.append(mne_object.compute_psd())
-
-    print(len(all_psd_objects))
+        all_psd_objects.append(mne_object.compute_psd().get_data())
 
     return all_psd_objects
 
@@ -50,7 +42,5 @@ def spec_objects():
     all_spec_objects = []
 
     ##TODO: Calcular o espectro de potência de cada time_object
-
-    print(len(all_spec_objects))
 
     return all_spec_objects
