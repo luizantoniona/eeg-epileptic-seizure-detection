@@ -1,30 +1,9 @@
 import mne
 import numpy as np
 import re
+import reader.readercommons as commons
 
-def selected_channels():
-  return [
-    'P8-O2',
-    'CZ-PZ',
-    'T8-P8',
-    'T7-P7',
-    'FZ-CZ',
-    'C3-P3',
-    'P4-O2',
-    'C4-P4',
-    'FP1-F7',
-    'F3-C3',
-    'F4-C4',
-    'P7-O1',
-    'FP2-F8',
-    'F7-T7',
-    'FP2-F4',
-    'FP1-F3',
-    'P3-O1',
-    'F8-T8'
-  ]
-
-def rename_channels(self, mne_object):
+def rename_channels(mne_object):
   replace_dict = {}
   drop_list = []
   for channel_name in mne_object.info['ch_names']:
@@ -39,7 +18,7 @@ def rename_channels(self, mne_object):
   mne_object.set_montage('standard_1020')
 
 def mne_edf(summary_model, rename = False):
-  mne_model = mne.io.read_raw_edf(summary_model.fullpath(), include=selected_channels())
+  mne_model = mne.io.read_raw_edf(summary_model.fullpath(), include=commons.selected_channels())
 
   if summary_model.nr_seizures > 0:
     start_times = []
