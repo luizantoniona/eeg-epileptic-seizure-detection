@@ -1,7 +1,8 @@
 import reader.mnereader as mnereader
 import reader.rawreader as rawreader
-import model.signalmodel as signalmodel
-import eegsignal.transformer as transformer
+import model.rawsignalmodel as rawsignalmodel
+import model.mnesignalmodel as mnesignalmodel
+
 class SummaryModel:
     record_name = ""
     file_name = ""
@@ -48,11 +49,8 @@ class SummaryModel:
         
     def compute_mne_objects(self, rename = False):
         mne_object = mnereader.mne_edf(self, rename)
-            
-        self.time_data = mne_object
-        self.psd_data = mne_object.copy().compute_psd()
-        self.spec_data = "" #TODO: Calcular Espectro de Potência com o MNE
+        self.mne_signals = mnesignalmodel.MNESignalModel(mne_object)
 
     def compute_all_raw(self):
         channels_names, channels_frequencies, channels_buffers, times = rawreader.raw_edf(self)
-        self.signal = signalmodel.SignalModel(channels_names, channels_frequencies, channels_buffers, times)
+        self.raw_signals = rawsignalmodel.RawSignalModel(channels_names, channels_frequencies, channels_buffers, times)
