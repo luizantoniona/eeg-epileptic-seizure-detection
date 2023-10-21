@@ -1,5 +1,6 @@
-import reader.reader as reader
-import re
+import reader.mnereader as mnereader
+import reader.rawreader as rawreader
+import model.signalmodel as signalmodel
 class SummaryModel:
     record_name = ""
     file_name = ""
@@ -45,15 +46,12 @@ class SummaryModel:
             return self.end_seizure[nr_seizure - 1]
         
     def compute_mne_objects(self, rename = False):
-        mne_object = reader.mne_edf(self, rename)
+        mne_object = mnereader.mne_edf(self, rename)
             
         self.time_data = mne_object
         self.psd_data = mne_object.copy().compute_psd()
-        self.spec_data = "" #TODO: Calcular Espectro de Potência
+        self.spec_data = "" #TODO: Calcular Espectro de Potência com o MNE
 
-    def compute_all_raw(self, rename = False):
-        mne_object = reader.mne_edf(self, rename)
-            
-        self.time_data = mne_object.get_data()
-        self.psd_data = mne_object.compute_psd().get_data()
-        self.spec_data = "" #TODO: Calcular Espectro de Potência
+    def compute_all_raw(self):
+        channels_names, channels_frequencies, channels_buffers = rawreader.raw_edf(self)
+        self.signal = signalmodel.SignalModel(channels_names, channels_frequencies, channels_buffers)
