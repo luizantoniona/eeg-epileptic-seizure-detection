@@ -54,5 +54,5 @@ class SummaryModel:
         self.spec_data = "" #TODO: Calcular Espectro de Potência com o MNE
 
     def compute_all_raw(self):
-        channels_names, channels_frequencies, channels_buffers = rawreader.raw_edf(self)
-        self.signal = signalmodel.SignalModel(channels_names, channels_frequencies, channels_buffers)
+        channels_names, channels_frequencies, channels_buffers, times = rawreader.raw_edf(self)
+        self.signal = signalmodel.SignalModel(channels_names, channels_frequencies, channels_buffers, times)
