@@ -1,6 +1,7 @@
 import reader.mnereader as mnereader
 import reader.rawreader as rawreader
 import model.signalmodel as signalmodel
+import eegsignal.transformer as transformer
 class SummaryModel:
     record_name = ""
     file_name = ""

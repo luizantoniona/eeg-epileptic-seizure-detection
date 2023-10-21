@@ -1,6 +1,6 @@
 import database.databaseutils as db
 import model.summarymodelconverter as converter
-import reader.reader as reader
+import reader.mnereader as mnereader
 
 def load_summaries():
     all_summaries = []
@@ -18,7 +18,7 @@ def load_mne_objects():
     all_mne_object = []
 
     for summary in load_summaries():
-        all_mne_object.append(reader.mne_edf(summary))
+        all_mne_object.append(mnereader.mne_edf(summary))
 
     return all_mne_object
 
