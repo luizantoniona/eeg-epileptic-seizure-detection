@@ -1,9 +1,8 @@
-import model.summarymodel as sm
 import numpy as np
 import reader.readercommons as commons
 import pyedflib
 
-def raw_edf(summary_model: sm.SummaryModel):
+def raw_edf(summary_model):
     selected_channels = commons.selected_channels()
 
     edf_instance = pyedflib.EdfReader(summary_model.fullpath())
@@ -20,4 +19,4 @@ def raw_edf(summary_model: sm.SummaryModel):
 
     times = np.linspace(0, len(channels_buffers[0])/channels_freq[0], len(channels_buffers[0]), endpoint=False)
 
-    return selected_channels, channels_freq, channels_buffers, times
+    return selected_channels, channels_freq[0], channels_buffers, times
