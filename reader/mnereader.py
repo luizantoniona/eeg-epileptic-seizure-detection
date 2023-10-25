@@ -1,9 +1,10 @@
+import model.summarymodel as sm
 import mne
 import numpy as np
 import re
 import reader.readercommons as commons
 
-def rename_channels(mne_object):
+def rename_channels(mne_object: mne.io.Raw):
   replace_dict = {}
   drop_list = []
   for channel_name in mne_object.info['ch_names']:
@@ -17,7 +18,7 @@ def rename_channels(mne_object):
   mne_object.rename_channels(replace_dict)
   mne_object.set_montage('standard_1020')
 
-def mne_edf(summary_model, rename = False):
+def mne_edf(summary_model: sm.SummaryModel, rename = False):
   mne_model = mne.io.read_raw_edf(summary_model.fullpath(), include=commons.selected_channels())
 
   if summary_model.nr_seizures > 0:
@@ -38,7 +39,7 @@ def mne_edf(summary_model, rename = False):
 
   return mne_model
 
-def mne_epochs(summary_model):
+def mne_epochs(summary_model: sm.SummaryModel):
   metadata_tmin, metadata_tmax = 0, summary_model.duration()
   
   edf_raw_object = mne_edf(summary_model)
