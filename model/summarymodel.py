@@ -49,7 +49,8 @@ class SummaryModel:
         
     def compute_mne_objects(self, rename = False):
         mne_object = mnereader.mne_edf(self, rename)
-        self.signal = mnesignalmodel.MNESignalModel(mne_object)
+        epochs = mnereader.mne_epochs(self)
+        self.signal = mnesignalmodel.MNESignalModel(mne_object, epochs)
 
     def compute_all_raw(self):
         channels_names, channels_frequencies, channels_buffers, times = rawreader.raw_edf(self)
