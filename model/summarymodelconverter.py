@@ -1,6 +1,6 @@
 import model.summarymodel as sm
 
-def model_from_tuple(summary_tupple) -> sm.SummaryModel:
+def model_from_tuple(summary_tupple, rename=False) -> sm.SummaryModel:
 
     summary_start_times = []
     summary_end_times = []
@@ -20,7 +20,8 @@ def model_from_tuple(summary_tupple) -> sm.SummaryModel:
         summary_start_times,
         summary_end_times,
         summary_tupple['nr_channels'],
-        str(summary_tupple['ds_channels']).split(',')
+        str(summary_tupple['ds_channels']).split(','),
+        rename
     )
 
     return model

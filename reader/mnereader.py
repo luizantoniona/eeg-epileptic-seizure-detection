@@ -37,20 +37,3 @@ def mne_edf(summary_model, rename = False):
       rename_channels(mne_model)
 
   return mne_model
-
-def mne_epochs(summary_model):
-  metadata_tmin, metadata_tmax = 0, summary_model.duration()
-  
-  edf_raw_object = mne_edf(summary_model)
-
-  all_events, all_event_id = mne.events_from_annotations(edf_raw_object)
-
-  events = mne.epochs.make_metadata(
-    events=all_events,
-    event_id=all_event_id,
-    tmin=metadata_tmin,
-    tmax=metadata_tmax,
-    sfreq=edf_raw_object.info["sfreq"],
-  )[1]
-
-  return mne.Epochs(edf_raw_object, events)
