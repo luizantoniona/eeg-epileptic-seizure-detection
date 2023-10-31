@@ -23,7 +23,6 @@ class SummaryModel:
         self.end_seizure = end_seizure
         self.nr_channels = nr_channels
         self.ds_channels = ds_channels
-        self.signal = sm.SignalModel( *reader.edf(self) )
 
     def __str__(self):
         return f"{self.record_name}:({self.file_name})"
@@ -47,6 +46,12 @@ class SummaryModel:
         else:
             return self.end_seizure[nr_seizure - 1]
         
-    def generate_mne(self, rename = False):
-        self.time = mnereader.mne_edf(self, rename)
-        self.psd = self.time.copy().compute_psd()
+    def has_anomaly(self) -> bool:
+        return self.nr_seizures > 0
+        
+    def generate_signal(self) -> None:
+        self.signal = sm.SignalModel( *reader.edf(self) )
+        
+    def generate_mne(self, rename = False) -> None:
+        self.mne = mnereader.mne_edf(self, rename)
+        self.psd = self.mne.copy().compute_psd()
