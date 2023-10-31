@@ -46,5 +46,5 @@ class SummaryModel:
             return self.end_seizure[nr_seizure - 1]
         
     def generate_mne(self, rename = False):
-        self.signal = mnereader.mne_edf(self, rename)
-        self.psd = self.signal.copy().compute_psd()
+        self.time = mnereader.mne_edf(self, rename)
+        self.psd = self.time.copy().compute_psd()
