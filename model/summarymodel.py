@@ -11,11 +11,8 @@ class SummaryModel:
     end_seizure = []
     nr_channels = 0
     ds_channels = []
-    signal: mne.io.Raw
-    psd: mne.time_frequency.Spectrum
-    spectogram: mne.time_frequency.EpochsTFR
 
-    def __init__(self, record_name, file_name, start_time, end_time, nr_seizures, start_seizure, end_seizure, nr_channels, ds_channels, rename):
+    def __init__(self, record_name, file_name, start_time, end_time, nr_seizures, start_seizure, end_seizure, nr_channels, ds_channels):
         self.record_name = record_name
         self.file_name = file_name
         self.start_time = start_time
@@ -25,7 +22,6 @@ class SummaryModel:
         self.end_seizure = end_seizure
         self.nr_channels = nr_channels
         self.ds_channels = ds_channels
-        self.signal = mnereader.mne_edf(self, rename)
 
     def __str__(self):
         return f"{self.record_name}:({self.file_name})"
@@ -48,14 +44,7 @@ class SummaryModel:
             return 0
         else:
             return self.end_seizure[nr_seizure - 1]
-
-    def generate_psd(self, method='welch'):
-        self.psd = self.signal.copy().compute_psd(method)
-
-    def generate_spectogram(self):
-        frequencies = np.arange(1, int(self.signal.info['sfreq']/2), 1)
-        n_cycles = frequencies / 2
-        # self.spectogram = mne.time_frequency.tfr_multitaper( mnereader.mne_epochs(self),
-        #                                                      frequencies,
-        #                                                      n_cycles,
-        #                                                      return_itc=False )
+        
+    def generate_mne(self, rename = False):
+        self.signal = mnereader.mne_edf(self, rename)
+        self.psd = self.signal.copy().compute_psd()
