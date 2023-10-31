@@ -2,7 +2,7 @@ import numpy as np
 import reader.readercommons as commons
 import pyedflib
 
-def raw_edf(summary_model):
+def edf(summary_model):
     selected_channels = commons.selected_channels()
 
     edf_instance = pyedflib.EdfReader(summary_model.fullpath())
