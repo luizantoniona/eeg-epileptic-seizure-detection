@@ -1,4 +1,4 @@
-class RawSignalModel:
+class SignalModel:
     def __init__(self, channels_names, channels_frequencies, channels_buffers, times):
         self.channels_names = channels_names
         self.channels_frequencies = channels_frequencies
