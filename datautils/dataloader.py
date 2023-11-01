@@ -1,8 +1,8 @@
 import database.databaseutils as db
 import model.summarymodelconverter as converter
-import reader.mnereader as mnereader
+import model.summarymodel as sm
 
-def load_summaries():
+def load_summaries() -> list(sm.SummaryModel):
     all_summaries = []
 
     db.connect()
@@ -13,34 +13,14 @@ def load_summaries():
 
     return all_summaries
 
-def load_mne_objects():
+def load_time_data(summaries: list(sm.SummaryModel)) -> None:
+    for summary in summaries:
+        summary.generate_signal()
 
-    all_mne_object = []
+def load_frequencie_data(summaries: list(sm.SummaryModel)) -> None:
+    for summary in summaries:
+        summary.signal.psd()
 
-    for summary in load_summaries():
-        all_mne_object.append(mnereader.mne_edf(summary))
-
-    return all_mne_object
-
-def time_objects():
-    all_time_objects = []
-
-    for mne_object in load_mne_objects():
-        all_time_objects.append(mne_object.get_data())
-
-    return all_time_objects
-
-def psd_objects():
-    all_psd_objects = []
-
-    for mne_object in load_mne_objects():
-        all_psd_objects.append(mne_object.compute_psd().get_data())
-
-    return all_psd_objects
-
-def spec_objects():
-    all_spec_objects = []
-
-    ##TODO: Calcular o espectro de potência de cada time_object
-
-    return all_spec_objects
+def load_time_frequencie_data(summaries: list(sm.SummaryModel)) -> None:
+    for summary in summaries:
+        summary.signal.spc()
