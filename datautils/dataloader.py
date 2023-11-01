@@ -2,7 +2,7 @@ import database.databaseutils as db
 import model.summarymodelconverter as converter
 import model.summarymodel as sm
 
-def load_summaries() -> list(sm.SummaryModel):
+def load_summaries() -> list[sm.SummaryModel]:
     all_summaries = []
 
     db.connect()
@@ -13,14 +13,14 @@ def load_summaries() -> list(sm.SummaryModel):
 
     return all_summaries
 
-def load_time_data(summaries: list(sm.SummaryModel)) -> None:
+def load_time_data(summaries: list[sm.SummaryModel]) -> None:
     for summary in summaries:
         summary.generate_signal()
 
-def load_frequencie_data(summaries: list(sm.SummaryModel)) -> None:
+def load_frequencie_data(summaries: list[sm.SummaryModel]) -> None:
     for summary in summaries:
         summary.signal.psd()
 
-def load_time_frequencie_data(summaries: list(sm.SummaryModel)) -> None:
+def load_time_frequencie_data(summaries: list[sm.SummaryModel]) -> None:
     for summary in summaries:
         summary.signal.spc()
