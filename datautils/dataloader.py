@@ -15,7 +15,10 @@ def load_summaries() -> list[sm.SummaryModel]:
 
 def load_time_data(summaries: list[sm.SummaryModel]) -> None:
     for summary in summaries:
-        summary.generate_signal()
+        try:
+            summary.generate_signal()
+        except:
+            summaries.remove(summary)
 
 def load_frequencie_data(summaries: list[sm.SummaryModel]) -> None:
     for summary in summaries:
