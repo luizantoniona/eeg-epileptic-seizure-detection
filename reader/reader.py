@@ -8,7 +8,7 @@ def edf(summary_model):
     edf_instance = pyedflib.EdfReader(summary_model.fullpath())
 
     channels_names = edf_instance.getSignalLabels()
-    channels_freq = edf_instance.getSampleFrequencies()
+    channels_freq = edf_instance.getSampleFrequencies()[0]
 
     channels_buffers = np.zeros((len(selected_channels), edf_instance.getNSamples()[0]))
 
@@ -17,6 +17,12 @@ def edf(summary_model):
     for i, channel in enumerate(selected_channels):
       channels_buffers[i, :] = adjust_resolution( edf_instance.readSignal(channels_names.index(channel)) )
 
-    times = np.linspace(0, len(channels_buffers[0])/channels_freq[0], len(channels_buffers[0]), endpoint=False)
+    times = np.linspace(0, len(channels_buffers[0])/channels_freq, len(channels_buffers[0]), endpoint=False)
 
-    return selected_channels, channels_freq[0], channels_buffers, times
+    edf_instance.close()
+
+    del edf_instance
+    del channels_names
+    del adjust_resolution
+
+    return selected_channels, channels_freq, channels_buffers, times
