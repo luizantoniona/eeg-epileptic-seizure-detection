@@ -28,3 +28,9 @@ class SignalModel:
             spectograms.append((f, t, Sxx))
 
         self.channels_spectograms = spectograms
+
+    def number_of_signals(self) -> int:
+        return len(self.channels_names)
+    
+    def lenght_of_buffers(self) -> int:
+        return len(self.times)
