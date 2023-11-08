@@ -1,9 +1,9 @@
 import tensorflow as tf
 class CNNModel:
 
-    def __init__(self, temporal_length, num_channels):
+    def __init__(self, channel_buffers, num_channels):
         self.model = tf.keras.models.Sequential()
-        self.model.add(tf.keras.layers.Conv1D(32, 3, activation='relu', input_shape=(temporal_length, num_channels)))
+        self.model.add(tf.keras.layers.Conv1D(32, 3, activation='relu', input_shape=(channel_buffers, num_channels)))
         self.model.add(tf.keras.layers.MaxPooling1D(2))
         self.model.add(tf.keras.layers.Conv1D(64, 3, activation='relu'))
         self.model.add(tf.keras.layers.MaxPooling1D(2))
