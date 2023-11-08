@@ -18,3 +18,9 @@ def time_data_spliter(summaries: list[sm.SummaryModel]):
     y_val = np.array(y_val)
 
     return X_train_raw, X_val_raw, y_train, y_val
+
+def frequency_data_spliter(summaries: list[sm.SummaryModel]):
+    return ""
+
+def time_frequency_data_spliter(summaries: list[sm.SummaryModel]):
+    return ""
