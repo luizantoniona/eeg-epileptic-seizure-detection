@@ -1,6 +1,7 @@
 import reader.mnereader as mnereader
 import reader.reader as reader
 import model.signalmodel as sm
+from scipy.signal import spectrogram
 class SummaryModel:
     record_name = ""
     file_name = ""
@@ -55,3 +56,8 @@ class SummaryModel:
     def generate_mne(self, rename = False) -> None:
         self.mne = mnereader.mne_edf(self, rename)
         self.psd = self.mne.copy().compute_psd()
+        self.spc = []
+
+        for buffer in self.mne.get_data():
+            f, t, Sxx = spectrogram(buffer, fs=self.mne.info['sfreq'])
+            self.spc.append((f, t, Sxx))
