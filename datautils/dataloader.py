@@ -15,19 +15,11 @@ def load_summaries() -> list[sm.SummaryModel]:
 
 def load_mne_data(summaries: list[sm.SummaryModel]) -> None:
     for summary in summaries:
-        summary.generate_mne(rename=True)
+        summary.generate_mne(True)
 
-def load_time_data(summaries: list[sm.SummaryModel]) -> None:
+def load_raw_data(summaries: list[sm.SummaryModel]) -> None:
     for summary in summaries:
         try:
             summary.generate_signal()
         except:
             summaries.remove(summary)
-
-def load_frequencie_data(summaries: list[sm.SummaryModel]) -> None:
-    for summary in summaries:
-        summary.signal.psd()
-
-def load_time_frequencie_data(summaries: list[sm.SummaryModel]) -> None:
-    for summary in summaries:
-        summary.signal.spc()
