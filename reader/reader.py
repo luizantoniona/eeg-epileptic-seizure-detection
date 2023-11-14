@@ -21,8 +21,4 @@ def edf(summary_model):
 
     edf_instance.close()
 
-    del edf_instance
-    del channels_names
-    del adjust_resolution
-
     return selected_channels, channels_freq, channels_buffers, times
