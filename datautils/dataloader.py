@@ -13,6 +13,10 @@ def load_summaries() -> list[sm.SummaryModel]:
 
     return all_summaries
 
+def load_mne_data(summaries: list[sm.SummaryModel]) -> None:
+    for summary in summaries:
+        summary.generate_mne(rename=True)
+
 def load_time_data(summaries: list[sm.SummaryModel]) -> None:
     for summary in summaries:
         try:
