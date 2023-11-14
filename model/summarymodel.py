@@ -1,7 +1,7 @@
 import reader.mnereader as mnereader
 import reader.reader as reader
-import model.signalmodel as sm
-from scipy.signal import spectrogram
+import model.rawsignalmodel as rawsignal
+import model.mnesignalmodel as mnesignal
 class SummaryModel:
     record_name = ""
     file_name = ""
@@ -12,7 +12,6 @@ class SummaryModel:
     end_seizure = []
     nr_channels = 0
     ds_channels = []
-    signal: sm.SignalModel
 
     def __init__(self, record_name, file_name, start_time, end_time, nr_seizures, start_seizure, end_seizure, nr_channels, ds_channels):
         self.record_name = record_name
@@ -50,14 +49,8 @@ class SummaryModel:
     def has_anomaly(self) -> bool:
         return self.nr_seizures > 0
         
-    def generate_signal(self) -> None:
-        self.signal = sm.SignalModel( *reader.edf(self) )
-        
     def generate_mne(self, rename = False) -> None:
-        self.mne = mnereader.mne_edf(self, rename)
-        self.psd = self.mne.copy().compute_psd()
-        self.spc = []
+        self.signal =  mnesignal.MNESignalModel( mnereader.mne_edf(self, rename) )
 
-        for buffer in self.mne.get_data():
-            f, t, Sxx = spectrogram(buffer, fs=self.mne.info['sfreq'])
-            self.spc.append((f, t, Sxx))
+    def generate_signal(self) -> None:
+        self.signal = rawsignal.RawSignalModel( *reader.edf(self) )
