@@ -1,5 +1,6 @@
 import numpy as np
-import matplotlib.pyplot as plt
+from scipy.signal import spectrogram
+import math
 class SignalModel:
     def __init__(self, channels_names, channels_frequencies, channels_buffers, times):
         self.channels_names = channels_names
@@ -24,7 +25,7 @@ class SignalModel:
         spectograms = []
         
         for buffer in self.channels_buffers:
-            f, t, Sxx = plt.specgram(buffer, Fs=self.channels_frequencies)
+            f, t, Sxx = spectrogram(buffer, Fs=self.channels_frequencies)
             spectograms.append((f, t, Sxx))
 
         self.channels_spectograms = spectograms
@@ -32,5 +33,11 @@ class SignalModel:
     def number_of_signals(self) -> int:
         return len(self.channels_names)
     
-    def lenght_of_buffers(self) -> int:
-        return len(self.times)
+    def shape_of_buffers(self):
+        return np.shape(self.channels_buffers)
+    
+    def shape_of_psds(self):
+        return np.shape(self.channels_psds)
+    
+    def shape_of_spectograms(self):
+        return np.shape(self.channels_spectograms)
