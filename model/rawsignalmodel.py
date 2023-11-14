@@ -1,7 +1,8 @@
 import numpy as np
 from scipy.signal import spectrogram
 import math
-class SignalModel:
+
+class RawSignalModel:
     def __init__(self, channels_names, channels_frequencies, channels_buffers, times):
         self.channels_names = channels_names
         self.channels_frequencies = channels_frequencies
@@ -10,6 +11,24 @@ class SignalModel:
 
     def __str__(self):
         return f"{self.channels_names}"
+    
+    def segment_signals(self, seconds_to_segment: int = 10):
+
+        buffer_len = len(buffer)
+
+        number_of_points = self.channels_frequencies * seconds_to_segment
+        number_of_samples = math.floor( buffer_len / number_of_points )
+
+        segments = []
+
+        for buffer in self.channels_buffers:
+
+            buffer_len = len(buffer)
+
+            for sample in range(0, number_of_samples):
+                segments.append() # TODO: AJUSTAR
+
+        self.segments = segments
     
     def psd(self):
         psds = []
