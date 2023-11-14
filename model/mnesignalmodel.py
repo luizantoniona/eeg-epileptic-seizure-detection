@@ -9,3 +9,6 @@ class MNESignalModel:
         for buffer in mne_object.get_data():
             f, t, Sxx = spectrogram(buffer, fs=mne_object.info['sfreq'])
             self.time_freq_data.append((f, t, Sxx))
+
+    def sampling_freq(self):
+        return self.time_data.info['sfreq']
