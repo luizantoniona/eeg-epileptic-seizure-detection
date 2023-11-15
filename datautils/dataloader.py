@@ -15,7 +15,7 @@ def load_summaries() -> list[sm.SummaryModel]:
 
 def load_mne_data(summaries: list[sm.SummaryModel]) -> None:
     for summary in summaries:
-        summary.generate_mne(True)
+        summary.generate_mne()
 
 def load_raw_data(summaries: list[sm.SummaryModel]) -> None:
     for summary in summaries:
