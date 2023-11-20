@@ -54,7 +54,17 @@ class SummaryModel:
     def has_anomaly(self) -> bool:
         """Check if there are anomaly."""
         return self.nr_seizures > 0
-        
+    
+    def has_anomaly_in_interval(self, tmin, tmax) -> bool:
+        """Check if there are anomaly in time interval."""
+        has_anomaly = False
+
+        for i in range(self.nr_seizures):
+            if tmin <= self.start_time_of_seizure(i) < tmax or tmin < self.end_time_of_seizure(i) <= tmax:
+                has_anomaly = True
+            
+        return has_anomaly
+
     def generate_mne(self, rename = False) -> None:
         """Generate an MNE signal model."""
         self.signal =  mnesignal.MNESignalModel( mnereader.mne_edf(self, rename) )
