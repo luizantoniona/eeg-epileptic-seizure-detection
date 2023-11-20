@@ -5,6 +5,7 @@ class MNESignalModel:
         self.time_data = mne_object
         self.freq_data = mne_object.copy().compute_psd()
         self.time_freq_data = []
+        self.segments = []
 
         for buffer in mne_object.get_data():
             freq, time, Sxx = spectrogram(buffer, fs=mne_object.info['sfreq'])
@@ -18,6 +19,9 @@ class MNESignalModel:
     
     def get_time_fre_data(self):
         return self.time_freq_data
-
+    
+    def get_segmented_data(self):
+        return self.segments
+    
     def sampling_freq(self):
         return self.time_data.info['sfreq']
