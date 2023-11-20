@@ -43,3 +43,6 @@ class MNESignalModel:
         """Get the sampling frequency of the data."""
         return self.time_data.info['sfreq']
     
+    def segment_data_by_interval(self, t_min, t_max):
+        """Segment data for a specified time interval."""
+        self.segments.append( self.time_data.get_data(tmin=t_min, tmax=t_max) )
