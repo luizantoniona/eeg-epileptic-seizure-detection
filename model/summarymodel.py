@@ -3,6 +3,24 @@ import reader.reader as reader
 import model.rawsignalmodel as rawsignal
 import model.mnesignalmodel as mnesignal
 class SummaryModel:
+    
+    """
+    A class representing a summary of data.
+
+    Attributes:
+    - record_name (str): Name of the record.
+    - file_name (str): Name of the data file.
+    - start_time (str): Start time of the data.
+    - end_time (str): End time of the data.
+    - nr_seizures (int): Number of seizures in the data.
+    - start_seizure (list): List of start times of seizures.
+    - end_seizure (list): List of end times of seizures.
+    - nr_channels (int): Number of data channels.
+    - ds_channels (list): List of data channels.
+    - signal: An instance of signal model (either MNESignalModel or RawSignalModel).
+
+    """
+
     record_name = ""
     file_name = ""
     start_time = ""
