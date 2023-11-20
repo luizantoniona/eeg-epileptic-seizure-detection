@@ -52,7 +52,7 @@ class SummaryModel:
             return self.end_seizure[nr_seizure - 1]
         
     def has_anomaly(self) -> bool:
-        """Check if there are seizures."""
+        """Check if there are anomaly."""
         return self.nr_seizures > 0
         
     def generate_mne(self, rename = False) -> None:
