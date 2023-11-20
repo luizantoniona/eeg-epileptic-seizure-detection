@@ -90,3 +90,10 @@ class SummaryModel:
     def generate_signal(self) -> None:
         """Generate a raw signal model."""
         self.signal = rawsignal.RawSignalModel( *reader.edf(self) )
+
+    def generate_segmented_data(self, time_window):
+        """Generate segmented data based on a specified time window."""
+        current_time = 0
+        while current_time + time_window <= self.duration():
+            self.signal.segment_data_by_interval(current_time, current_time + time_window)
+            current_time += time_window
