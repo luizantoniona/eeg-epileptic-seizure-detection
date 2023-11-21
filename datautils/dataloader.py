@@ -17,6 +17,10 @@ def load_mne_data(summaries: list[sm.SummaryModel]) -> None:
     for summary in summaries:
         summary.generate_mne()
 
+def load_segmented_data(summaries: list[sm.SummaryModel]) -> None:
+    for summary in summaries:
+        summary.generate_segmented_data()
+
 def load_raw_data(summaries: list[sm.SummaryModel]) -> None:
     for summary in summaries:
         try:
