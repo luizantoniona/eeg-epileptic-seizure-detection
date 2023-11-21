@@ -84,6 +84,7 @@ class SummaryModel:
         return has_anomaly
     
     def anomalies_by_time_window(self, time_window=5):
+        """Check for anomalies in the data at regular intervals of a specified time window."""
         anomalies = []
         current_time = 0
         while current_time + time_window <= self.duration():
