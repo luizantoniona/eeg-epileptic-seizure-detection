@@ -9,6 +9,7 @@ Usage:
 Configuration Details:
 - Modify the functions in this module to reflect the actual configuration details of your MySQL database.
 """
+
 def name():
     """
     Returns the name of the MySQL database.
