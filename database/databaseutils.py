@@ -1,7 +1,18 @@
+"""
+Module: databaseutils
+
+This module provides a set of functions for interacting with a MySQL database, specifically designed for managing and retrieving summary data related to records.
+
+The module includes functions for establishing a database connection, executing SQL commands from files, inserting summary data, and retrieving summary information from the database.
+"""
+
 import mysql.connector
 import database.databaseinfo as dbinfo
 
 def connect():
+    """
+    Establish a connection to the MySQL database.
+    """
     return mysql.connector.connect(user=dbinfo.username(),
                               password=dbinfo.password(),                              
                               host=dbinfo.ip(),
@@ -9,6 +20,9 @@ def connect():
                               auth_plugin='mysql_native_password')
 
 def execute_from_file(filename):
+    """
+    Execute SQL commands from a file.
+    """
     fd = open(filename, 'r')
     sql_file = fd.read()
     fd.close()
@@ -24,7 +38,9 @@ def execute_from_file(filename):
             print("Erro ao executar")
 
 def insert_sumarry_data(record_name, file_name, start_time, end_time, nr_seizures, start_seizure, end_seizure, nr_channels, ds_channels ):
-
+    """
+    Insert summary data into the database.
+    """
     fd = open("./database/sql/insert_summary_info.sql", 'r')
     sql_file = fd.read()
     fd.close()
@@ -38,7 +54,9 @@ def insert_sumarry_data(record_name, file_name, start_time, end_time, nr_seizure
         print("Registro já existe")
 
 def summary_by_name(file_name):
-        
+    """
+    Retrieve summary data from the database based on the file name.
+    """
     fd = open("./database/sql/select_summary_by_name.sql", 'r')
     sql_file = fd.read()
     fd.close()
@@ -53,7 +71,9 @@ def summary_by_name(file_name):
         print("Não há registro para o nome")
 
 def all_summary():
-
+    """
+    Retrieve all summary data from the database.
+    """
     fd = open("./database/sql/select_all_summary.sql", 'r')
     sql_file = fd.read()
     fd.close()
