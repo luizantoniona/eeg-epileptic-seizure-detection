@@ -18,7 +18,6 @@ class SummaryModel:
     - nr_channels (int): Number of data channels.
     - ds_channels (list): List of data channels.
     - signal: An instance of signal model (either MNESignalModel or RawSignalModel).
-
     """
     record_name = ""
     file_name = ""
@@ -46,34 +45,46 @@ class SummaryModel:
         return f"{self.record_name}:({self.file_name})"
     
     def fullpath(self):
-        """Return the full path of the data file."""
+        """
+        Return the full path of the data file.
+        """
         return "./data/" + self.record_name + "/" + self.file_name
     
     def duration(self):
-        """Return the duration of the data in seconds."""
+        """
+        Return the duration of the data in seconds.
+        """
         duration = self.end_time - self.start_time
         return duration.total_seconds()
     
     def start_time_of_seizure(self, nr_seizure = 0):
-        """Return the start time of a specific seizure."""
+        """
+        Return the start time of a specific seizure.
+        """
         if nr_seizure > self.nr_seizures:
             return 0
         else:
             return self.start_seizure[nr_seizure - 1]
         
     def end_time_of_seizure(self, nr_seizure = 0):
-        """Return the end time of a specific seizure."""
+        """
+        Return the end time of a specific seizure.
+        """
         if nr_seizure > self.nr_seizures:
             return 0
         else:
             return self.end_seizure[nr_seizure - 1]
         
     def has_anomaly(self) -> bool:
-        """Check if there are anomaly."""
+        """
+        Check if there are anomaly.
+        """
         return self.nr_seizures > 0
     
     def has_anomaly_in_interval(self, tmin, tmax) -> bool:
-        """Check if there are anomaly in time interval."""
+        """
+        Check if there are anomaly in time interval.
+        """
         has_anomaly = False
 
         for i in range(self.nr_seizures):
@@ -83,7 +94,9 @@ class SummaryModel:
         return has_anomaly
     
     def anomalies_by_time_window(self, time_window=5):
-        """Check for anomalies in the data at regular intervals of a specified time window."""
+        """
+        Check for anomalies in the data at regular intervals of a specified time window.
+        """
         anomalies = []
         current_time = 0
         while current_time + time_window <= self.duration():
@@ -93,15 +106,21 @@ class SummaryModel:
         return anomalies
 
     def generate_mne(self, rename = False) -> None:
-        """Generate an MNE signal model."""
+        """
+        Generate an MNE signal model.
+        """
         self.signal =  mnesignal.MNESignalModel( mnereader.mne_edf(self, rename) )
 
     def generate_signal(self) -> None:
-        """Generate a raw signal model."""
+        """
+        Generate a raw signal model.
+        """
         self.signal = rawsignal.RawSignalModel( *reader.edf(self) )
 
     def generate_segmented_data(self, time_window=5):
-        """Generate segmented data based on a specified time window."""
+        """
+        Generate segmented data based on a specified time window.
+        """
         current_time = 0
         while current_time + time_window <= self.duration():
             self.signal.segment_data_by_interval(current_time, current_time + time_window)

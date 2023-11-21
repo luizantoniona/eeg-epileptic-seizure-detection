@@ -15,7 +15,7 @@ class MNESignalModel:
     """
 
     time_data:mne.io.Raw = None
-    freq_data:mne.io.Raw = None
+    freq_data:mne.time_frequency.Spectrum = None
     time_freq_data = []
     time_segments = []
     freq_segments = []
@@ -34,33 +34,49 @@ class MNESignalModel:
             self.time_freq_data.append((freq, time, Sxx))
 
     def get_time_data(self):
-        """Get the time-domain data."""
+        """
+        Get the time-domain data.
+        """
         return self.time_data.get_data(return_times=True)
     
     def get_time_segmented_data(self):
-        """Get the time segmented data."""
+        """
+        Get the time segmented data.
+        """
         return self.time_segments
     
     def get_freq_data(self):
-        """Get the frequency-domain data."""
+        """
+        Get the frequency-domain data.
+        """
         return self.freq_data.get_data(return_freqs=True)
     
     def get_freq_segmented_data(self):
-        """Get the frequency segmented data."""
+        """
+        Get the frequency segmented data.
+        """
         return self.freq_segments
     
     def get_time_freq_data(self):
-        """Get the time-frequency data."""
+        """
+        Get the time-frequency data.
+        """
         return self.time_freq_data
     
     def get_time_freq_segmented_data(self):
-        """Get the time-frequency segmented data."""
+        """
+        Get the time-frequency segmented data.
+        """
         return self.time_freq_segments
     
     def sampling_freq(self):
-        """Get the sampling frequency of the data."""
+        """
+        Get the sampling frequency of the data.
+        """
         return self.time_data.info['sfreq']
     
     def segment_data_by_interval(self, t_min, t_max):
-        """Segment data for a specified time interval."""
+        """
+        Segment data for a specified time interval.
+        """
         self.time_segments.append( self.time_data.get_data(tmin=t_min, tmax=t_max) )
