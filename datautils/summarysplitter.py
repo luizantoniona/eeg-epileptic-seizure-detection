@@ -12,3 +12,14 @@ def summaries_data_splitter(summaries: list[sm.SummaryModel]) -> (list[sm.Summar
     y_val = np.array(y_val)
 
     return X_train, X_val, y_train, y_val
+
+def segmented_summaries_data_splitter(summaries: list[sm.SummaryModel]) -> (list[sm.SummaryModel], list[sm.SummaryModel], np.array, np.array):
+    X_train, X_val = train_test_split(summaries, test_size=0.2, random_state=42)
+
+    y_train = [summary.anomalies_by_time_window() for summary in X_train]
+    y_val = [summary.anomalies_by_time_window() for summary in X_val]
+
+    y_train = np.array( y_train)
+    y_val = np.array(y_val)
+
+    return X_train, X_val, y_train, y_val
