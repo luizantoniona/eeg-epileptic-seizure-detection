@@ -14,6 +14,12 @@ class MNESignalModel:
     - time_freq_segments (list): List to store time-frequency segmented data.
 
     """
+    time_data:mne.io.Raw = None
+    freq_data:mne.io.Raw = None
+    time_freq_data = []
+    time_segments = []
+    freq_segments = []
+    time_freq_segments = []
 
     def __init__(self, mne_object: mne.io.Raw):
         self.time_data = mne_object

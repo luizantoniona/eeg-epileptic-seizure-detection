@@ -20,7 +20,6 @@ class SummaryModel:
     - signal: An instance of signal model (either MNESignalModel or RawSignalModel).
 
     """
-
     record_name = ""
     file_name = ""
     start_time = ""
