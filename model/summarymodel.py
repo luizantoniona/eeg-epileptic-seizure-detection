@@ -3,7 +3,7 @@ import reader.reader as reader
 import model.rawsignalmodel as rawsignal
 import model.mnesignalmodel as mnesignal
 class SummaryModel:
-    
+
     """
     A class representing a summary of data.
 
