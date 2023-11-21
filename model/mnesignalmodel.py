@@ -9,7 +9,9 @@ class MNESignalModel:
     - time_data (mne.io.Raw): MNE raw data object.
     - freq_data (mne.io.Raw): MNE raw data object after computing power spectral density (PSD).
     - time_freq_data (list): List of tuples containing frequency, time, and spectrogram for each data buffer.
-    - segments (list): List to store segmented data.
+    - time_segments (list): List to store time segmented data.
+    - freq_segments (list): List to store frequency segmented data.
+    - time_freq_segments (list): List to store time-frequency segmented data.
 
     """
 
@@ -17,7 +19,9 @@ class MNESignalModel:
         self.time_data = mne_object
         self.freq_data = mne_object.copy().compute_psd()
         self.time_freq_data = []
-        self.segments = []
+        self.time_segments = []
+        self.freq_segments = []
+        self.time_freq_segments = []
 
         for buffer in mne_object.get_data():
             freq, time, Sxx = spectrogram(buffer, fs=mne_object.info['sfreq'])
@@ -27,17 +31,25 @@ class MNESignalModel:
         """Get the time-domain data."""
         return self.time_data.get_data(return_times=True)
     
+    def get_time_segmented_data(self):
+        """Get the time segmented data."""
+        return self.time_segments
+    
     def get_freq_data(self):
         """Get the frequency-domain data."""
         return self.freq_data.get_data(return_freqs=True)
     
-    def get_time_fre_data(self):
+    def get_freq_segmented_data(self):
+        """Get the frequency segmented data."""
+        return self.freq_segments
+    
+    def get_time_freq_data(self):
         """Get the time-frequency data."""
         return self.time_freq_data
     
-    def get_segmented_data(self):
-        """Get the segmented data."""
-        return self.segments
+    def get_time_freq_segmented_data(self):
+        """Get the time-frequency segmented data."""
+        return self.time_freq_segments
     
     def sampling_freq(self):
         """Get the sampling frequency of the data."""
@@ -45,4 +57,4 @@ class MNESignalModel:
     
     def segment_data_by_interval(self, t_min, t_max):
         """Segment data for a specified time interval."""
-        self.segments.append( self.time_data.get_data(tmin=t_min, tmax=t_max) )
+        self.time_segments.append( self.time_data.get_data(tmin=t_min, tmax=t_max) )
