@@ -13,7 +13,7 @@ class MNESignalModel:
     - freq_segments (list): List to store frequency segmented data.
     - time_freq_segments (list): List to store time-frequency segmented data.
     """
-    
+
     time_data:mne.io.Raw = None
     freq_data:mne.io.Raw = None
     time_freq_data = []
@@ -23,14 +23,14 @@ class MNESignalModel:
 
     def __init__(self, mne_object: mne.io.Raw):
         self.time_data = mne_object
-        self.freq_data = mne_object.copy().compute_psd()
-        self.time_freq_data = []
-        self.time_segments = []
-        self.freq_segments = []
-        self.time_freq_segments = []
 
-        for buffer in mne_object.get_data():
-            freq, time, Sxx = spectrogram(buffer, fs=mne_object.info['sfreq'])
+    def generate_freq_data(self):
+        self.freq_data = self.time_data.copy().compute_psd()
+
+    def generate_time_freq_data(self):
+        self.time_freq_data = []
+        for buffer in self.time_data.get_data():
+            freq, time, Sxx = spectrogram(buffer, fs=self.sampling_freq())
             self.time_freq_data.append((freq, time, Sxx))
 
     def get_time_data(self):
