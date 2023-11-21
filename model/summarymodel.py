@@ -82,6 +82,15 @@ class SummaryModel:
                 has_anomaly = True
             
         return has_anomaly
+    
+    def anomalies_by_time_window(self, time_window=5):
+        anomalies = []
+        current_time = 0
+        while current_time + time_window <= self.duration():
+            anomalies.append(self.has_anomaly_in_interval(current_time, current_time + time_window))
+            current_time += time_window
+
+        return anomalies
 
     def generate_mne(self, rename = False) -> None:
         """Generate an MNE signal model."""
@@ -97,12 +106,3 @@ class SummaryModel:
         while current_time + time_window <= self.duration():
             self.signal.segment_data_by_interval(current_time, current_time + time_window)
             current_time += time_window
-
-    def anomalies_by_time_window(self, time_window=5):
-        anomalies = []
-        current_time = 0
-        while current_time + time_window <= self.duration():
-            anomalies.append(self.has_anomaly_in_interval(current_time, current_time + time_window))
-            current_time += time_window
-
-        return anomalies
