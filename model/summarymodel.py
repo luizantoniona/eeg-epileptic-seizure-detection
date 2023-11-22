@@ -19,16 +19,6 @@ class SummaryModel:
     - ds_channels (list): List of data channels.
     - signal: An instance of signal model (either MNESignalModel or RawSignalModel).
     """
-    record_name = ""
-    file_name = ""
-    start_time = ""
-    end_time = ""
-    nr_seizures = 0
-    start_seizure = []
-    end_seizure = []
-    nr_channels = 0
-    ds_channels = []
-    signal = None
 
     def __init__(self, record_name, file_name, start_time, end_time, nr_seizures, start_seizure, end_seizure, nr_channels, ds_channels):
         self.record_name = record_name
@@ -40,6 +30,7 @@ class SummaryModel:
         self.end_seizure = end_seizure
         self.nr_channels = nr_channels
         self.ds_channels = ds_channels
+        self.signal = None
 
     def __str__(self):
         return f"{self.record_name}:({self.file_name})"
