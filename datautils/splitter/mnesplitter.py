@@ -1,3 +1,9 @@
+"""
+Module: signalsplitter
+
+This module provides functions to split summary data into training and validation sets based on different data types, including time-domain, frequency-domain, and time-frequency data.
+"""
+
 import model.summarymodel as sm
 import datautils.splitter.summarysplitter as splitter
 import numpy as np
