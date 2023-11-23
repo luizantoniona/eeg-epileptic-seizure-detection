@@ -73,8 +73,14 @@ class MNESignalModel:
         """
         return self.time_data.info['sfreq']
     
-    def segment_data_by_interval(self, t_min, t_max):
+    def info(self):
         """
-        Segment data for a specified time interval.
+        Get the info of the data.
+        """
+        return self.time_data.info
+    
+    def segment_time_data_by_interval(self, t_min, t_max):
+        """
+        Segment time data for a specified time interval.
         """
         self.time_segments.append( self.time_data.get_data(tmin=t_min, tmax=t_max) )
