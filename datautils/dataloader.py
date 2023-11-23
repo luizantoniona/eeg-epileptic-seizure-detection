@@ -17,10 +17,16 @@ def load_summaries() -> list[sm.SummaryModel]:
     return summaries
 
 def load_mne_data(summaries: list[sm.SummaryModel]) -> None:
+    """
+    Generate MNE data for a list of SummaryModel objects.
+    """
     for summary in summaries:
         summary.generate_mne()
 
 def load_segmented_data(summaries: list[sm.SummaryModel]) -> None:
+    """
+    Generate segmented data for a list of SummaryModel objects.
+    """
     for summary in summaries:
         summary.generate_segmented_data()
 
