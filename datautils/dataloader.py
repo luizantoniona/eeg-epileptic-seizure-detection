@@ -16,6 +16,20 @@ def load_summaries() -> list[sm.SummaryModel]:
 
     return summaries
 
+def load_anomalous_summaries() -> list[sm.SummaryModel]:
+    """
+    Load anomalous summary data from the database and convert it into SummaryModel objects.
+    """
+    summaries = []
+
+    db.connect()
+    db_objects = db.summaries_with_anomaly()
+
+    for db_object in db_objects:
+        summaries.append(converter.model_from_tuple( db_object ))
+
+    return summaries
+
 def load_mne_data(summaries: list[sm.SummaryModel]) -> None:
     """
     Generate MNE data for a list of SummaryModel objects.

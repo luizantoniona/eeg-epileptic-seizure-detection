@@ -74,7 +74,24 @@ def summaries():
     """
     Retrieve all summary data from the database.
     """
-    fd = open("./database/sql/select_all_summary.sql", 'r')
+    fd = open("./database/sql/select_all_summaries.sql", 'r')
+    sql_file = fd.read()
+    fd.close()
+
+    db = connect()
+    cursor = db.cursor(buffered=True, dictionary=True)
+
+    try:
+        cursor.execute(sql_file)
+        return cursor.fetchall()
+    except:
+        print("Não há registros")
+
+def summaries_with_anomaly():
+    """
+    Retrieve all summary data with anomaly information from the database.
+    """
+    fd = open("./database/sql/select_all_summaries_with_anomaly.sql", 'r')
     sql_file = fd.read()
     fd.close()
 
