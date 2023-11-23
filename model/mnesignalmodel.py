@@ -35,7 +35,7 @@ class MNESignalModel:
         """
         Get the time-domain data.
         """
-        return self.time_data.get_data(return_times=True)
+        return self.time_data.get_data()
     
     def get_time_segmented_data(self):
         """
@@ -47,7 +47,7 @@ class MNESignalModel:
         """
         Get the frequency-domain data.
         """
-        return self.freq_data.get_data(return_freqs=True)
+        return self.freq_data.get_data()
     
     def get_freq_segmented_data(self):
         """
