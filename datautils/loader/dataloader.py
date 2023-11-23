@@ -1,3 +1,9 @@
+"""
+Module: dataloader
+
+This module provides functions to load and process summary data from a database, as well as generate various types of data and segmented data from the loaded summaries.
+"""
+
 import database.databaseutils as db
 import model.summarymodelconverter as converter
 import model.summarymodel as sm
