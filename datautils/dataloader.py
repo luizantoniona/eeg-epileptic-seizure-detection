@@ -37,16 +37,23 @@ def load_mne_data(summaries: list[sm.SummaryModel]) -> None:
     for summary in summaries:
         summary.generate_mne()
 
-def load_segmented_data(summaries: list[sm.SummaryModel]) -> None:
+def load_time_segmented_data(summaries: list[sm.SummaryModel]) -> None:
     """
-    Generate segmented data for a list of SummaryModel objects.
+    Generate segmented time data for a list of SummaryModel objects.
     """
     for summary in summaries:
-        summary.generate_segmented_data()
+        summary.generate_segmented_time_data()
 
-def load_raw_data(summaries: list[sm.SummaryModel]) -> None:
+def load_freq_segmented_data(summaries: list[sm.SummaryModel]) -> None:
+    """
+    Generate segmented frequency data for a list of SummaryModel objects.
+    """
     for summary in summaries:
-        try:
-            summary.generate_signal()
-        except:
-            summaries.remove(summary)
+        summary.generate_segmented_freq_data()
+
+def load_time_freq_segmented_data(summaries: list[sm.SummaryModel]) -> None:
+    """
+    Generate segmented time-frequency data for a list of SummaryModel objects.
+    """
+    for summary in summaries:
+        summary.generate_segmented_time_freq_data()

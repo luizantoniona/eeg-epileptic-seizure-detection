@@ -101,17 +101,29 @@ class SummaryModel:
         """
         self.signal =  mnesignal.MNESignalModel( mnereader.mne_edf(self, rename) )
 
-    def generate_signal(self) -> None:
+    def generate_segmented_time_data(self, time_window=5):
         """
-        Generate a raw signal model.
-        """
-        self.signal = rawsignal.RawSignalModel( *reader.edf(self) )
-
-    def generate_segmented_data(self, time_window=5):
-        """
-        Generate segmented data based on a specified time window.
+        Generate segmented time data based on a specified time window.
         """
         current_time = 0
         while current_time + time_window <= self.duration():
-            self.signal.segment_data_by_interval(current_time, current_time + time_window)
+            self.signal.segment_time_data_by_interval(current_time, current_time + time_window)
+            current_time += time_window
+
+    def generate_segmented_freq_data(self, time_window=5):
+        """
+        Generate segmented frequency data based on a specified time window.
+        """
+        current_time = 0
+        while current_time + time_window <= self.duration():
+            self.signal.segment_freq_data_by_interval(current_time, current_time + time_window)
+            current_time += time_window
+
+    def generate_segmented_time_freq_data(self, time_window=5):
+        """
+        Generate segmented time-frequency data based on a specified time window.
+        """
+        current_time = 0
+        while current_time + time_window <= self.duration():
+            self.signal.segment_time_freq_data_by_interval(current_time, current_time + time_window)
             current_time += time_window
