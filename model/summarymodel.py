@@ -1,6 +1,5 @@
 import reader.mnereader as mnereader
 import reader.reader as reader
-import model.rawsignalmodel as rawsignal
 import model.mnesignalmodel as mnesignal
 class SummaryModel:
 
@@ -17,7 +16,7 @@ class SummaryModel:
     - end_seizure (list): List of end times of seizures.
     - nr_channels (int): Number of data channels.
     - ds_channels (list): List of data channels.
-    - signal: An instance of signal model (either MNESignalModel or RawSignalModel).
+    - signal: An instance of signal model (MNESignalModel).
     """
 
     def __init__(self, record_name, file_name, start_time, end_time, nr_seizures, start_seizure, end_seizure, nr_channels, ds_channels):
