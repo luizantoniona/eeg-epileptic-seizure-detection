@@ -78,7 +78,7 @@ class SummaryModel:
         has_anomaly = False
 
         for i in range(self.nr_seizures):
-            if tmin <= self.start_time_of_seizure(i) < tmax or tmin < self.end_time_of_seizure(i) <= tmax:
+            if self.start_time_of_seizure(i) <= tmin < self.end_time_of_seizure(i) or self.start_time_of_seizure(i) < tmax <= self.end_time_of_seizure(i):
                 has_anomaly = True
             
         return has_anomaly
