@@ -3,15 +3,18 @@ import model.summarymodelconverter as converter
 import model.summarymodel as sm
 
 def load_summaries() -> list[sm.SummaryModel]:
-    all_summaries = []
+    """
+    Load summary data from the database and convert it into a list of SummaryModel objects.
+    """
+    summaries = []
 
     db.connect()
-    db_objects = db.all_summary()
+    db_objects = db.summaries()
 
     for db_object in db_objects:
-        all_summaries.append(converter.model_from_tuple( db_object ))
+        summaries.append(converter.model_from_tuple( db_object ))
 
-    return all_summaries
+    return summaries
 
 def load_mne_data(summaries: list[sm.SummaryModel]) -> None:
     for summary in summaries:

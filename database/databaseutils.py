@@ -70,7 +70,7 @@ def summary_by_name(file_name):
     except:
         print("Não há registro para o nome")
 
-def all_summary():
+def summaries():
     """
     Retrieve all summary data from the database.
     """
