@@ -1,1 +1,2 @@
-SELECT * FROM summary_info WHERE file_name = %s;
+SELECT * FROM summary_info
+    WHERE file_name = %s;
