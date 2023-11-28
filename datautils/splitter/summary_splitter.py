@@ -1,5 +1,5 @@
 """
-Module: datasplitter
+Module: summary_splitter
 
 This module provides functions to split summary data into training and validation sets.
 """
