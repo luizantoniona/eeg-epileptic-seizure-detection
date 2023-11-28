@@ -89,9 +89,7 @@ class MNESignalModel:
         """
         Segment frequency data for a specified time interval.
         """
-        self.freq_segments.append( mne.io.RawArray( self.time_data.get_data(tmin=t_min, tmax=t_max),
-                                                    self.info(),
-                                                    verbose='warning' ).compute_psd().get_data() )
+        self.freq_segments.append( self.time_data.compute_psd(tmin=t_min, tmax=t_max).get_data() )
 
     def segment_time_freq_data_by_interval(self, t_min, t_max):
         """
