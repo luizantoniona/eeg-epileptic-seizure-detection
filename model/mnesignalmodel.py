@@ -7,7 +7,7 @@ class MNESignalModel:
 
     Attributes:
     - time_data (mne.io.Raw): MNE raw data object.
-    - freq_data (mne.io.Raw): MNE raw data object after computing power spectral density (PSD).
+    - freq_data (mne.time_frequency.Spectrum): MNE Spectrum data object after computing power spectral density (PSD).
     - time_freq_data (list): List of tuples containing frequency, time, and spectrogram for each data buffer.
     - time_segments (list): List to store time segmented data.
     - freq_segments (list): List to store frequency segmented data.
@@ -37,29 +37,29 @@ class MNESignalModel:
         """
         return self.time_data.get_data()
     
-    def get_time_segmented_data(self):
-        """
-        Get the time segmented data.
-        """
-        return self.time_segments
-    
     def get_freq_data(self):
         """
         Get the frequency-domain data.
         """
-        return self.freq_data.get_data()
-    
-    def get_freq_segmented_data(self):
-        """
-        Get the frequency segmented data.
-        """
-        return self.freq_segments
+        return self.freq_data.get_data( return_freqs=True )
     
     def get_time_freq_data(self):
         """
         Get the time-frequency data.
         """
         return self.time_freq_data
+    
+    def get_time_segmented_data(self):
+        """
+        Get the time segmented data.
+        """
+        return self.time_segments
+    
+    def get_freq_segmented_data(self):
+        """
+        Get the frequency segmented data.
+        """
+        return self.freq_segments
     
     def get_time_freq_segmented_data(self):
         """
