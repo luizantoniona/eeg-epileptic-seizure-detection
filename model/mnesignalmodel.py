@@ -23,7 +23,7 @@ class MNESignalModel:
         self.time_freq_segments = []
 
     def generate_freq_data(self):
-        self.freq_data = self.time_data.copy().compute_psd()
+        self.freq_data = self.time_data.copy().compute_psd( verbose=False )
 
     def generate_time_freq_data(self):
         self.time_freq_data = []
