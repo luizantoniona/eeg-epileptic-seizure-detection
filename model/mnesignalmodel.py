@@ -28,8 +28,8 @@ class MNESignalModel:
     def generate_time_freq_data(self):
         self.time_freq_data = []
         for buffer in self.time_data.get_data():
-            freq, time, Sxx = spectrogram(buffer, fs=self.sampling_freq())
-            self.time_freq_data.append((freq, time, Sxx))
+            _, _, specgram = spectrogram(buffer, fs=self.sampling_freq())
+            self.time_freq_data.append( specgram )
 
     def get_time_data(self):
         """
@@ -101,4 +101,6 @@ class MNESignalModel:
         """
         Segment time-frequency data for a specified time interval.
         """
-        self.time_freq_data.append() #TODO: AJUSTAR MÉTODO
+        for buffer in self.time_data.get_data(tmin=t_min, tmax=t_max):
+            _, freq, Sxx = spectrogram(buffer, fs=self.sampling_freq())
+            self.time_freq_segments.append( (freq, Sxx) )
