@@ -12,8 +12,8 @@ def time_frequency_data_splitter(summaries: list[sm.SummaryModel]):
     """Split summaries into training and validation sets based on time-frequency data."""
     X_train, X_val, y_train, y_val = splitter.summaries_data_splitter(summaries)
 
-    X_train_time_freq_data = [summary.signal.get_time_freq_data() for summary in X_train]
-    X_val_time_freq_data = [summary.signal.get_time_freq_data() for summary in X_val]
+    X_train_time_freq_data = np.array([summary.signal.get_time_freq_data() for summary in X_train])
+    X_val_time_freq_data = np.array([summary.signal.get_time_freq_data() for summary in X_val])
 
     return X_train_time_freq_data, X_val_time_freq_data, y_train, y_val
 
