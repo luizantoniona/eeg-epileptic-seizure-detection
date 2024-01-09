@@ -37,29 +37,29 @@ class MNESignalModel:
         """
         return self.time_data.get_data()
     
-    def get_freq_data(self):
-        """
-        Get the frequency-domain data.
-        """
-        return self.freq_data.get_data( return_freqs=True )
-    
-    def get_time_freq_data(self):
-        """
-        Get the time-frequency data.
-        """
-        return self.time_freq_data
-    
     def get_time_segmented_data(self):
         """
         Get the time segmented data.
         """
         return self.time_segments
     
+    def get_freq_data(self):
+        """
+        Get the frequency-domain data.
+        """
+        return self.freq_data.get_data()
+    
     def get_freq_segmented_data(self):
         """
         Get the frequency segmented data.
         """
         return self.freq_segments
+    
+    def get_time_freq_data(self):
+        """
+        Get the time-frequency data.
+        """
+        return self.time_freq_data
     
     def get_time_freq_segmented_data(self):
         """
@@ -72,6 +72,12 @@ class MNESignalModel:
         Get the sampling frequency of the data.
         """
         return self.time_data.info['sfreq']
+    
+    def get_frequencies(self):
+        """
+        Get frequencies values for freq domain data
+        """
+        return self.freq_data.get_data( return_freqs=True )[1]
     
     def info(self):
         """
