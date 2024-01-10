@@ -1,6 +1,7 @@
 """
 Module: data_balancer
 """
+
 import numpy as np
 
 def balance(data, labels) -> None:
