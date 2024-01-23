@@ -1,5 +1,5 @@
 """
-Module: dataloader
+Module: data_loader
 
 This module provides functions to load and process summary data from a database, as well as generate various types of data and segmented data from the loaded summaries.
 """
