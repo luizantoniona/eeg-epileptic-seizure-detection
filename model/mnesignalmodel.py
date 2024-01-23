@@ -102,5 +102,5 @@ class MNESignalModel:
         Segment time-frequency data for a specified time interval.
         """
         for buffer in self.time_data.get_data(tmin=t_min, tmax=t_max):
-            _, freq, Sxx = spectrogram(buffer, fs=self.sampling_freq())
-            self.time_freq_segments.append( (freq, Sxx) )
+            time, freq, Sxx = spectrogram(buffer, fs=self.sampling_freq())
+            self.time_freq_segments.append( (time, freq, Sxx) )
