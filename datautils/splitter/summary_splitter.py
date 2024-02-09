@@ -4,7 +4,7 @@ Module: summary_splitter
 This module provides functions to split summary data into training and validation sets.
 """
 
-import model.summarymodel as sm
+import model.summary_model as sm
 import numpy as np
 from sklearn.model_selection import train_test_split
 
