@@ -1,4 +1,4 @@
-import model.summarymodel as sm
+import model.summary_model as sm
 
 def model_from_tuple(summary_tupple) -> sm.SummaryModel:
 

@@ -1,8 +1,7 @@
-import reader.mnereader as mnereader
 import reader.reader as reader
-import model.mnesignalmodel as mnesignal
-class SummaryModel:
+import model.signal_model as signal
 
+class SummaryModel:
     """
     A class representing a summary of data.
 
@@ -16,7 +15,7 @@ class SummaryModel:
     - end_seizure (list): List of end times of seizures.
     - nr_channels (int): Number of data channels.
     - ds_channels (list): List of data channels.
-    - signal: An instance of signal model (MNESignalModel).
+    - signal: An instance of signal model (SignalModel).
     """
 
     def __init__(self, record_name, file_name, start_time, end_time, nr_seizures, start_seizure, end_seizure, nr_channels, ds_channels):
@@ -99,7 +98,7 @@ class SummaryModel:
         """
         Generate an MNE signal model.
         """
-        self.signal =  mnesignal.MNESignalModel( mnereader.mne_edf(self, rename) )
+        self.signal =  signal.SignalModel( reader.read_edf(self, rename) )
 
     def generate_segmented_time_data(self, time_window=5):
         """
@@ -109,6 +108,8 @@ class SummaryModel:
         while current_time + time_window <= self.duration():
             self.signal.segment_time_data_by_interval(current_time, current_time + time_window)
             current_time += time_window
+
+        self.signal.del_time_data()
 
     def generate_segmented_freq_data(self, time_window=5):
         """
