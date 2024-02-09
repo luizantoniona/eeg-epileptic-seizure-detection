@@ -1,5 +1,5 @@
 """
-Module: databaseinfo
+Module: database_info
 
 This module provides configuration information for connecting to a MySQL database. It includes functions that return specific details such as the database name, username, password, and IP address.
 
