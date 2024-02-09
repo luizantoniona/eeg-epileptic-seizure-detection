@@ -5,7 +5,7 @@ Module: data_balancer
 import numpy as np
 
 def balance(data, labels) -> None:
-    """
+    """ 
     
     """
     unique_labels, counts = np.unique(labels, return_counts=True)
@@ -17,9 +17,9 @@ def balance(data, labels) -> None:
 
     for label in unique_labels:
         indices = np.where(labels == label)[0]
-        
+
         selected_indices = np.random.choice(indices, size=min_count, replace=False)
-        
+
         balanced_features.extend(data[selected_indices])
         balanced_labels.extend(labels[selected_indices])
 
