@@ -1,24 +1,46 @@
+"""
+Module: reader
+
+This module provides functionality to read data from an EDF (European Data Format) file using MNE (MNE-Python) library,
+with options to renaming channels and setting the montage.
+"""
+
+import mne
 import numpy as np
-import reader.readercommons as commons
-import pyedflib
+import re
+import reader.reader_commons as commons
 
-def edf(summary_model):
-    selected_channels = commons.selected_channels()
+def rename_channels(mne_object: mne.io.Raw):
+  replace_dict = {}
+  drop_list = []
+  for channel_name in mne_object.info['ch_names']:
+      name_change = re.findall('\w+',channel_name)[0].title()
+      if name_change in list(replace_dict.values()):
+          drop_list.append(channel_name)
+      else:
+          replace_dict[channel_name] = name_change
 
-    edf_instance = pyedflib.EdfReader(summary_model.fullpath())
+  mne_object.drop_channels(drop_list)
+  mne_object.rename_channels(replace_dict)
+  mne_object.set_montage('standard_1020')
 
-    channels_names = edf_instance.getSignalLabels()
-    channels_freq = edf_instance.getSampleFrequencies()[0]
+def read_edf(summary_model, rename = False):
+  mne_model = mne.io.read_raw_edf(summary_model.fullpath(), include=commons.selected_channels(), preload=True)
 
-    channels_buffers = np.zeros((len(selected_channels), edf_instance.getNSamples()[0]))
+  if summary_model.nr_seizures > 0:
+    start_times = []
+    duration = []
+    event_name = []
 
-    adjust_resolution = np.vectorize(lambda x: x*1e-6)
+    for seizure_index in range(summary_model.nr_seizures):
+      start_times.append(summary_model.start_seizure[seizure_index])
+      duration.append(summary_model.end_seizure[seizure_index] - summary_model.start_seizure[seizure_index])
+      event_name.append('Anomaly - ' + str(seizure_index))
 
-    for i, channel in enumerate(selected_channels):
-      channels_buffers[i, :] = adjust_resolution( edf_instance.readSignal(channels_names.index(channel)) )
+    mne_model.set_annotations(mne.Annotations(np.array(start_times),
+                                              np.array(duration),
+                                              np.array(event_name)))
+    if( rename ):
+      rename_channels(mne_model)
 
-    times = np.linspace(0, len(channels_buffers[0])/channels_freq, len(channels_buffers[0]), endpoint=False)
-
-    edf_instance.close()
-
-    return selected_channels, channels_freq, channels_buffers, times
+  return mne_model
