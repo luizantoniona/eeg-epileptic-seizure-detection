@@ -6,7 +6,7 @@ import numpy as np
 
 def balance(data, labels) -> None:
     """ 
-    
+    Function used to balance data and labels
     """
     unique_labels, counts = np.unique(labels, return_counts=True)
 
