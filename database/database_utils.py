@@ -7,7 +7,7 @@ The module includes functions for establishing a database connection, executing 
 """
 
 import mysql.connector
-import database.databaseinfo as dbinfo
+import database.database_info as dbinfo
 
 def connect():
     """
