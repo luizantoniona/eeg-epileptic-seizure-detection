@@ -32,7 +32,8 @@ The Jupyter Notebook [database_configuration.ipynb](https://github.com/luizanton
 - Creates the **database** based on the information from [database_info.py](https://github.com/luizantoniona/eeg-anomaly-detection/blob/main/database/database_info.py).
 - Creates the **summary_info** table, designated to store summary information from the EEG's data.
 
-## Dataset Downloader:
+## [Dataset Downloader](https://github.com/luizantoniona/eeg-anomaly-detection/blob/main/dataset_downloader.ipynb):
+- Download the dataset from [CHB-MIT Scalp EEG Database](https://physionet.org/physiobank/database/chbmit/) and stores it at data/ directory
 
 ## Dataset Database:
 
