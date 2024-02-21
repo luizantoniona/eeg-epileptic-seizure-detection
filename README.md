@@ -30,7 +30,7 @@ To store the records of the table above, a MySQL database was used (https://www.
 
 The Jupyter Notebook [database_configuration.ipynb](https://github.com/luizantoniona/eeg-anomaly-detection/blob/main/database_configuration.ipynb):
 - Creates the **database** based on the information from [database_info.py](https://github.com/luizantoniona/eeg-anomaly-detection/blob/main/database/database_info.py).
-- Creates the **summary_info** designated to store summary information from the EEG's data.
+- Creates the **summary_info** table, designated to store summary information from the EEG's data.
 
 ## Dataset Downloader:
 
@@ -51,13 +51,13 @@ The data will be trained using three different types of models:
 ### Data Domains
 The data will be processed and inserted into the models in three different domains:
 
-1. **Temporal Domain (Time)** - (training_time.ipynb)
+1. **Temporal Domain (Time)** - [training_time.ipynb](https://github.com/luizantoniona/eeg-anomaly-detection/blob/main/training_time.ipynb)
    - Using raw data for training.
 
-2. **Frequency Domain** - (training_frequency.ipynb)
+2. **Frequency Domain** - [training_frequency.ipynb](https://github.com/luizantoniona/eeg-anomaly-detection/blob/main/training_frequency.ipynb)
    - Utilizing Power Spectral Density (Periodogram) for training.
 
-3. **Time-Frequency Domain** - (training_time_frequency.ipynb)
+3. **Time-Frequency Domain** - [training_time_frequency.ipynb](https://github.com/luizantoniona/eeg-anomaly-detection/blob/main/training_time_frequency.ipynb)
    - Employing Spectrogram for training.
 
 ---
