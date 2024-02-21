@@ -48,8 +48,8 @@ To store the records of the table above, a MySQL database was used (https://www.
    E --> F{File exists?}
    F -->|No| D
    F -->|Yes| G{Is in database?}
-   G -->|No| D
-   G -->|Yes| H[(Insert in database)]
+   G -->|Yes| D
+   G -->|No| H[(Insert in database)]
    H --> D
 ```
 
