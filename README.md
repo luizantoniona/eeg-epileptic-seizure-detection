@@ -1,26 +1,50 @@
 # Anomaly Detection in EEG
 
-- Project created for my master's thesis
+TODO: Link to thesis article
 
-# Dataset Downloader:
+The dataset used in this work was the [CHB-MIT Scalp EEG Database](https://physionet.org/physiobank/database/chbmit/) from PhysioNet [1]. The exams in this dataset were generated at Boston Children's Hospital. All patients were monitored at a sampling rate of 256 Hz with 16-bit quantization, and the electrodes were placed according to the 10–20 system of the International Federation of Clinical Neurophysiology ([IFCN](https://www.ifcn.info/)). The dataset contains information from 23 patients, where each case contains between 9 and 42 continuous samples from a single subject.
 
-# Database Configuration:
+The dataset comes with a summary for each patient, containing crucial details about the exams, such as file name, start and end times, and the number of seizures. Given the complexity and volume of files, we opted for a database solution to streamline access and enhance readability of this information.
 
-# Dataset to Database:
+After an analysis of the data contained in the summaries, we arrived at a relational table with the following information:
 
-# Dataset Preview:
+- Record name;
+- File name;
+- Initial time;
+- End time;
+- Number of seizures;
+- Initial seizure times;
+- Final seizure times;
+- Number of channels;
+- Channel names.
 
-# Data Training
+And the result is:
+
+| record_name |  file_name   | start_time | end_time | nr_seizures | start_seizure | end_seizure | nr_channels |   ds_channels    |
+| :---------: | :----------: | :--------: | :------: | :---------: | :-----------: | :---------: | :---------: | :--------------: |
+|    chb01    | chb01_01.edf |  12:34:22  | 13:13:07 |      2      |  1862, 2000   | 1963, 2213  |     24      | FP1-F7,F7-T7,... |
+
+To store the records of the table above, a MySQL database was used (https://www.mysql.com/), as it is simple to use and contains a Python library.
+
+## Database Configuration
+
+## Dataset Downloader:
+
+## Dataset Database:
+
+## Dataset Preview:
+
+## Data Training
 This section focuses on preparing the data for input into machine learning models and conducting the training of three different models: CNN, RNN, and Transformer.
 
-## Model Types
+### Model Types
 The data will be trained using three different types of models:
 
 1. **CNN (Convolutional Neural Network)**
 2. **RNN (Recurrent Neural Network)**
 3. **Transformer**
 
-## Data Domains
+### Data Domains
 The data will be processed and inserted into the models in three different domains:
 
 1. **Temporal Domain (Time)** - (training_time.ipynb)
@@ -31,3 +55,9 @@ The data will be processed and inserted into the models in three different domai
 
 3. **Time-Frequency Domain** - (training_time_frequency.ipynb)
    - Employing Spectrogram for training.
+
+---
+
+[1] Guttag J. CHB-MIT Scalp EEG Database (version 1.0.0). PhysioNet. 2010. Available from: https://doi.org/10.13026/C2K01R
+
+---
