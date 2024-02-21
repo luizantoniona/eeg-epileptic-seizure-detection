@@ -28,6 +28,10 @@ To store the records of the table above, a MySQL database was used (https://www.
 
 ## Database Configuration
 
+The Jupyter Notebook [database_configuration.ipynb](https://github.com/luizantoniona/eeg-anomaly-detection/blob/main/database_configuration.ipynb):
+- Creates the **database** based on the information from [database_info.py](https://github.com/luizantoniona/eeg-anomaly-detection/blob/main/database/database_info.py).
+- Creates the **summary_info** designated to store summary information from the EEG's data.
+
 ## Dataset Downloader:
 
 ## Dataset Database:
