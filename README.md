@@ -36,6 +36,22 @@ To store the records of the table above, a MySQL database was used (https://www.
 - Download the dataset from [CHB-MIT Scalp EEG Database](https://physionet.org/physiobank/database/chbmit/) and stores it at data/ directory
 
 ## [Dataset Database](https://github.com/luizantoniona/eeg-anomaly-detection/blob/main/dataset_database.ipynb):
+- Is used to insert sample models to the database following the flowchart:
+  
+```mermaid
+   flowchart LR
+   A{Has next summary?} -->|Yes| B[Read summary]
+   A -->|No| C[END]
+   B --> D{Has next sample?}
+   D -->|No| A
+   D -->|Yes| E[Read sample]
+   E --> F{File exists?}
+   F -->|No| D
+   F --> G{Is in database?}
+   G -->|No| D
+   G -->|Yes| H[(Inset in database)]
+   H --> D
+```
 
 ## [Dataset Preview](https://github.com/luizantoniona/eeg-anomaly-detection/blob/main/dataset_preview.ipynb):
 
