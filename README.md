@@ -47,23 +47,63 @@ To store the records of the table above, a MySQL database was used (https://www.
    D -->|Yes| E[Read sample]
    E --> F{File exists?}
    F -->|No| D
-   F --> G{Is in database?}
+   F -->|Yes| G{Is in database?}
    G -->|No| D
-   G -->|Yes| H[(Inset in database)]
+   G -->|Yes| H[(Insert in database)]
    H --> D
 ```
 
 ## [Dataset Preview](https://github.com/luizantoniona/eeg-anomaly-detection/blob/main/dataset_preview.ipynb):
 
-## Data Training
-This section focuses on preparing the data for input into machine learning models and conducting the training of three different models: CNN, RNN, and Transformer.
+## Pre-processing
 
-### Model Types
-The data will be trained using three different types of models:
+## Model's Architecture
 
-1. **CNN (Convolutional Neural Network)**
-2. **RNN (Recurrent Neural Network)**
-3. **Transformer**
+### CNN (Convolutional Neural Network)
+
+   - TimeCNN:
+```mermaid
+   flowchart LR
+      A[Input] --> B[Conv1D]
+      B --> C[MaxPooling1D]
+      C --> D[Conv1D]
+      D --> E[MaxPooling1D]
+      E --> F[Flatten]
+      F --> G[Dense1]
+      G --> H[Dense2]
+      H --> I[Output]
+```
+- FrequencyCNN:
+```mermaid
+   flowchart LR
+   A[TODO]
+```
+
+- TimeFrequencyCNN:
+```mermaid
+   flowchart LR
+   A[TODO]
+```
+
+### RNN (Recurrent Neural Network)
+- TimeRNN:
+```mermaid
+   flowchart LR
+   A[TODO]
+```
+- FrequencyRNN:
+```mermaid
+   flowchart LR
+   A[TODO]
+```
+
+- TimeFrequencyRNN:
+```mermaid
+   flowchart LR
+   A[TODO]
+```
+
+### Transformer
 
 ### Data Domains
 The data will be processed and inserted into the models in three different domains:
