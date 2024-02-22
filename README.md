@@ -74,34 +74,15 @@ To store the records of the table above, a MySQL database was used (https://www.
       H --> I[Output]
 ```
 - FrequencyCNN:
-```mermaid
-   flowchart LR
-   A[TODO]
-```
 
 - TimeFrequencyCNN:
-```mermaid
-   flowchart LR
-   A[TODO]
-```
 
 ### RNN (Recurrent Neural Network)
 - TimeRNN:
-```mermaid
-   flowchart LR
-   A[TODO]
-```
+
 - FrequencyRNN:
-```mermaid
-   flowchart LR
-   A[TODO]
-```
 
 - TimeFrequencyRNN:
-```mermaid
-   flowchart LR
-   A[TODO]
-```
 
 ### Transformer
 
