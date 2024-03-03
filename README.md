@@ -62,17 +62,6 @@ To store the records of the table above, a MySQL database was used (https://www.
 ### CNN (Convolutional Neural Network)
 
 - TimeCNN:
-|   TimeCNN    |
-| :----------: |
-|  **Input**   |
-|    Conv1D    |
-| MaxPooling1D |
-|    Conv1D    |
-| MaxPooling1D |
-|   Flatten    |
-|    Dense1    |
-|    Dense2    |
-|  **Output**  |
 
 - FrequencyCNN:
 
