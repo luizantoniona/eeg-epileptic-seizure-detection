@@ -61,18 +61,19 @@ To store the records of the table above, a MySQL database was used (https://www.
 
 ### CNN (Convolutional Neural Network)
 
-   - TimeCNN:
-```mermaid
-   flowchart LR
-      A[Input] --> B[Conv1D]
-      B --> C[MaxPooling1D]
-      C --> D[Conv1D]
-      D --> E[MaxPooling1D]
-      E --> F[Flatten]
-      F --> G[Dense1]
-      G --> H[Dense2]
-      H --> I[Output]
-```
+- TimeCNN:
+|   TimeCNN    |
+| :----------: |
+|  **Input**   |
+|    Conv1D    |
+| MaxPooling1D |
+|    Conv1D    |
+| MaxPooling1D |
+|   Flatten    |
+|    Dense1    |
+|    Dense2    |
+|  **Output**  |
+
 - FrequencyCNN:
 
 - TimeFrequencyCNN:
