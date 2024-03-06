@@ -1,5 +1,5 @@
 import reader.reader as reader
-import model.signal_model as signal
+from model.signal_model import SignalModel
 
 class SummaryModel:
     """
@@ -98,13 +98,13 @@ class SummaryModel:
         """
         Generate an MNE signal model.
         """
-        self.signal = signal.SignalModel( reader.read_edf(self, rename) )
+        self.signal = SignalModel( reader.read_edf(self, rename) )
 
     def generate_segmented_time_data(self, time_window=5):
         """
         Generate segmented time data based on a specified time window.
         """
-        self.signal = signal.SignalModel( reader.read_edf(self, False) )
+        self.signal = SignalModel( reader.read_edf(self, False) )
 
         current_time = 0
         while current_time + time_window <= self.duration():
@@ -117,7 +117,7 @@ class SummaryModel:
         """
         Generate segmented frequency data based on a specified time window.
         """
-        self.signal = signal.SignalModel( reader.read_edf(self, False) )
+        self.signal = SignalModel( reader.read_edf(self, False) )
 
         current_time = 0
         while current_time + time_window <= self.duration():
@@ -130,7 +130,7 @@ class SummaryModel:
         """
         Generate segmented time-frequency data based on a specified time window.
         """
-        self.signal = signal.SignalModel( reader.read_edf(self, False) )
+        self.signal = SignalModel( reader.read_edf(self, False) )
 
         current_time = 0
         while current_time + time_window <= self.duration():
