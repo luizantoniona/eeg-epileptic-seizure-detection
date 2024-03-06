@@ -7,6 +7,7 @@ This module provides functions to load and process summary data from a database,
 import database.database_utils as db
 import model.summary_model_converter as converter
 from model.summary_model import SummaryModel
+import concurrent.futures
 
 def load_summaries() -> list[SummaryModel]:
     """
@@ -47,8 +48,8 @@ def load_time_segmented_data(summaries: list[SummaryModel]) -> None:
     """
     Generate segmented time data for a list of SummaryModel objects.
     """
-    for summary in summaries:
-        summary.generate_segmented_time_data()
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        executor.map(lambda summary: summary.generate_segmented_time_data(), summaries)
 
 def load_freq_data(summaries: list[SummaryModel]) -> None:
     """
@@ -61,8 +62,8 @@ def load_freq_segmented_data(summaries: list[SummaryModel]) -> None:
     """
     Generate segmented frequency data for a list of SummaryModel objects.
     """
-    for summary in summaries:
-        summary.generate_segmented_freq_data()
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        executor.map(lambda summary: summary.generate_segmented_freq_data(), summaries)
 
 def load_time_freq_data(summaries: list[SummaryModel]) -> None:
     """
@@ -75,5 +76,5 @@ def load_time_freq_segmented_data(summaries: list[SummaryModel]) -> None:
     """
     Generate segmented time-frequency data for a list of SummaryModel objects.
     """
-    for summary in summaries:
-        summary.generate_segmented_time_freq_data()
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        executor.map(lambda summary: summary.generate_segmented_time_freq_data(), summaries)
