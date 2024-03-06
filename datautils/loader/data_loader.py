@@ -6,9 +6,9 @@ This module provides functions to load and process summary data from a database,
 
 import database.database_utils as db
 import model.summary_model_converter as converter
-import model.summary_model as sm
+from model.summary_model import SummaryModel
 
-def load_summaries() -> list[sm.SummaryModel]:
+def load_summaries() -> list[SummaryModel]:
     """
     Load summary data from the database and convert it into a list of SummaryModel objects.
     """
@@ -22,7 +22,7 @@ def load_summaries() -> list[sm.SummaryModel]:
 
     return summaries
 
-def load_anomalous_summaries() -> list[sm.SummaryModel]:
+def load_anomalous_summaries() -> list[SummaryModel]:
     """
     Load anomalous summary data from the database and convert it into SummaryModel objects.
     """
@@ -36,42 +36,42 @@ def load_anomalous_summaries() -> list[sm.SummaryModel]:
 
     return summaries
 
-def load_mne_data(summaries: list[sm.SummaryModel]) -> None:
+def load_mne_data(summaries: list[SummaryModel]) -> None:
     """
     Generate MNE data for a list of SummaryModel objects.
     """
     for summary in summaries:
         summary.generate_mne()
 
-def load_time_segmented_data(summaries: list[sm.SummaryModel]) -> None:
+def load_time_segmented_data(summaries: list[SummaryModel]) -> None:
     """
     Generate segmented time data for a list of SummaryModel objects.
     """
     for summary in summaries:
         summary.generate_segmented_time_data()
 
-def load_freq_data(summaries: list[sm.SummaryModel]) -> None:
+def load_freq_data(summaries: list[SummaryModel]) -> None:
     """
     Generate frequency data for a list of SummaryModel objects.
     """
     for summary in summaries:
         summary.signal.generate_freq_data()
 
-def load_freq_segmented_data(summaries: list[sm.SummaryModel]) -> None:
+def load_freq_segmented_data(summaries: list[SummaryModel]) -> None:
     """
     Generate segmented frequency data for a list of SummaryModel objects.
     """
     for summary in summaries:
         summary.generate_segmented_freq_data()
 
-def load_time_freq_data(summaries: list[sm.SummaryModel]) -> None:
+def load_time_freq_data(summaries: list[SummaryModel]) -> None:
     """
     Generate time-frequency data for a list of SummaryModel objects.
     """
     for summary in summaries:
         summary.signal.generate_time_freq_data()
 
-def load_time_freq_segmented_data(summaries: list[sm.SummaryModel]) -> None:
+def load_time_freq_segmented_data(summaries: list[SummaryModel]) -> None:
     """
     Generate segmented time-frequency data for a list of SummaryModel objects.
     """
