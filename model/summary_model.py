@@ -117,16 +117,24 @@ class SummaryModel:
         """
         Generate segmented frequency data based on a specified time window.
         """
+        self.signal = signal.SignalModel( reader.read_edf(self, False) )
+
         current_time = 0
         while current_time + time_window <= self.duration():
             self.signal.segment_freq_data_by_interval(current_time, current_time + time_window)
             current_time += time_window
+        
+        self.signal.del_time_data()
 
     def generate_segmented_time_freq_data(self, time_window=5):
         """
         Generate segmented time-frequency data based on a specified time window.
         """
+        self.signal = signal.SignalModel( reader.read_edf(self, False) )
+
         current_time = 0
         while current_time + time_window <= self.duration():
             self.signal.segment_time_freq_data_by_interval(current_time, current_time + time_window)
             current_time += time_window
+
+        self.signal.del_time_data()
