@@ -9,6 +9,8 @@ import mne
 import numpy as np
 import re
 import reader.reader_commons as commons
+import pyedflib
+import pandas as pd
 
 def rename_channels(mne_object: mne.io.Raw):
   replace_dict = {}
@@ -44,5 +46,54 @@ def read_edf(summary_model, rename = False):
                                               np.array(event_name)))
     if( rename ):
       rename_channels(mne_model)
+
+  return mne_model
+
+def read_edf_pyedf(summary_model):
+  print('Reading:', summary_model.fullpath())
+
+  file = pyedflib.EdfReader(summary_model.fullpath())
+  selected_channels = commons.selected_channels()
+
+  channel_names = file.getSignalLabels()
+  channel_freq = file.getSampleFrequencies()
+
+  sigbufs = np.zeros((file.getNSamples()[0],len(selected_channels)))
+
+  for i, channel in enumerate(selected_channels):
+    sigbufs[:, i] += file.readSignal(channel_names.index(channel))
+  
+  df = pd.DataFrame(sigbufs, columns = selected_channels).astype('float32')
+  index_increase = np.linspace(0,
+                                len(df)/channel_freq[0],
+                                len(df), endpoint=False)
+  seconds = np.floor(index_increase).astype('uint16')
+
+  df['Time'] = seconds
+  df = df.set_index('Time')
+  df.columns.name = 'Channel'
+
+  info = mne.create_info(ch_names=list(df.columns), 
+                         sfreq=channel_freq[0], 
+                         ch_types=['eeg']*df.shape[-1])
+
+  df = df.apply(lambda x: x*1e-6)
+  data_T = df.transpose()
+  
+  mne_model = mne.io.RawArray(data_T, info)
+
+  if summary_model.nr_seizures > 0:
+    start_times = []
+    duration = []
+    event_name = []
+
+    for seizure_index in range(summary_model.nr_seizures):
+      start_times.append(summary_model.start_seizure[seizure_index])
+      duration.append(summary_model.end_seizure[seizure_index] - summary_model.start_seizure[seizure_index])
+      event_name.append('Anomaly - ' + str(seizure_index))
+
+    mne_model.set_annotations(mne.Annotations(np.array(start_times),
+                                              np.array(duration),
+                                              np.array(event_name)))
 
   return mne_model
