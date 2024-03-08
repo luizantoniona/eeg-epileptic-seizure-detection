@@ -28,7 +28,7 @@ class SummaryModel:
         self.end_seizure = end_seizure
         self.nr_channels = nr_channels
         self.ds_channels = ds_channels
-        self.signal = None
+        self.signal : SignalModel = None
 
     def __str__(self):
         return f"{self.record_name}:({self.file_name})"
