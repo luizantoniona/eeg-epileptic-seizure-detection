@@ -12,6 +12,7 @@ class SignalModel:
     - time_segments (list): List to store time segmented data.
     - freq_segments (list): List to store frequency segmented data.
     - time_freq_segments (list): List to store time-frequency segmented data.
+    - label_segments (list): List to store labels about data segments.
     """
 
     def __init__(self, mne_object: mne.io.Raw):
@@ -21,6 +22,7 @@ class SignalModel:
         self.time_segments = []
         self.freq_segments = []
         self.time_freq_segments = []
+        self.label_segments = []
 
     def generate_freq_data(self):
         self.freq_data = self.time_data.copy().compute_psd(verbose=False)
@@ -66,6 +68,12 @@ class SignalModel:
         Get the time-frequency segmented data.
         """
         return self.time_freq_segments
+    
+    def get_label_segments(self):
+        """
+        Get the labels of each segment.
+        """
+        return self.label_segments
 
     def sampling_freq(self):
         """
