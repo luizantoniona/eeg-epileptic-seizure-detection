@@ -25,7 +25,9 @@ def rename_channels(mne_object: mne.io.Raw):
   mne_object.set_montage('standard_1020')
 
 def read_edf(summary_model, rename = False):
-  mne_model = mne.io.read_raw_edf(summary_model.fullpath(), include=commons.selected_channels(), preload=True)
+  print('Reading:', summary_model.fullpath())
+  
+  mne_model = mne.io.read_raw_edf(summary_model.fullpath(), include=commons.selected_channels(), preload=True, verbose='CRITICAL')
 
   if summary_model.nr_seizures > 0:
     start_times = []
