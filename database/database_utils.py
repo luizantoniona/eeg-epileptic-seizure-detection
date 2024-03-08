@@ -103,3 +103,24 @@ def summaries_with_anomaly():
         return cursor.fetchall()
     except:
         print("Não há registros")
+
+def insert_metrics_data(model_name, model_data_domain,
+                        accuracy, precision, sensitivity, specificity, true_positive_rate, false_positive_rate, f1_score,
+                        true_positives, true_negatives, false_positives, false_negatives, total_samples ):
+    """
+    Insert metrics data into the database.
+    """
+    fd = open("./database/sql/insert_metrics_info.sql", 'r')
+    sql_file = fd.read()
+    fd.close()
+
+    db = connect()
+
+    try:
+        db.cursor().execute(sql_file, [model_name, model_data_domain,
+                                       accuracy, precision, sensitivity, specificity, true_positive_rate, false_positive_rate, f1_score,
+                                       true_positives, true_negatives, false_positives, false_negatives, total_samples ])
+        db.commit()
+    except:
+        print("Não foi possível inserir")
+        
