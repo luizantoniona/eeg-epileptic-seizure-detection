@@ -63,12 +63,6 @@ class SummaryModel:
             return 0
         else:
             return self.end_seizure[nr_seizure - 1]
-        
-    def has_anomaly(self) -> bool:
-        """
-        Check if there are anomaly.
-        """
-        return self.nr_seizures > 0
     
     def has_anomaly_in_interval(self, tmin, tmax) -> bool:
         """
@@ -81,18 +75,6 @@ class SummaryModel:
                 has_anomaly = True
             
         return has_anomaly
-    
-    def anomalies_by_time_window(self, time_window=5):
-        """
-        Check for anomalies in the data at regular intervals of a specified time window.
-        """
-        anomalies = []
-        current_time = 0
-        while current_time + time_window <= self.duration():
-            anomalies.append(self.has_anomaly_in_interval(current_time, current_time + time_window))
-            current_time += time_window
-
-        return anomalies
 
     def generate_mne(self, rename = False) -> None:
         """
