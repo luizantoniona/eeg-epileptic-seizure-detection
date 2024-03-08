@@ -1,0 +1,33 @@
+INSERT INTO metrics_info
+(
+    model_name,
+    model_data_domain,
+    accuracy,
+    `precision`,
+    sensitivity,
+    specificity,
+    true_positive_rate,
+    false_positive_rate,
+    f1_score,
+    true_positives,
+    true_negatives,
+    false_positives,
+    false_negatives,
+    total_samples
+)
+VALUES (
+    %s,
+    %s,
+    %s,
+    %s,
+    %s,
+    %s,
+    %s,
+    %s,
+    %s,
+    %s,
+    %s,
+    %s,
+    %s,
+    %s
+);
