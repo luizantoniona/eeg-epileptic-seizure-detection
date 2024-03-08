@@ -24,3 +24,6 @@ class FrequencyCNN( BaseCNN ):
         self.model.add(tf.keras.layers.Dense(128, activation='relu'))
         self.model.add(tf.keras.layers.Dropout(0.5))
         self.model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
+
+    def name(self):
+        return "frequency_cnn"

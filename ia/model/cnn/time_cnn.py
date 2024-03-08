@@ -20,3 +20,6 @@ class TimeCNN( BaseCNN ):
         self.model.add(tf.keras.layers.Flatten())
         self.model.add(tf.keras.layers.Dense(128, activation='relu'))
         self.model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
+
+    def name(self):
+        return "time_cnn"
