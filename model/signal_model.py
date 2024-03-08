@@ -83,7 +83,7 @@ class SignalModel:
 
     def get_frequencies(self):
         """
-        Get frequencies values for freq domain data
+        Get frequencies values for freq domain data.
         """
         return self.freq_data.get_data(return_freqs=True)[1]
 
@@ -115,6 +115,6 @@ class SignalModel:
 
     def del_time_data(self):
         """
-        Delete time_data from memory
+        Delete time_data from memory.
         """
         del self.time_data
