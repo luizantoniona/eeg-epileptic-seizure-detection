@@ -86,7 +86,7 @@ class SummaryModel:
         """
         Generate segmented time data based on a specified time window around seizures.
         """
-        self.signal = SignalModel( reader.read_edf(self, False) )
+        self.signal = SignalModel( reader.read_edf(self) )
 
         for seizure_index in range(self.nr_seizures):
 
