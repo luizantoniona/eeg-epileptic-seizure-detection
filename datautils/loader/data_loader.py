@@ -44,12 +44,15 @@ def load_mne_data(summaries: list[SummaryModel]) -> None:
     for summary in summaries:
         summary.generate_mne()
 
-def load_time_segmented_data(summaries: list[SummaryModel]) -> None:
+def load_time_segmented_data(summaries: list[SummaryModel], full_file = False) -> None:
     """
     Generate segmented time data for a list of SummaryModel objects.
     """
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        executor.map(lambda summary: summary.generate_segmented_time_data(), summaries)
+        if(full_file):
+            executor.map(lambda summary: summary.generate_segmented_time_data_full_file(), summaries)
+        else:
+            executor.map(lambda summary: summary.generate_segmented_time_data(), summaries)
 
 def load_freq_data(summaries: list[SummaryModel]) -> None:
     """
@@ -58,12 +61,15 @@ def load_freq_data(summaries: list[SummaryModel]) -> None:
     for summary in summaries:
         summary.signal.generate_freq_data()
 
-def load_freq_segmented_data(summaries: list[SummaryModel]) -> None:
+def load_freq_segmented_data(summaries: list[SummaryModel], full_file = False) -> None:
     """
     Generate segmented frequency data for a list of SummaryModel objects.
     """
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        executor.map(lambda summary: summary.generate_segmented_freq_data(), summaries)
+        if(full_file):
+            executor.map(lambda summary: summary.generate_segmented_freq_data_full_file(), summaries)
+        else:
+            executor.map(lambda summary: summary.generate_segmented_freq_data(), summaries)
 
 def load_time_freq_data(summaries: list[SummaryModel]) -> None:
     """
@@ -72,9 +78,12 @@ def load_time_freq_data(summaries: list[SummaryModel]) -> None:
     for summary in summaries:
         summary.signal.generate_time_freq_data()
 
-def load_time_freq_segmented_data(summaries: list[SummaryModel]) -> None:
+def load_time_freq_segmented_data(summaries: list[SummaryModel], full_file = False) -> None:
     """
     Generate segmented time-frequency data for a list of SummaryModel objects.
     """
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        executor.map(lambda summary: summary.generate_segmented_time_freq_data(), summaries)
+        if(full_file):
+            executor.map(lambda summary: summary.generate_segmented_time_freq_data_full_file(), summaries)
+        else:
+            executor.map(lambda summary: summary.generate_segmented_time_freq_data(), summaries)
