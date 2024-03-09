@@ -2,6 +2,16 @@
 Module: reader_commons
 """
 
+def remove_channels():
+  return[
+    'T8-P8-1',
+  ]
+
+def rename_channels():
+  return {
+    'T8-P8-0':'T8-P8',
+    }
+
 def selected_channels():
   """
     Returns a list of selected EEG (Electroencephalography) channel names commonly used in neurophysiological studies.
@@ -10,7 +20,6 @@ def selected_channels():
   return [
     'P8-O2',
     'CZ-PZ',
-    'T8-P8',
     'T7-P7',
     'FZ-CZ',
     'C3-P3',
@@ -25,5 +34,6 @@ def selected_channels():
     'FP2-F4',
     'FP1-F3',
     'P3-O1',
-    'F8-T8'
+    'F8-T8',
+    'T8-P8',
   ]
