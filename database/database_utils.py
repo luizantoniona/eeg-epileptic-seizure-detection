@@ -14,10 +14,10 @@ def connect():
     Establish a connection to the MySQL database.
     """
     return mysql.connector.connect(user=dbinfo.username(),
-                              password=dbinfo.password(),                              
-                              host=dbinfo.ip(),
-                              database=dbinfo.name(),
-                              auth_plugin='mysql_native_password')
+                                   password=dbinfo.password(),                              
+                                   host=dbinfo.ip(),
+                                   database=dbinfo.name(),
+                                   auth_plugin='mysql_native_password')
 
 def execute_from_file(filename):
     """
