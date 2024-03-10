@@ -10,8 +10,8 @@ CREATE TABLE metrics_info
     false_positive_rate FLOAT,
     f1_score FLOAT,
     true_positives INTEGER,
-	true_negatives INTEGER,
-	false_positives INTEGER,
-	false_negatives INTEGER,
-	total_samples INTEGER
+    true_negatives INTEGER,
+    false_positives INTEGER,
+    false_negatives INTEGER,
+    total_samples INTEGER
 );
