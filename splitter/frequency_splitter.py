@@ -5,10 +5,19 @@ This module provides functions to split summary data into training and validatio
 """
 
 import model.summary_model as sm
-import datautils.splitter.summary_splitter as splitter
+import splitter.summary_splitter as splitter
 import numpy as np
 
-def segmented_frequency_data_splitter(summaries: list[sm.SummaryModel], split_size=0.2):
+def test_segmented_frequency_data(summaries: list[sm.SummaryModel]):
+    X_test = summaries
+
+    y_test = np.concatenate([summary.signal.get_label_segments() for summary in X_test])
+
+    X_test_segmented_time_data = np.concatenate([summary.signal.get_time_segmented_data() for summary in X_test])
+
+    return X_test_segmented_time_data, y_test
+
+def train_val_segmented_frequency_data(summaries: list[sm.SummaryModel], split_size=0.2):
     """
     Split segmented summaries into training and validation sets based on frequency-domain data.
     """

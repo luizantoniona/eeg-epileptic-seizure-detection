@@ -5,7 +5,7 @@ This module provides functions to split summary data into training and validatio
 """
 
 import model.summary_model as sm
-import datautils.splitter.summary_splitter as splitter
+import splitter.summary_splitter as splitter
 import numpy as np
 
 def segmented_time_frequency_data_splitter(summaries: list[sm.SummaryModel], split_size=0.2):
