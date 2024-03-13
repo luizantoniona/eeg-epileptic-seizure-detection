@@ -1,7 +1,7 @@
 """
-Module: data_normalizer
+Module: time_normalizer
 
-This module provides functions to normalize data.
+This module provides functions to normalize time data.
 """
 from model.summary_model import SummaryModel
 from sklearn.preprocessing import MinMaxScaler
