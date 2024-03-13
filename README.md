@@ -33,7 +33,7 @@ To store the records of the table above, a MySQL database was used (https://www.
 - Creates the **summary_info** table, designated to store summary information from the EEG's data.
 
 ## [Dataset Downloader](https://github.com/luizantoniona/eeg-anomaly-detection/blob/main/dataset_downloader.ipynb):
-- Download the dataset from [CHB-MIT Scalp EEG Database](https://physionet.org/physiobank/database/chbmit/) and stores it at data/ directory
+- Download the dataset from [CHB-MIT Scalp EEG Database](https://physionet.org/physiobank/database/chbmit/) and stores it at data/ directory.
 
 ## [Dataset Database](https://github.com/luizantoniona/eeg-anomaly-detection/blob/main/dataset_database.ipynb):
 - Is used to insert sample models to the database following the flowchart:
@@ -54,32 +54,32 @@ To store the records of the table above, a MySQL database was used (https://www.
 ```
 
 ## [Dataset Preview](https://github.com/luizantoniona/eeg-anomaly-detection/blob/main/dataset_preview.ipynb):
+- Pré-visualization of data in time and frequency domain.
 
 ## Pre-processing
+- TODO:
 
 ## Model's Architecture
 
-### CNN (Convolutional Neural Network)
-
-- TimeCNN:
-
-- FrequencyCNN:
-
-### RNN (Recurrent Neural Network)
-- TimeRNN:
-
-- FrequencyRNN:
-
-### Transformer
-
 ### Data Domains
 The data will be processed and inserted into the models in two different domains:
+- Using temporal data for training.
+- Utilizing Power Spectral Density (PSD) for training.
 
-1. **[Time Domain](https://github.com/luizantoniona/eeg-anomaly-detection/blob/main/training_time.ipynb)**
-   - Using raw data for training.
+### CNN (Convolutional Neural Network):
 
-2. **[Frequency Domain](https://github.com/luizantoniona/eeg-anomaly-detection/blob/main/training_frequency.ipynb)**
-   - Utilizing Power Spectral Density (Periodogram) for training.
+- **[TimeCNN](https://github.com/luizantoniona/eeg-anomaly-detection/blob/main/training_time.ipynb)**
+
+- **[FrequencyCNN](https://github.com/luizantoniona/eeg-anomaly-detection/blob/main/training_frequency.ipynb)**
+
+### RNN (Recurrent Neural Network):
+- TODO:
+
+### RCNN (Recurrent Convolutional Neural Network):
+- TODO:
+
+### Transformers:
+- TODO:
 
 ---
 
