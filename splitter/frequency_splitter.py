@@ -13,9 +13,9 @@ def test_segmented_frequency_data(summaries: list[sm.SummaryModel]):
 
     y_test = np.concatenate([summary.signal.get_label_segments() for summary in X_test])
 
-    X_test_segmented_time_data = np.concatenate([summary.signal.get_time_segmented_data() for summary in X_test])
+    X_test_segmented_freq_data = np.concatenate([summary.signal.get_freq_segmented_data() for summary in X_test])
 
-    return X_test_segmented_time_data, y_test
+    return X_test_segmented_freq_data, y_test
 
 def train_val_segmented_frequency_data(summaries: list[sm.SummaryModel], split_size=0.2):
     """
