@@ -65,28 +65,21 @@ To store the records of the table above, a MySQL database was used (https://www.
 
 - FrequencyCNN:
 
-- TimeFrequencyCNN:
-
 ### RNN (Recurrent Neural Network)
 - TimeRNN:
 
 - FrequencyRNN:
 
-- TimeFrequencyRNN:
-
 ### Transformer
 
 ### Data Domains
-The data will be processed and inserted into the models in three different domains:
+The data will be processed and inserted into the models in two different domains:
 
 1. **[Time Domain](https://github.com/luizantoniona/eeg-anomaly-detection/blob/main/training_time.ipynb)**
    - Using raw data for training.
 
 2. **[Frequency Domain](https://github.com/luizantoniona/eeg-anomaly-detection/blob/main/training_frequency.ipynb)**
    - Utilizing Power Spectral Density (Periodogram) for training.
-
-3. **[Time-Frequency Domain](https://github.com/luizantoniona/eeg-anomaly-detection/blob/main/training_time_frequency.ipynb)**
-   - Employing Spectrogram for training.
 
 ---
 
