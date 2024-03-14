@@ -80,7 +80,7 @@ class SignalModel:
         """
         Segment frequency data for a specified time interval.
         """
-        self.freq_segments.append(self.time_data.compute_psd(tmin=t_min, tmax=t_max).get_data())
+        self.freq_segments.append(self.time_data.compute_psd(tmin=t_min, tmax=t_max, verbose='CRITICAL').get_data())
 
     def del_time_data(self):
         """
