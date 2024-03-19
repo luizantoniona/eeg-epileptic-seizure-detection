@@ -26,3 +26,35 @@ class DatabaseMetrics( Database ):
             self.db.commit()
         except:
             print("Não foi possível inserir")
+
+    def metrics_by_domain(self, domain):
+        """
+        Retrieve metrics by domain.
+        """
+        fd = open("./database/sql/select_metrics_by_domain.sql", 'r')
+        sql_file = fd.read()
+        fd.close()
+
+        cursor = self.db.cursor(buffered=True, dictionary=True)
+
+        try:
+            cursor.execute(sql_file, [domain])
+            return cursor.fetchall()
+        except:
+            print("Não há registros")
+    
+    def metrics_by_model(self, model_name):
+        """
+        Retrieve metrics by model.
+        """
+        fd = open("./database/sql/select_metrics_by_model.sql", 'r')
+        sql_file = fd.read()
+        fd.close()
+
+        cursor = self.db.cursor(buffered=True, dictionary=True)
+
+        try:
+            cursor.execute(sql_file, [model_name])
+            return cursor.fetchall()
+        except:
+            print("Não há registros")

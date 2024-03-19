@@ -38,7 +38,6 @@ class Metrics:
       self.false_positive_rate = (self.false_positives)/(self.false_positives + self.true_negatives)
       self.f1_score = (2 * self.accuracy * self.sensitivity)/(self.accuracy + self.sensitivity)
 
-
    def all_metrics(self):
       print('True Positives:', self.true_positives)
       print('True Negatives:', self.true_negatives)
