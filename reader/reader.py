@@ -9,8 +9,6 @@ import mne
 import numpy as np
 import re
 import reader.reader_commons as commons
-import pyedflib
-import pandas as pd
 
 def rename_channels(mne_object: mne.io.Raw):
   replace_dict = {}
