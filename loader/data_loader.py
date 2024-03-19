@@ -4,10 +4,10 @@ Module: data_loader
 This module provides functions to load and process summary data from a database, as well as generate various types of data and segmented data from the loaded summaries.
 """
 
-import database.database_utils as db
-import model.summary_model_converter as converter
-from model.summary_model import SummaryModel
 import concurrent.futures
+import model.summary_model_converter as converter
+from database.database_summary import DatabaseSummary
+from model.summary_model import SummaryModel
 
 def load_summaries() -> list[SummaryModel]:
     """
@@ -15,8 +15,8 @@ def load_summaries() -> list[SummaryModel]:
     """
     summaries = []
 
-    db.connect()
-    db_objects = db.summaries()
+    database = DatabaseSummary()
+    db_objects = database.summaries()
 
     for db_object in db_objects:
         summaries.append(converter.model_from_tuple(db_object))
@@ -29,8 +29,8 @@ def load_anomalous_summaries() -> list[SummaryModel]:
     """
     summaries = []
 
-    db.connect()
-    db_objects = db.summaries_with_anomaly()
+    database = DatabaseSummary()
+    db_objects = database.summaries_with_anomaly()
 
     for db_object in db_objects:
         summaries.append(converter.model_from_tuple(db_object))

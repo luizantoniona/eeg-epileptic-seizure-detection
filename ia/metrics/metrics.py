@@ -4,7 +4,7 @@ Module: metrics
 Provides class to calculate metrics from test and prediction
 """
 
-import database.database_utils as db
+from database.database_metrics import DatabaseMetrics
 
 class Metrics:
    """
@@ -54,6 +54,7 @@ class Metrics:
       print('F1-Score:',self.f1_score)
 
    def metrics_to_database(self):
-      db.insert_metrics_data(self.model_name, self.model_data_domain,
+      database = DatabaseMetrics()
+      database.insert_metrics_data(self.model_name, self.model_data_domain,
                              self.accuracy, self.precision, self.sensitivity, self.specificity, self.true_positive_rate, self.false_positive_rate, self.f1_score,
                              self.true_positives, self.true_negatives, self.false_positives, self.false_negatives, self.total_samples )
