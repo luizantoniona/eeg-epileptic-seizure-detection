@@ -1,4 +1,4 @@
-# Anomaly Detection in EEG
+# Epileptic Seizure Detection in EEG
 
 TODO: Link to thesis article
 
@@ -28,14 +28,15 @@ And the result is:
 
 To store the records of the table above, a MySQL database was used (https://www.mysql.com/), as it is simple to use and contains a Python library.
 
-## [Database Configuration](https://github.com/luizantoniona/eeg-anomaly-detection/blob/main/database_configuration.ipynb)
-- Creates the **database** based on the information from [database_info.py](https://github.com/luizantoniona/eeg-anomaly-detection/blob/main/database/database_info.py).
+## [Database Configuration](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/database_configuration.ipynb)
+- Creates the **database** based on the information from [database_info.py](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/database/database_info.py).
 - Creates the **summary_info** table, designated to store summary information from the EEG's data.
+- Creates the **metrics_info** table, designated to store metrics between models for further comparison.
 
-## [Dataset Downloader](https://github.com/luizantoniona/eeg-anomaly-detection/blob/main/dataset_downloader.ipynb):
+## [Dataset Downloader](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/dataset_downloader.ipynb):
 - Download the dataset from [CHB-MIT Scalp EEG Database](https://physionet.org/physiobank/database/chbmit/) and stores it at data/ directory.
 
-## [Dataset Database](https://github.com/luizantoniona/eeg-anomaly-detection/blob/main/dataset_database.ipynb):
+## [Dataset Database](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/dataset_downloader.ipynb):
 - Is used to insert sample models to the database following the flowchart:
   
 ```mermaid
@@ -53,7 +54,7 @@ To store the records of the table above, a MySQL database was used (https://www.
    H --> D
 ```
 
-## [Dataset Preview](https://github.com/luizantoniona/eeg-anomaly-detection/blob/main/dataset_preview.ipynb):
+## [Dataset Preview](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/dataset_preview.ipynb):
 - Pré-visualization of data in time and frequency domain.
 
 ## Pre-processing
@@ -64,13 +65,15 @@ To store the records of the table above, a MySQL database was used (https://www.
 ### Data Domains
 The data will be processed and inserted into the models in two different domains:
 - Using temporal data for training.
-- Utilizing Power Spectral Density (PSD) for training.
+- Utilizing frequency (Power Spectral Density [PSD]) for training.
 
 ### CNN (Convolutional Neural Network):
 
-- **[TimeCNN](https://github.com/luizantoniona/eeg-anomaly-detection/blob/main/training_time.ipynb)**
+- **[TimeCNN](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/cnn_training_time.ipynb)**
 
-- **[FrequencyCNN](https://github.com/luizantoniona/eeg-anomaly-detection/blob/main/training_frequency.ipynb)**
+- **[FrequencyCNN](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/cnn_training_frequency.ipynb)**
+
+- **[CNN Metrics Comparison](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/cnn_model_metrics.ipynb)**
 
 ### RNN (Recurrent Neural Network):
 - TODO:
