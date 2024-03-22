@@ -2,6 +2,9 @@
 
 """
 
+from statistics import mean 
+from statistics import median
+
 class MetricsModel:
     """
     
@@ -27,18 +30,39 @@ class MetricsModel:
         self.false_positive_rate = false_positive_rate
         self.f1_score = f1_score
 
-    def show(self):
+    def show_name(self):
         print("MODEL:", self.model_name)
         print("DATA DOMAIN:", self.model_data_domain)
-        print('True Positives:', self.true_positives)
-        print('True Negatives:', self.true_negatives)
-        print('False Positives:', self.false_positives)
-        print('False Negatives:', self.false_negatives)
-        print('total Samples:', self.total_samples)
-        print('Accuracy:',self.accuracy)
-        print('Precision:',self.precision)
-        print('Sensitivity:',self.sensitivity)
-        print('Specificity:',self.specificity)
-        print('TPR:',self.true_positive_rate)
-        print('FPR:',self.false_positive_rate)
-        print('F1-Score:',self.f1_score)
+        print("------------------------------------")
+
+    def show_mean(self):
+        print("MEAN:")
+        print('True Positives:', mean(self.true_positives))
+        print('True Negatives:', mean(self.true_negatives))
+        print('False Positives:', mean(self.false_positives))
+        print('False Negatives:', mean(self.false_negatives))
+        print('total Samples:', mean(self.total_samples))
+        print('Accuracy:', mean(self.accuracy))
+        print('Precision:', mean(self.precision))
+        print('Sensitivity:', mean(self.sensitivity))
+        print('Specificity:', mean(self.specificity))
+        print('TPR:', mean(self.true_positive_rate))
+        print('FPR:', mean(self.false_positive_rate))
+        print('F1-Score:', mean(self.f1_score))
+        print("------------------------------------")
+
+    def show_median(self):
+        print("MEDIAN:")
+        print('True Positives:', median(self.true_positives))
+        print('True Negatives:', median(self.true_negatives))
+        print('False Positives:', median(self.false_positives))
+        print('False Negatives:', median(self.false_negatives))
+        print('total Samples:', median(self.total_samples))
+        print('Accuracy:', median(self.accuracy))
+        print('Precision:', median(self.precision))
+        print('Sensitivity:', median(self.sensitivity))
+        print('Specificity:', median(self.specificity))
+        print('TPR:', median(self.true_positive_rate))
+        print('FPR:', median(self.false_positive_rate))
+        print('F1-Score:', median(self.f1_score))
+        print("------------------------------------")
