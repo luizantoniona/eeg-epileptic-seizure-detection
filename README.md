@@ -81,7 +81,10 @@ The data will be processed and inserted into the models in two different domains
 ### RCNN (Recurrent Convolutional Neural Network):
 - TODO:
 
-### Transformers:
+### Siamese Neural Network:
+- TODO:
+
+### Vision Transformer:
 - TODO:
 
 ---
