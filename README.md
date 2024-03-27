@@ -10,23 +10,11 @@ The dataset comes with a summary for each patient, containing crucial details ab
 
 After an analysis of the data contained in the summaries, we arrived at a relational table with the following information:
 
-- Record name;
-- File name;
-- Initial time;
-- End time;
-- Number of seizures;
-- Initial seizure times;
-- Final seizure times;
-- Number of channels;
-- Channel names.
-
-And the result is:
-
 | record_name |  file_name   | start_time | end_time | nr_seizures | start_seizure | end_seizure | nr_channels |   ds_channels    |
 | :---------: | :----------: | :--------: | :------: | :---------: | :-----------: | :---------: | :---------: | :--------------: |
 |    chb01    | chb01_01.edf |  12:34:22  | 13:13:07 |      2      |  1862, 2000   | 1963, 2213  |     24      | FP1-F7,F7-T7,... |
 
-To store the records of the table above, a MySQL database was used (https://www.mysql.com/), as it is simple to use and contains a Python library.
+To store the records of the table above, a [MySQL](https://www.mysql.com/) database was used, as it is simple to use and contains a Python library.
 
 ## [Database Configuration](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/configuration_database.ipynb)
 - Creates the **database** based on the information from [database_info.py](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/database/database_info.py).
@@ -58,9 +46,94 @@ To store the records of the table above, a MySQL database was used (https://www.
 - Pré-visualization of data in time and frequency domain.
 
 ## Pre-processing
-- TODO:
 
-## Model's Architecture
+The pre-processing step is segmented into two different phases: one for generating segmented domain data and the other for preparing the data for training, validation, and testing.
+
+###  Generate segmented data:
+
+- **Search anomalous summaries:** Search in the database for EEG files containing epileptic seizures.
+  
+- **For each file:** *(This steps are performed using multithreading for improved performance)*
+  
+  - **Read file:** Read the EEG file.
+  
+  - **Remove unused channels:** Eliminate any channels that are not required for analysis.
+
+  - **Sliding window segmentation:** Segment the data into smaller windows. These segments are centered around seizures to optimize time and memory usage.
+
+  - **Compute PSD (Power Spectral Density):** If the requested data is in the frequency domain, compute the Power Spectral Density (PSD) of each segment.
+
+- **Pre-processed data:** Obtain the pre-processed data as the output of the entire process.
+
+The flowchart of this steps are:
+
+```mermaid
+   flowchart LR
+   A[Search anomalous summaries]
+   A --> B
+   B[Read file]
+   subgraph B [For each file]
+      C[Read file]
+      D[Remove unused channels]
+      C-->D
+   end
+   B-->E
+   subgraph E [For each epileptic seizure]
+      F[Sliding window segmentation]
+   end
+   E-->G
+   G{Domain?}
+   H[Compute PSD]
+   I[Pre-processed data]
+   G-->|Time| I
+   G-->|Frequency| H
+   H-->I
+```
+
+#### Adjust data for training:
+
+- **Pre-processed data:** This represents the pre-processed data obtained from the previous stage of data pre-processing.
+
+- **Normalization:** The pre-processed data is normalized to ensure that all features have a similar scale, which helps improve the convergence speed of the training algorithm and prevents any particular feature from dominating the learning process.
+  
+- **Data split:** The normalized data is split into three subsets: training data, validation data, and test data.
+
+- **Train:** This subset is used to train the machine learning model.
+
+- **Validation:** This subset is used to tune the hyperparameters of the model and to prevent overfitting.
+
+- **Test:** This subset is used to evaluate the performance of the trained model on unseen data.
+
+- **Balance:** This step involves balancing the distribution of samples within the training data to prevent the model from being biased towards certain value.
+
+- **Shuffle:** The training data is shuffled to randomize the order of samples, which helps prevent the model from learning any patterns based on the order of data points.
+
+- **Training:** This stage involves training the machine learning model using the balanced and shuffled training data.
+
+- **Evaluation:** After training, the model's performance is evaluated using the validation and test datasets to assess its generalization ability and effectiveness.
+
+```mermaid
+   flowchart LR
+   A[Pre-processed data]
+   B[Normalization]
+   A-->B
+   B-->C
+   subgraph C [Data split]
+   D[Train]
+   E[Validation]
+   F[Test]
+   end
+   G[Balance]
+   H[Shuffle]
+   D-->G
+   G-->H
+   I((Training))
+   J((Evaluation))
+   H-->I
+   E-->I
+   F-->J
+```
+## Models and Training
 
 ### Data Domains
 The data will be processed and inserted into the models in two different domains:
