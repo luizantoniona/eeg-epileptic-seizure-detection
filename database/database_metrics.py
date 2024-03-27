@@ -58,3 +58,19 @@ class DatabaseMetrics( Database ):
             return cursor.fetchall()
         except:
             print("Não há registros")
+
+    def metrics_by_model_and_domain(self, model_name, domain_name):
+        """
+        Retrieve metrics by model and domain.
+        """
+        fd = open("./database/sql/select_metrics_by_model_and_domain.sql", 'r')
+        sql_file = fd.read()
+        fd.close()
+
+        cursor = self.db.cursor(buffered=True, dictionary=True)
+
+        try:
+            cursor.execute(sql_file, [model_name, domain_name])
+            return cursor.fetchall()
+        except:
+            print("Não há registros")
