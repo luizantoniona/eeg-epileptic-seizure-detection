@@ -177,3 +177,6 @@ The data will be processed and inserted into the models in two different domains
 
 [1] Guttag J. CHB-MIT Scalp EEG Database (version 1.0.0). PhysioNet. 2010. Available from: https://doi.org/10.13026/C2K01R
 
+## License
+
+Copyright © 2024 [Luiz Antonio Nicolau Anghinoni](https://github.com/luizantoniona)
