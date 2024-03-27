@@ -146,15 +146,11 @@ The data will be processed and inserted into the models in two different domains
 
 - **[FrequencyCNN](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/cnn_training_frequency.ipynb)**
 
-- **[CNN Metrics Comparison](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/cnn_model_metrics.ipynb)**
-
 ### RNN (Recurrent Neural Network):
 
 - **[TimeRNN](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/rnn_training_time.ipynb)**
 
 - **[FrequencyRNN](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/rnn_training_frequency.ipynb)**
-
-- **[RNN Metrics Comparison](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/rnn_model_metrics.ipynb)**
 
 ### RCNN (Recurrent Convolutional Neural Network):
 - TODO:
@@ -165,8 +161,19 @@ The data will be processed and inserted into the models in two different domains
 ### Vision Transformer:
 - TODO:
 
----
+## Metrics:
+
+- **[CNN Metrics Comparison](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/cnn_model_metrics.ipynb)**
+
+- **[RNN Metrics Comparison](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/rnn_model_metrics.ipynb)**
+
+- **TODO: [RCNN Metrics Comparision]()**
+
+- **TODO: [Siame Metrics Comparision]()**
+
+- **TODO: [Vision Transfomer Metrics Comparision]()**
+
+## References
 
 [1] Guttag J. CHB-MIT Scalp EEG Database (version 1.0.0). PhysioNet. 2010. Available from: https://doi.org/10.13026/C2K01R
 
----
