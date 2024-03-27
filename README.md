@@ -28,15 +28,15 @@ And the result is:
 
 To store the records of the table above, a MySQL database was used (https://www.mysql.com/), as it is simple to use and contains a Python library.
 
-## [Database Configuration](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/database_configuration.ipynb)
+## [Database Configuration](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/configuration_database.ipynb)
 - Creates the **database** based on the information from [database_info.py](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/database/database_info.py).
 - Creates the **summary_info** table, designated to store summary information from the EEG's data.
 - Creates the **metrics_info** table, designated to store metrics between models for further comparison.
 
-## [Dataset Downloader](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/dataset_downloader.ipynb):
+## [Dataset Downloader](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/configuration_dataset_downloader.ipynb):
 - Download the dataset from [CHB-MIT Scalp EEG Database](https://physionet.org/physiobank/database/chbmit/) and stores it at data/ directory.
 
-## [Dataset Database](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/dataset_downloader.ipynb):
+## [Dataset Database](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/configuration_dataset_database.ipynb):
 - Is used to insert sample models to the database following the flowchart:
   
 ```mermaid
@@ -76,7 +76,12 @@ The data will be processed and inserted into the models in two different domains
 - **[CNN Metrics Comparison](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/cnn_model_metrics.ipynb)**
 
 ### RNN (Recurrent Neural Network):
-- TODO:
+
+- **[TimeRNN](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/rnn_training_time.ipynb)**
+
+- **[FrequencyRNN](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/rnn_training_frequency.ipynb)**
+
+- **[RNN Metrics Comparison](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/rnn_model_metrics.ipynb)**
 
 ### RCNN (Recurrent Convolutional Neural Network):
 - TODO:
