@@ -65,8 +65,6 @@ The pre-processing step is segmented into two different phases: one for generati
 
 - **Pre-processed data:** Obtain the pre-processed data as the output of the entire process.
 
-The flowchart of this steps are:
-
 ```mermaid
    flowchart LR
    A[Search anomalous summaries]
@@ -169,7 +167,7 @@ The data will be processed and inserted into the models in two different domains
 
 - **TODO: [RCNN Metrics Comparision]()**
 
-- **TODO: [Siame Metrics Comparision]()**
+- **TODO: [Siamese Metrics Comparision]()**
 
 - **TODO: [Vision Transfomer Metrics Comparision]()**
 
