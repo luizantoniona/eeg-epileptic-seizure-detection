@@ -2,7 +2,7 @@
 
 """
 
-from ia.metrics.metrics_model import MetricsModel
+from metrics.metrics_model import MetricsModel
 
 def model_from_tuple( metrics_tuple ) -> MetricsModel:
     """
