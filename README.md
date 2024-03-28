@@ -164,19 +164,26 @@ A set of metrics was used to evaluate the performance of the models. For those m
 
 ### Used Metrics:
 
-**Acuracy:** $Acu = \frac{TP + TN}{T}$
+**Acuracy:**
+- $Acu = \frac{TP + TN}{T}$
 
-**Precision:** $Pre = \frac{TP}{TP + FP}$
+**Precision:**
+- $Pre = \frac{TP}{TP + FP}$
 
-**Sensitivity:** $Sen = \frac{TP}{FN + FP}$
+**Sensitivity:**
+- $Sen = \frac{TP}{FN + FP}$
 
-**Specificity:** $Spe = \frac{TN}{TN + FP}$
+**Specificity:**
+- $Spe = \frac{TN}{TN + FP}$
 
-**True Positive Rate:** $TPR = \frac{TP}{TP + FP}$
+**True Positive Rate:**
+- $TPR = \frac{TP}{TP + FP}$
 
-**False Positive Rate:** $FPR = \frac{FP}{FP + TN}$
+**False Positive Rate:**
+- $FPR = \frac{FP}{FP + TN}$
 
-**F1-Score:** $F1 = \frac{2 \times Acu \times Sen}{Acu + Sen}$
+**F1-Score:**
+- $F1 = \frac{2 \times Acu \times Sen}{Acu + Sen}$
 
 ### Models Evaluations:
 
