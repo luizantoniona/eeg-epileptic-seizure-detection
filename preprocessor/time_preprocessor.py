@@ -1,10 +1,10 @@
 """
 """
+import preprocessor.balancer.data_balancer as balancer
+import preprocessor.loader.data_loader as loader
+import preprocessor.normalizer.time_normalizer as normalizer
+import preprocessor.splitter.time_splitter as splitter
 import random
-import loader.data_loader as loader
-import normalizer.time_normalizer as normalizer
-import splitter.time_splitter as splitter
-import balancer.data_balancer as balancer
 
 def preprocess( balance_train = False, balance_val = False, balance_test = False, number_test_samples = 5 ):
 

@@ -1,4 +1,4 @@
-import reader.reader as reader
+import model.reader.reader as reader
 from model.signal_model import SignalModel
 
 class SummaryModel:
