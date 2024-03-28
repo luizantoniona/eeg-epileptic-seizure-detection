@@ -1,13 +1,13 @@
 """
-Module: time_rnn
+Module: frequency_rnn
 
-This module provides RNN models for time domain
+This module provides RNN models for frequency domain
 """
 
-from ia.model.rnn.base_rnn import BaseRNN
+from ia.rnn.base_rnn import BaseRNN
 import tensorflow as tf
 
-class TimeRNN( BaseRNN ):
+class FrequencyRNN( BaseRNN ):
     """
     RNN Model for time data training
     """
@@ -20,9 +20,4 @@ class TimeRNN( BaseRNN ):
         self.model.add(tf.keras.layers.Dense(10))
 
     def name(self):
-        return "time_rnn"
-
-
-#SimpleRNN: a fully-connected RNN where the output from previous timestep is to be fed to next timestep
-#GRU: As GRUs são uma versão melhorada da rede neural recorrente padrão.
-#LSTM: processar e prever séries temporais com intervalos de tempo de duração desconhecida.
+        return "frequency_rnn"

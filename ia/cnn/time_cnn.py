@@ -4,7 +4,7 @@ Module: time_cnn
 This module provides CNN models for time domain
 """
 
-from ia.model.cnn.base_cnn import BaseCNN
+from ia.cnn.base_cnn import BaseCNN
 import tensorflow as tf
 
 class TimeCNN( BaseCNN ):

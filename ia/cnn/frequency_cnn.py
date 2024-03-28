@@ -4,7 +4,7 @@ Module: frequency_cnn
 This module provides CNN models for frequency domain
 """
 
-from ia.model.cnn.base_cnn import BaseCNN
+from ia.cnn.base_cnn import BaseCNN
 import tensorflow as tf
 
 class FrequencyCNN( BaseCNN ):
