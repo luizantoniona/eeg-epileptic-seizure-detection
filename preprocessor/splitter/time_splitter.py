@@ -5,8 +5,8 @@ This module provides functions to split summary data into training, validation a
 """
 
 import model.summary_model as sm
-import splitter.summary_splitter as splitter
 import numpy as np
+import preprocessor.splitter.summary_splitter as splitter
 from sklearn.utils import shuffle
 
 def test_segmented_time_data(summaries: list[sm.SummaryModel]):

@@ -8,7 +8,7 @@ with options to renaming channels and setting the montage.
 import mne
 import numpy as np
 import re
-import reader.reader_commons as commons
+import model.reader.reader_commons as commons
 
 def rename_channels(mne_object: mne.io.Raw):
   replace_dict = {}
