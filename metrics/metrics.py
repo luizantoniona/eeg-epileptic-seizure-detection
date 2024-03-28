@@ -5,6 +5,8 @@ Provides class to calculate metrics from test and prediction
 """
 
 from database.database_metrics import DatabaseMetrics
+import matplotlib.pyplot as plt
+import sklearn.metrics as metrics
 
 class Metrics:
    """
@@ -57,3 +59,17 @@ class Metrics:
       database.insert_metrics_data(self.model_name, self.model_data_domain,
                              self.accuracy, self.precision, self.sensitivity, self.specificity, self.true_positive_rate, self.false_positive_rate, self.f1_score,
                              self.true_positives, self.true_negatives, self.false_positives, self.false_negatives, self.total_samples )
+
+   def plot_roc_auc(self, y_test, predictions):
+      fpr, tpr, threshold = metrics.roc_curve(y_test, predictions)
+      roc_auc = metrics.auc(fpr, tpr)
+
+      plt.title('Receiver Operating Characteristic')
+      plt.plot(fpr, tpr, 'b', label = 'AUC = %0.2f' % roc_auc)
+      plt.legend(loc = 'lower right')
+      plt.plot([0, 1], [0, 1],'r--')
+      plt.xlim([0, 1])
+      plt.ylim([0, 1])
+      plt.ylabel('True Positive Rate')
+      plt.xlabel('False Positive Rate')
+      plt.show()
