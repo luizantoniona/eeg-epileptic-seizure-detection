@@ -2,6 +2,8 @@
 
 TODO: Link to thesis article
 
+TODO: Thesis citation (when done, use it to reference this code)
+
 ## Dataset
 
 The dataset used in this work was the [CHB-MIT Scalp EEG Database](https://physionet.org/physiobank/database/chbmit/) from PhysioNet [1]. The exams in this dataset were generated at Boston Children's Hospital. All patients were monitored at a sampling rate of 256 Hz with 16-bit quantization, and the electrodes were placed according to the 10–20 system of the International Federation of Clinical Neurophysiology ([IFCN](https://www.ifcn.info/)). The dataset contains information from 23 patients, where each case contains between 9 and 42 continuous samples from a single subject.
@@ -21,10 +23,10 @@ To store the records of the table above, a [MySQL](https://www.mysql.com/) datab
 - Creates the **summary_info** table, designated to store summary information from the EEG's data.
 - Creates the **metrics_info** table, designated to store metrics between models for further comparison.
 
-## [Dataset Downloader](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/configuration_dataset_downloader.ipynb):
+## [Dataset Downloader](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/configuration_dataset_downloader.ipynb)
 - Download the dataset from [CHB-MIT Scalp EEG Database](https://physionet.org/physiobank/database/chbmit/) and stores it at data/ directory.
 
-## [Dataset Database](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/configuration_dataset_database.ipynb):
+## [Dataset Database](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/configuration_dataset_database.ipynb)
 - Is used to insert sample models to the database following the flowchart:
   
 ```mermaid
@@ -41,9 +43,6 @@ To store the records of the table above, a [MySQL](https://www.mysql.com/) datab
    G -->|No| H[(Insert in database)]
    H --> D
 ```
-
-## [Dataset Preview](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/dataset_preview.ipynb):
-- Pré-visualization of data in time and frequency domain.
 
 ## Pre-processing
 
@@ -146,9 +145,9 @@ The data will be processed and inserted into the models in two different domains
 
 ### RNN (Recurrent Neural Network):
 
-- **[TimeRNN](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/rnn_training_time.ipynb)**
+- **TODO: [TimeRNN](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/rnn_training_time.ipynb)**
 
-- **[FrequencyRNN](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/rnn_training_frequency.ipynb)**
+- **TODO: [FrequencyRNN](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/rnn_training_frequency.ipynb)**
 
 ### RCNN (Recurrent Convolutional Neural Network):
 - TODO:
@@ -161,9 +160,29 @@ The data will be processed and inserted into the models in two different domains
 
 ## Metrics:
 
+A set of metrics was used to evaluate the performance of the models. For those metrics, we consider $TP$ for true positives, $TN$ for true negatives, $FN$ for false negatives, $FP$ for false positives, and $T$ as the total number of samples.
+
+### Used Metrics:
+
+**Acuracy:** $Acu = \frac{TP + TN}{T}$
+
+**Precision:** $Pre = \frac{TP}{TP + FP}$
+
+**Sensitivity:** $Sen = \frac{TP}{FN + FP}$
+
+**Specificity:** $Spe = \frac{TN}{TN + FP}$
+
+**True Positive Rate:** $TPR = \frac{TP}{TP + FP}$
+
+**False Positive Rate:** $FPR = \frac{FP}{FP + TN}$
+
+**F1-Score:** $F1 = \frac{2 \times Acu \times Sen}{Acu + Sen}$
+
+### Models Evaluations:
+
 - **[CNN Metrics Comparison](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/cnn_model_metrics.ipynb)**
 
-- **[RNN Metrics Comparison](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/rnn_model_metrics.ipynb)**
+- **TODO: [RNN Metrics Comparison](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/rnn_model_metrics.ipynb)**
 
 - **TODO: [RCNN Metrics Comparision]()**
 
