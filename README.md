@@ -107,7 +107,7 @@ The pre-processing step is segmented into two different phases: one for generati
 
 - **Training:** This stage involves training the machine learning model using the balanced and shuffled training data.
 
-- **Evaluation:** After training, the model's performance is evaluated using the validation and test datasets to assess its generalization ability and effectiveness.
+- **Evaluation:** After training, the model's performance is evaluated using the test datasets to acess its generalization ability and effectiveness.
 
 ```mermaid
    flowchart LR
