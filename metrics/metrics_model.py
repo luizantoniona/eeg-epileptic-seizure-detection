@@ -4,6 +4,7 @@
 
 from statistics import mean 
 from statistics import median
+from statistics import pstdev
 
 class MetricsModel:
     """
@@ -34,14 +35,15 @@ class MetricsModel:
         print("MODEL:", self.model_name)
         print("DATA DOMAIN:", self.model_data_domain)
         print("------------------------------------")
-
-    def show_mean(self):
-        print("MEAN:")
         print('True Positives:', mean(self.true_positives))
         print('True Negatives:', mean(self.true_negatives))
         print('False Positives:', mean(self.false_positives))
         print('False Negatives:', mean(self.false_negatives))
-        print('total Samples:', mean(self.total_samples))
+        print('Total Samples:', mean(self.total_samples))
+        print("------------------------------------")
+
+    def show_mean(self):
+        print("MEAN:")
         print('Accuracy:', mean(self.accuracy))
         print('Precision:', mean(self.precision))
         print('Sensitivity:', mean(self.sensitivity))
@@ -51,13 +53,19 @@ class MetricsModel:
         print('F1-Score:', mean(self.f1_score))
         print("------------------------------------")
 
+    def show_deviation(self):
+        print("DEVIATION:")
+        print('Accuracy:', pstdev(self.accuracy))
+        print('Precision:', pstdev(self.precision))
+        print('Sensitivity:', pstdev(self.sensitivity))
+        print('Specificity:', pstdev(self.specificity))
+        print('TPR:', pstdev(self.true_positive_rate))
+        print('FPR:', pstdev(self.false_positive_rate))
+        print('F1-Score:', pstdev(self.f1_score))
+        print("------------------------------------")
+
     def show_median(self):
         print("MEDIAN:")
-        print('True Positives:', median(self.true_positives))
-        print('True Negatives:', median(self.true_negatives))
-        print('False Positives:', median(self.false_positives))
-        print('False Negatives:', median(self.false_negatives))
-        print('total Samples:', median(self.total_samples))
         print('Accuracy:', median(self.accuracy))
         print('Precision:', median(self.precision))
         print('Sensitivity:', median(self.sensitivity))
