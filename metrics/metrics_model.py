@@ -1,7 +1,8 @@
 """
 
 """
-
+import numpy as np
+import sklearn.metrics as metrics
 from statistics import mean 
 from statistics import median
 from statistics import pstdev
@@ -74,3 +75,14 @@ class MetricsModel:
         print('FPR:', median(self.false_positive_rate))
         print('F1-Score:', median(self.f1_score))
         print("------------------------------------")
+
+    def generate_roc_auc_data(self):
+        tpr = median(self.true_positive_rate)
+        fpr = median(self.false_positive_rate)
+
+        tpr_result = np.concatenate([np.linspace(0, tpr, num=50), np.linspace(tpr, 1, num=50)])
+        fpr_result = np.concatenate([np.linspace(0, fpr, num=50), np.linspace(fpr, 1, num=50)])
+
+        auc = metrics.auc(fpr_result, tpr_result)
+
+        return tpr_result, fpr_result, auc
