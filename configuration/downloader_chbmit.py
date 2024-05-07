@@ -11,17 +11,17 @@ import wfdb
 from urllib.request import urlretrieve
 
 def get_summary( part_code ):
-  url = "https://physionet.org/physiobank/database/chbmit/" + part_code + '/' + part_code + '-summary.txt'
-  directory = "./data/" + part_code + '/'
-  filename = part_code + "-summary.txt"
+    url = "https://physionet.org/physiobank/database/chbmit/" + part_code + '/' + part_code + '-summary.txt'
+    directory = "./data/" + part_code + '/'
+    filename = part_code + "-summary.txt"
 
-  fullpath = os.path.join( directory, filename )
+    fullpath = os.path.join( directory, filename )
 
-  if not os.path.exists( fullpath ):
-    os.makedirs( directory )
-    urlretrieve( url, fullpath )
-  else:
-    print(part_code + ": Já existe")
+    if not os.path.exists( fullpath ):
+        os.makedirs( directory )
+        urlretrieve( url, fullpath )
+    else:
+        print(part_code + ": Já existe")
 
 def get_edf_by_record(record, file):
     url = "https://physionet.org/physiobank/database/chbmit/" + record + '/' + file
