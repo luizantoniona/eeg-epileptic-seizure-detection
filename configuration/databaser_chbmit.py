@@ -63,7 +63,7 @@ def summary_info(content, record_name):
 
         else:
             if file_name != "":
-                directory = "../../data/" + record_name + '/'
+                directory = "data/" + record_name + '/'
                 fullpath = os.path.join( directory, file_name )
 
                 if os.path.exists( fullpath ):
@@ -89,7 +89,7 @@ def summary_info(content, record_name):
                 nr_seizures = ""
 
 def execute():
-    records_list = os.listdir('./data/')
+    records_list = os.listdir('data/')
     part_codes = sorted(list(set([record.split('/')[0] for record in records_list])))
 
     for record in part_codes:
