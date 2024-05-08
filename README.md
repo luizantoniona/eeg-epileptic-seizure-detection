@@ -19,7 +19,7 @@ After an analysis of the data contained in the summaries, we arrived at a relati
 To store the records of the table above, a [MySQL](https://www.mysql.com/) database was used, as it is simple to use and contains a Python library.
 
 ## [Database Configuration](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/configuration_database.ipynb)
-- Creates the **database** based on the information from [database_info.py](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/database/database_info.py).
+- Creates the **database** based on the information from [database.py](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/database/database.py).
 - Creates the **summary_info** table, designated to store summary information from the EEG's data.
 - Creates the **metrics_info** table, designated to store metrics between models for further comparison.
 
