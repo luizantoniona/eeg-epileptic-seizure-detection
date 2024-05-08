@@ -18,15 +18,15 @@ After an analysis of the data contained in the summaries, we arrived at a relati
 
 To store the records of the table above, a [MySQL](https://www.mysql.com/) database was used, as it is simple to use and contains a Python library.
 
-## [Database Configuration](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/configuration_database.ipynb)
+## [Database Configuration](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/02%20-%20Database%20Configuration.ipynb)
 - Creates the **database** based on the information from [database.py](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/database/database.py).
 - Creates the **summary_info** table, designated to store summary information from the EEG's data.
 - Creates the **metrics_info** table, designated to store metrics between models for further comparison.
 
-## [Dataset Downloader](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/configuration_dataset_downloader.ipynb)
+## [Dataset Downloader](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/01%20-%20Dataset%20Downloader.ipynb)
 - Download the dataset from [CHB-MIT Scalp EEG Database](https://physionet.org/physiobank/database/chbmit/) and stores it at data/ directory.
 
-## [Dataset Database](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/configuration_dataset_database.ipynb)
+## [Dataset Database](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/03%20-%20Dataset%20to%20Database.ipynb)
 - Is used to insert sample models to the database following the flowchart:
   
 ```mermaid
@@ -95,11 +95,11 @@ The pre-processing step is segmented into two different phases: one for generati
   
 - **Data split:** The normalized data is split into three subsets: training data, validation data, and test data.
 
-- **Train:** This subset is used to train the machine learning model.
+  - **Train:** This subset is used to train the machine learning model.
 
-- **Validation:** This subset is used to tune the hyperparameters of the model and to prevent overfitting.
+  - **Validation:** This subset is used to tune the hyperparameters of the model and to prevent overfitting.
 
-- **Test:** This subset is used to evaluate the performance of the trained model on unseen data.
+  - **Test:** This subset is used to evaluate the performance of the trained model on unseen data.
 
 - **Balance:** This step involves balancing the distribution of samples within the training data to prevent the model from being biased towards certain value.
 
