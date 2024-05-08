@@ -139,15 +139,15 @@ The data will be processed and inserted into the models in two different domains
 
 ### CNN (Convolutional Neural Network):
 
-- **[TimeCNN](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/cnn_training_time.ipynb)**
+- **[TimeCNN](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/11%20-%20CNN%20Time.ipynb)**
 
-- **[FrequencyCNN](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/cnn_training_frequency.ipynb)**
+- **[FrequencyCNN](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/12%20-%20CNN%20Frequency.ipynb)**
 
 ### RNN (Recurrent Neural Network):
 
-- **TODO: [TimeRNN](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/rnn_training_time.ipynb)**
+- **TODO: [TimeRNN]()**
 
-- **TODO: [FrequencyRNN](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/rnn_training_frequency.ipynb)**
+- **TODO: [FrequencyRNN]()**
 
 ### RCNN (Recurrent Convolutional Neural Network):
 - TODO:
@@ -187,9 +187,9 @@ A set of metrics was used to evaluate the performance of the models. For those m
 
 ### Models Evaluations:
 
-- **[CNN Metrics Comparison](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/cnn_model_metrics.ipynb)**
+- **[CNN Metrics Comparison](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/15%20-%20CNN%20Evaluation.ipynb)**
 
-- **TODO: [RNN Metrics Comparison](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/rnn_model_metrics.ipynb)**
+- **TODO: [RNN Metrics Comparison]()**
 
 - **TODO: [RCNN Metrics Comparision]()**
 
