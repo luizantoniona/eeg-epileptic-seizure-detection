@@ -1,6 +1,6 @@
-import model.summary_model as sm
+from Object.Summary import Summary
 
-def model_from_tuple(summary_tupple) -> sm.SummaryModel:
+def model_from_tuple(summary_tupple) -> Summary:
 
     summary_start_times = []
     summary_end_times = []
@@ -11,7 +11,7 @@ def model_from_tuple(summary_tupple) -> sm.SummaryModel:
     if summary_tupple['end_seizure'] != '':
         summary_end_times = [int(x) for x in str(summary_tupple['end_seizure']).split(',')]
 
-    model = sm.SummaryModel (
+    model = Summary (
         summary_tupple['record_name'],
         summary_tupple['file_name'],
         summary_tupple['start_time'],

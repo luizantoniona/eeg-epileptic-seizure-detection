@@ -1,7 +1,8 @@
-import model.reader.reader as reader
-from model.signal_model import SignalModel
+import Object.reader.reader as reader
+import Object.Signal.SignalFactory as SignalFactory
+from Object.Signal import Signal
 
-class SummaryModel:
+class Summary:
     """
     A class representing a summary of data.
 
@@ -15,7 +16,7 @@ class SummaryModel:
     - end_seizure (list): List of end times of seizures.
     - nr_channels (int): Number of data channels.
     - ds_channels (list): List of data channels.
-    - signal: An instance of signal model (SignalModel).
+    - signal: An instance of signal model (Signal).
     """
 
     def __init__(self, record_name, file_name, start_time, end_time, nr_seizures, start_seizure, end_seizure, nr_channels, ds_channels):
@@ -28,7 +29,8 @@ class SummaryModel:
         self.end_seizure = end_seizure
         self.nr_channels = nr_channels
         self.ds_channels = ds_channels
-        self.signal : SignalModel = None
+
+        self.signal : Signal = None
 
     def __str__(self):
         return f"{self.record_name}:({self.file_name})"
@@ -80,13 +82,13 @@ class SummaryModel:
         """
         Generate an MNE signal model.
         """
-        self.signal = SignalModel( reader.read_edf(self, rename) )
+        self.signal = Signal( reader.read_edf(self, rename) )
 
-    def generate_segmented_time_data(self, time_window=5):
+    def generate_segmented_data(self, signal_type: str, time_window= 5):
         """
-        Generate segmented time data based on a specified time window around seizures.
+        Generate segmented data based on type and a specified time window around seizures.
         """
-        self.signal = SignalModel( reader.read_edf(self) )
+        self.signal = SignalFactory.signal_by_type(signal_type, reader.read_edf(self))
 
         for seizure_index in range(self.nr_seizures):
 
@@ -106,66 +108,22 @@ class SummaryModel:
             current_time = fragment_start    
 
             while current_time + time_window <= fragment_end:
-                self.signal.segment_time_data_by_interval(current_time, current_time + time_window)
+                self.signal.generate_segmented_data(current_time, current_time + time_window)
                 self.signal.label_segments.append(self.has_anomaly_in_interval(current_time, current_time + time_window))
                 current_time += time_window
 
-        self.signal.del_time_data()
+        self.signal.delete_time_data()
 
-    def generate_segmented_time_data_full_file(self, time_window=5):
+    def generate_segmented_data_full_file(self, signal_type: str, time_window=5):
         """
-        Generate segmented time data based on a specified time window for full file.
+        Generate segmented data based on type and a specified time window for full file.
         """
-        self.signal = SignalModel( reader.read_edf(self, False) )
+        self.signal = SignalFactory.signal_by_type(signal_type, reader.read_edf(self))
 
         current_time = 0    
         while current_time + time_window <= self.duration():
-            self.signal.segment_time_data_by_interval(current_time, current_time + time_window)
+            self.signal.generate_segmented_data(current_time, current_time + time_window)
             self.signal.label_segments.append(self.has_anomaly_in_interval(current_time, current_time + time_window))
             current_time += time_window
             
-        self.signal.del_time_data()
-
-    def generate_segmented_freq_data(self, time_window=5):
-        """
-        Generate segmented frequency data based on a specified time window around seizures.
-        """
-        self.signal = SignalModel( reader.read_edf(self, False) )
-
-        for seizure_index in range(self.nr_seizures):
-
-            start_seizure_time = self.start_seizure[seizure_index]
-            end_seizure_time = self.end_seizure[seizure_index]
-            seizure_duration = end_seizure_time - start_seizure_time
-
-            fragment_start = start_seizure_time - seizure_duration
-            fragment_end = end_seizure_time + seizure_duration
-
-            if fragment_start <= 0:
-                fragment_start = 0
-            
-            if fragment_end > self.duration():
-                fragment_end = self.duration()
-
-            current_time = fragment_start    
-
-            while current_time + time_window <= fragment_end:
-                self.signal.segment_freq_data_by_interval(current_time, current_time + time_window)
-                self.signal.label_segments.append(self.has_anomaly_in_interval(current_time, current_time + time_window))
-                current_time += time_window
-
-        self.signal.del_time_data()
-
-    def generate_segmented_freq_data_full_file(self, time_window=5):
-        """
-        Generate segmented frequency data based on a specified time window for full file.
-        """
-        self.signal = SignalModel( reader.read_edf(self, False) )
-
-        current_time = 0    
-        while current_time + time_window <= self.duration():
-            self.signal.segment_freq_data_by_interval(current_time, current_time + time_window)
-            self.signal.label_segments.append(self.has_anomaly_in_interval(current_time, current_time + time_window))
-            current_time += time_window
-            
-        self.signal.del_time_data()
+        self.signal.delete_time_data()
