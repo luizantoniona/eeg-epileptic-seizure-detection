@@ -2,7 +2,7 @@
 
 """
 
-from database.database import Database
+from Database.Database import Database
 
 class DatabaseSummary( Database ):
 
@@ -13,7 +13,7 @@ class DatabaseSummary( Database ):
         """
         Insert summary data into the database.
         """
-        fd = open("./database/sql/insert_summary_info.sql", 'r')
+        fd = open("./Database/SQL/Summary/insert_summary.sql", 'r')
         sql_file = fd.read()
         fd.close()
 
@@ -27,7 +27,7 @@ class DatabaseSummary( Database ):
         """
         Retrieve summary data from the database based on the file name.
         """
-        fd = open("./database/sql/select_summary_by_name.sql", 'r')
+        fd = open("./Database/SQL/Summary/select_summary_by_name.sql", 'r')
         sql_file = fd.read()
         fd.close()
 
@@ -43,7 +43,7 @@ class DatabaseSummary( Database ):
         """
         Retrieve all summary data from the database.
         """
-        fd = open("./database/sql/select_all_summaries.sql", 'r')
+        fd = open("./Database/SQL/Summary/select_all_summaries.sql", 'r')
         sql_file = fd.read()
         fd.close()
 
@@ -59,7 +59,7 @@ class DatabaseSummary( Database ):
         """
         Retrieve all summary data with anomaly information from the database.
         """
-        fd = open("./database/sql/select_all_summaries_with_anomaly.sql", 'r')
+        fd = open("./Database/SQL/Summary/select_all_summaries_with_anomaly.sql", 'r')
         sql_file = fd.read()
         fd.close()
 

@@ -2,7 +2,7 @@
 
 """
 
-from database.database import Database
+from Database.Database import Database
 
 class DatabaseMetrics( Database ):
 
@@ -15,7 +15,7 @@ class DatabaseMetrics( Database ):
         """
         Insert metrics data into the database.
         """
-        fd = open("./database/sql/insert_metrics_info.sql", 'r')
+        fd = open("./Database/SQL/Metrics/insert_metric.sql", 'r')
         sql_file = fd.read()
         fd.close()
 
@@ -31,7 +31,7 @@ class DatabaseMetrics( Database ):
         """
         Retrieve metrics by domain.
         """
-        fd = open("./database/sql/select_metrics_by_domain.sql", 'r')
+        fd = open("./Database/SQL/Metrics/select_metrics_by_domain.sql", 'r')
         sql_file = fd.read()
         fd.close()
 
@@ -47,7 +47,7 @@ class DatabaseMetrics( Database ):
         """
         Retrieve metrics by model.
         """
-        fd = open("./database/sql/select_metrics_by_model.sql", 'r')
+        fd = open("./Database/SQL/Metrics/select_metrics_by_model.sql", 'r')
         sql_file = fd.read()
         fd.close()
 
@@ -63,7 +63,7 @@ class DatabaseMetrics( Database ):
         """
         Retrieve metrics by model and domain.
         """
-        fd = open("./database/sql/select_metrics_by_model_and_domain.sql", 'r')
+        fd = open("./Database/SQL/Metrics/select_metrics_by_model_and_domain.sql", 'r')
         sql_file = fd.read()
         fd.close()
 
