@@ -1,10 +1,9 @@
-"""
-
-"""
-
 from Database.Database import Database
 
 class DatabaseSummary( Database ):
+    """
+
+    """
 
     def __init__(self):
         super().__init__()

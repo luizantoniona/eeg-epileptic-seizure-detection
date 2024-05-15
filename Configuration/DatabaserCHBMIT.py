@@ -1,10 +1,10 @@
 """
-Module: databaser_chbmit
+Module: DatabaserCHBMIT
 """
 
 import os
 import re
-from database.database_summary import DatabaseSummary
+from Database.DatabaseSummary import DatabaseSummary
 
 def get_summary_info( record ):
     directory = "./data/" + record + '/'

@@ -1,7 +1,7 @@
 """
-Module: dowloader_chbmit
+Module: DownloaderCHBMIT
 
-- Packages needed: 
+Packages: 
     - requests
     - wfdb
 """

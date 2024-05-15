@@ -1,12 +1,11 @@
-"""
-Class: Database
-
-Packages: mysql-connector-python
-"""
-
 import mysql.connector
 
 class Database:
+    """
+    Class: Database
+    
+    Packages: mysql-connector-python
+    """
 
     def __init__(self):
         self.db = self.connect()
