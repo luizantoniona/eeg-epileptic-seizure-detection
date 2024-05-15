@@ -1,4 +1,4 @@
-import Object.reader.reader as reader
+import Reader.Reader as Reader
 import Object.Signal.SignalFactory as SignalFactory
 from Object.Signal import Signal
 
@@ -78,17 +78,11 @@ class Summary:
             
         return has_anomaly
 
-    def generate_mne(self, rename = False) -> None:
-        """
-        Generate an MNE signal model.
-        """
-        self.signal = Signal( reader.read_edf(self, rename) )
-
     def generate_segmented_data(self, signal_type: str, time_window= 5):
         """
         Generate segmented data based on type and a specified time window around seizures.
         """
-        self.signal = SignalFactory.signal_by_type(signal_type, reader.read_edf(self))
+        self.signal = SignalFactory.signal_by_type(signal_type, Reader.read_edf(self))
 
         for seizure_index in range(self.nr_seizures):
 
@@ -118,7 +112,7 @@ class Summary:
         """
         Generate segmented data based on type and a specified time window for full file.
         """
-        self.signal = SignalFactory.signal_by_type(signal_type, reader.read_edf(self))
+        self.signal = SignalFactory.signal_by_type(signal_type, Reader.read_edf(self))
 
         current_time = 0    
         while current_time + time_window <= self.duration():

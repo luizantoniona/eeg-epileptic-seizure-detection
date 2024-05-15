@@ -1,5 +1,5 @@
 """
-Module: reader_commons
+Module: ReaderCommons
 """
 
 def remove_channels():

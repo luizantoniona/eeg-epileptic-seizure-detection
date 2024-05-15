@@ -1,5 +1,5 @@
 """
-Module: reader
+Module: Reader
 
 This module provides functionality to read data from an EDF (European Data Format) file using MNE (MNE-Python) library,
 with options to renaming channels and setting the montage.
@@ -8,7 +8,7 @@ with options to renaming channels and setting the montage.
 import mne
 import numpy as np
 import re
-import Object.reader.reader_commons as commons
+import Reader.ReaderCommons as Commons
 
 def rename_channels(mne_object: mne.io.Raw):
   replace_dict = {}
@@ -29,17 +29,17 @@ def read_edf(summary_model, rename = False, verbose = False):
     print('Reading:', summary_model.fullpath())
   
   mne_model = mne.io.read_raw_edf(summary_model.fullpath(),
-                                  include=commons.selected_channels(), 
+                                  include=Commons.selected_channels(), 
                                   preload=False,
                                   verbose='CRITICAL',
                                   )
   
-  mne_model.drop_channels(commons.remove_channels(), on_missing='ignore')
+  mne_model.drop_channels(Commons.remove_channels(), on_missing='ignore')
 
   if('T8-P8-0' in mne_model.info['ch_names']):
-    mne_model.rename_channels(commons.rename_channels())
+    mne_model.rename_channels(Commons.rename_channels())
 
-  mne_model.reorder_channels(commons.selected_channels())
+  mne_model.reorder_channels(Commons.selected_channels())
 
   if summary_model.nr_seizures > 0:
     start_times = []

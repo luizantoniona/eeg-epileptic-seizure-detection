@@ -1,7 +1,3 @@
-"""
-
-"""
-
 from Database.Database import Database
 
 class DatabaseMetrics( Database ):
