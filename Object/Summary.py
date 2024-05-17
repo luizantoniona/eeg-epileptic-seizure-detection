@@ -103,7 +103,7 @@ class Summary:
 
             while current_time + time_window <= fragment_end:
                 self.signal.generate_segmented_data(current_time, current_time + time_window)
-                self.signal.label_segments.append(self.has_anomaly_in_interval(current_time, current_time + time_window))
+                self.signal.label_segmented.append(self.has_anomaly_in_interval(current_time, current_time + time_window))
                 current_time += time_window
 
         self.signal.delete_time_data()
@@ -117,7 +117,7 @@ class Summary:
         current_time = 0    
         while current_time + time_window <= self.duration():
             self.signal.generate_segmented_data(current_time, current_time + time_window)
-            self.signal.label_segments.append(self.has_anomaly_in_interval(current_time, current_time + time_window))
+            self.signal.label_segmented.append(self.has_anomaly_in_interval(current_time, current_time + time_window))
             current_time += time_window
             
         self.signal.delete_time_data()

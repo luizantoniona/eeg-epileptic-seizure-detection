@@ -7,7 +7,7 @@ from Object.Summary import Summary
 from sklearn.model_selection import train_test_split
 import numpy as np
 
-def split(summaries: list[Summary], train_size=0.7, val_size=0.2, test_size=0.1, random_state=42):
+def split(summaries: list[Summary], train_size=0.70, val_size=0.20, test_size=0.10, random_state=42):
     """
     Splits data into training, validation, and test subsets.
 
@@ -30,7 +30,9 @@ def split(summaries: list[Summary], train_size=0.7, val_size=0.2, test_size=0.1,
     all_segmented_data = np.concatenate([summary.signal.get_data_segmented() for summary in summaries])
     all_segmented_label = np.concatenate([summary.signal.get_label_segmented() for summary in summaries])
 
-    if train_size + val_size + test_size != 1.0:
+    total_size = train_size + val_size + test_size
+    if not abs(total_size - 1.0) < 1e-9:
+        print(train_size + val_size + test_size)
         raise ValueError("train_size, val_size, and test_size must sum to 1.0")
 
     X_train_val, X_test, y_train_val, y_test = train_test_split(
