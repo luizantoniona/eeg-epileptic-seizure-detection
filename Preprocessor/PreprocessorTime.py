@@ -3,7 +3,7 @@
 import Preprocessor.Balancer.Balancer as Balancer
 import Preprocessor.Loader.Loader as Loader
 import Preprocessor.Normalizer.Normalizer as Normalizer
-import Preprocessor.Splitter.time_splitter as splitter
+import Preprocessor.Splitter.Splitter as Splitter
 import random
 
 def preprocess( train_split, validation_split, test_split, 
@@ -17,9 +17,7 @@ def preprocess( train_split, validation_split, test_split,
 
     # random.shuffle(summaries)
 
-    # X_train, X_val, y_train, y_val = splitter.train_val_segmented_time_data(summaries[:number_train_val_samples])
-
-    # X_test, y_test = splitter.test_segmented_time_data(summaries[number_train_val_samples + 1 : number_train_val_samples + 1 + number_test_samples])
+    X_train, y_train, X_validation, y_validation, X_test, y_test = Splitter.split(summaries)
 
     if( balance_train ):
         X_train, y_train = Balancer.balance(X_train, y_train)
