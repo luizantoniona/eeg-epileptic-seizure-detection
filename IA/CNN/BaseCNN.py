@@ -1,9 +1,3 @@
-"""
-Module: base_cnn
-
-This module provides base class model for CNN's
-"""
-
 import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf

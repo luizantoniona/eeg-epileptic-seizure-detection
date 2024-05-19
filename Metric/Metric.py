@@ -4,11 +4,11 @@ Module: metrics
 Provides class to calculate metrics from test and prediction
 """
 
-from database.database_metrics import DatabaseMetrics
+from Database.DatabaseMetrics import DatabaseMetrics
 import matplotlib.pyplot as plt
 import sklearn.metrics as metrics
 
-class Metrics:
+class Metric:
    """
    """
    def __init__(self, test, predictions, model_name, model_data_domain):

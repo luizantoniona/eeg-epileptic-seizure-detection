@@ -7,7 +7,7 @@ from statistics import mean
 from statistics import median
 from statistics import pstdev
 
-class MetricsModel:
+class Evaluator:
     """
     
     """
