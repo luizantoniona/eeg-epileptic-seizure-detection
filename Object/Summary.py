@@ -106,7 +106,7 @@ class Summary:
                 self.signal.label_segmented.append(self.has_anomaly_in_interval(current_time, current_time + time_window))
                 current_time += time_window
 
-        self.signal.delete_time_data()
+        self.signal.delete_mne_data()
 
     def generate_segmented_data_full_file(self, signal_type: str, time_window=5):
         """
@@ -120,4 +120,4 @@ class Summary:
             self.signal.label_segmented.append(self.has_anomaly_in_interval(current_time, current_time + time_window))
             current_time += time_window
             
-        self.signal.delete_time_data()
+        self.signal.delete_mne_data()

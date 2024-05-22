@@ -56,3 +56,13 @@ def load_psd_segmented_data(summaries: list[Summary], full_file = False) -> None
             executor.map(lambda summary: summary.generate_segmented_data_full_file(signal_type = "PSD"), summaries)
         else:
             executor.map(lambda summary: summary.generate_segmented_data(signal_type = "PSD"), summaries)
+
+def load_spectogram_segmented_data(summaries: list[Summary], full_file = False) -> None:
+    """
+    Generate segmented PSD data for a list of Summary objects.
+    """
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        if(full_file):
+            executor.map(lambda summary: summary.generate_segmented_data_full_file(signal_type = "spectogram"), summaries)
+        else:
+            executor.map(lambda summary: summary.generate_segmented_data(signal_type = "spectogram"), summaries)
