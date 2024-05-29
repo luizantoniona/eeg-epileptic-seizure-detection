@@ -1,16 +1,10 @@
-"""
-Module: base_rnn
-
-This module provides base class model for RNN's
-"""
-
 import matplotlib.pyplot as plt
 import numpy as np
 import tensorflow as tf
 
-class BaseRNN:
+class BaseNN:
     """
-    RNN Basic Model methods
+    Neural Network Basic Model methods
     """
     def __init__(self):
         self.model = tf.keras.models.Sequential()
