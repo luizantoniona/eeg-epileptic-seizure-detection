@@ -90,8 +90,8 @@ class Summary:
             end_seizure_time = self.end_seizure[seizure_index]
             seizure_duration = end_seizure_time - start_seizure_time
 
-            fragment_start = start_seizure_time - seizure_duration
-            fragment_end = end_seizure_time + seizure_duration
+            fragment_start = start_seizure_time - int(seizure_duration / 2)
+            fragment_end = end_seizure_time + int(seizure_duration / 2)
 
             if fragment_start <= 0:
                 fragment_start = 0
