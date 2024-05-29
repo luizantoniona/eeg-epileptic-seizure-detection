@@ -39,3 +39,15 @@ class BaseRNN:
     def print_predictions(self, y_test):
         for i in range(len(y_test)):
             print("PREDICTION: " + str(self.predictions[i]) + " | " +  "REAL: " + str(y_test[i]))
+
+    def save_model(self, filepath):
+        """
+        Save the model to the specified filepath.
+        """
+        self.model.save(filepath)
+
+    def load_model(self, filepath):
+        """
+        Load the model from the specified filepath.
+        """
+        self.model = tf.keras.models.load_model(filepath)
