@@ -19,12 +19,24 @@ class BaseRNN:
         self.model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
     def fit(self, train_data, train_labels, num_epochs, batch_size, val_data, val_labels):
-        self.history = self.model.fit(train_data, train_labels, epochs=num_epochs, batch_size=batch_size, validation_data=(val_data, val_labels))
+        """
+        Train the model with the provided training data and labels.
+        """
+        self.history = self.model.fit(train_data, train_labels,
+                                      epochs=num_epochs,
+                                      batch_size=batch_size,
+                                      validation_data=(val_data, val_labels))
 
     def summary(self):
+        """
+        Print the summary of the model.
+        """
         self.model.summary()
 
     def plot_train_val(self):
+        """
+        Plot training and validation accuracy over epochs.
+        """
         plt.plot(self.history.history['accuracy'], label='accuracy')
         plt.plot(self.history.history['val_accuracy'], label = 'val_accuracy')
         plt.xlabel('Epoch')
@@ -33,10 +45,16 @@ class BaseRNN:
         plt.legend(loc='lower right')
 
     def predict(self, X_test):
+        """
+        Make predictions on the test data.
+        """
         predictions = self.model.predict(X_test)
         self.predictions = np.array([prediction > 0.5 for prediction in predictions])
 
     def print_predictions(self, y_test):
+        """
+        Print predicted and real labels for the test set.
+        """
         for i in range(len(y_test)):
             print("PREDICTION: " + str(self.predictions[i]) + " | " +  "REAL: " + str(y_test[i]))
 
