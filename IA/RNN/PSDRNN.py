@@ -1,13 +1,13 @@
 """
-Module: time_rnn
+Module: frequency_rnn
 
-This module provides RNN models for time domain
+This module provides RNN models for frequency domain
 """
 
-from ia.rnn.base_rnn import BaseRNN
+from IA.RNN.BaseRNN import BaseRNN
 import tensorflow as tf
 
-class TimeRNN( BaseRNN ):
+class PSDRNN( BaseRNN ):
     """
     RNN Model for time data training
     """
@@ -19,4 +19,7 @@ class TimeRNN( BaseRNN ):
         self.model.add(tf.keras.layers.Dense(10))
 
     def name(self):
-        return "time_rnn"
+        """
+        Return the name of the model.
+        """
+        return "psd_rnn"
