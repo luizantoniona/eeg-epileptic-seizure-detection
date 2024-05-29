@@ -20,4 +20,7 @@ class PSDCNN( BaseCNN ):
         self.model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
 
     def name(self):
+        """
+        Return the name of the model.
+        """
         return "psd_cnn"

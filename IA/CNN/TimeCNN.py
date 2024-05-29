@@ -22,4 +22,7 @@ class TimeCNN( BaseCNN ):
         self.model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
 
     def name(self):
+        """
+        Return the name of the model.
+        """
         return "time_cnn"
