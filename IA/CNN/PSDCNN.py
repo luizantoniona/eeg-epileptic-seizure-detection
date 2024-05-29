@@ -1,7 +1,7 @@
-from IA.CNN.BaseCNN import BaseCNN
+from IA.BaseNN import BaseNN
 import tensorflow as tf
 
-class PSDCNN( BaseCNN ):
+class PSDCNN( BaseNN ):
     """
     CNN Model for PSD data training
     """
@@ -16,6 +16,8 @@ class PSDCNN( BaseCNN ):
         self.model.add(tf.keras.layers.Dense(128, activation='relu'))
         self.model.add(tf.keras.layers.Dropout(0.5))
         self.model.add(tf.keras.layers.Dense(64, activation='relu'))
+        self.model.add(tf.keras.layers.Dropout(0.5))
+        self.model.add(tf.keras.layers.Dense(32, activation='relu'))
         self.model.add(tf.keras.layers.Dropout(0.5))
         self.model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
 

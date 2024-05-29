@@ -1,7 +1,7 @@
-from IA.CNN.BaseCNN import BaseCNN
+from IA.BaseNN import BaseNN
 import tensorflow as tf
 
-class TimeCNN( BaseCNN ):
+class TimeCNN( BaseNN ):
     """
     CNN Model for time data training
     """
@@ -18,6 +18,8 @@ class TimeCNN( BaseCNN ):
         self.model.add(tf.keras.layers.Dense(128, activation='relu'))
         self.model.add(tf.keras.layers.Dropout(0.5))
         self.model.add(tf.keras.layers.Dense(64, activation='relu'))
+        self.model.add(tf.keras.layers.Dropout(0.5))
+        self.model.add(tf.keras.layers.Dense(32, activation='relu'))
         self.model.add(tf.keras.layers.Dropout(0.5))
         self.model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
 

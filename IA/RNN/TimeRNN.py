@@ -1,13 +1,7 @@
-"""
-Module: time_rnn
-
-This module provides RNN models for time domain
-"""
-
-from IA.RNN.BaseRNN import BaseRNN
+from IA.BaseNN import BaseNN
 import tensorflow as tf
 
-class TimeRNN( BaseRNN ):
+class TimeRNN( BaseNN ):
     """
     RNN Model for time data training
     """
@@ -16,7 +10,7 @@ class TimeRNN( BaseRNN ):
         self.model.add(tf.keras.layers.GRU(256, return_sequences=True))
         self.model.add(tf.keras.layers.SimpleRNN(128, return_sequences=True))
         self.model.add(tf.keras.layers.LSTM(128))
-        self.model.add(tf.keras.layers.Dense(10))
+        self.model.add(tf.keras.layers.Dense(1))
 
     def name(self):
         """
