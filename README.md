@@ -1,9 +1,5 @@
 # Epileptic Seizure Detection in EEG
 
-TODO: Link to thesis article
-
-TODO: Thesis citation (when done, use it to reference this code)
-
 ## Dataset
 
 The dataset used in this work was the [CHB-MIT Scalp EEG Database](https://physionet.org/physiobank/database/chbmit/) from PhysioNet [1]. The exams in this dataset were generated at Boston Children's Hospital. All patients were monitored at a sampling rate of 256 Hz with 16-bit quantization, and the electrodes were placed according to the 10–20 system of the International Federation of Clinical Neurophysiology ([IFCN](https://www.ifcn.info/)). The dataset contains information from 23 patients, where each case contains between 9 and 42 continuous samples from a single subject.
@@ -143,21 +139,6 @@ The data will be processed and inserted into the models in two different domains
 
 - **[FrequencyCNN](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/12%20-%20CNN%20Frequency.ipynb)**
 
-### RNN (Recurrent Neural Network):
-
-- **TODO: [TimeRNN]()**
-
-- **TODO: [FrequencyRNN]()**
-
-### RCNN (Recurrent Convolutional Neural Network):
-- TODO:
-
-### Siamese Neural Network:
-- TODO:
-
-### Vision Transformer:
-- TODO:
-
 ## Metrics:
 
 A set of metrics was used to evaluate the performance of the models. For those metrics, we consider $TP$ for true positives, $TN$ for true negatives, $FN$ for false negatives, $FP$ for false positives, and $T$ as the total number of samples.
@@ -188,14 +169,6 @@ A set of metrics was used to evaluate the performance of the models. For those m
 ### Models Evaluations:
 
 - **[CNN Metrics Comparison](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/15%20-%20CNN%20Evaluation.ipynb)**
-
-- **TODO: [RNN Metrics Comparison]()**
-
-- **TODO: [RCNN Metrics Comparision]()**
-
-- **TODO: [Siamese Metrics Comparision]()**
-
-- **TODO: [Vision Transfomer Metrics Comparision]()**
 
 ## References
 
