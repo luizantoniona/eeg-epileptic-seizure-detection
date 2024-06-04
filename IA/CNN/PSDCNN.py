@@ -7,10 +7,14 @@ class PSDCNN( BaseNN ):
     """
     def __init__(self, input_shape):
         super().__init__()
-        self.model.add(tf.keras.layers.Conv1D(32, 3, activation='relu', input_shape=input_shape))
+        self.model.add(tf.keras.layers.Conv1D(16, 3, activation='relu', input_shape=input_shape))
         self.model.add(tf.keras.layers.MaxPooling1D(3))
-        self.model.add(tf.keras.layers.Conv1D(64, 3, activation='relu'))
+        self.model.add(tf.keras.layers.BatchNormalization())
+        self.model.add(tf.keras.layers.Conv1D(32, 3, activation='relu'))
         self.model.add(tf.keras.layers.MaxPooling1D(3))
+        self.model.add(tf.keras.layers.Conv1D(64, 1, activation='relu'))
+        self.model.add(tf.keras.layers.Conv1D(128, 1, activation='relu'))
+        self.model.add(tf.keras.layers.BatchNormalization())
         self.model.add(tf.keras.layers.GlobalMaxPooling1D())
         self.model.add(tf.keras.layers.Flatten())
         self.model.add(tf.keras.layers.Dense(128, activation='relu'))
