@@ -7,7 +7,7 @@ from Object.Summary import Summary
 from sklearn.model_selection import train_test_split
 import numpy as np
 
-def split(summaries: list[Summary], train_size=0.70, val_size=0.20, test_size=0.10, random_state=42):
+def split(summaries: list[Summary], train_size, val_size, test_size, random_state=42):
     """
     Splits data into training, validation, and test subsets.
 
