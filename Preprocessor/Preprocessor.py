@@ -6,12 +6,13 @@ import Preprocessor.Normalizer.Normalizer as Normalizer
 import Preprocessor.Splitter.Splitter as Splitter
 import random
 
-def preprocess( balance_train = False, balance_val = False, balance_test = False, 
+def preprocess( signal_type : str,
+                balance_train = False, balance_val = False, balance_test = False, 
                 train_size=0.70, val_size=0.20, test_size=0.10 ):
 
     summaries = Loader.load_anomalous_summaries()
 
-    Loader.load_psd_segmented_data(summaries)
+    Loader.load_segmented_data(summaries, signal_type=signal_type)
 
     Normalizer.normalize(summaries)
 

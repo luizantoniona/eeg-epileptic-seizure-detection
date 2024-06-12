@@ -37,32 +37,17 @@ def load_anomalous_summaries() -> list[Summary]:
 
     return summaries
 
-def load_time_segmented_data(summaries: list[Summary], full_file = False) -> None:
+def load_segmented_data(summaries: list[Summary], signal_type: str, full_file=False) -> None:
     """
-    Generate segmented time data for a list of Summary objects.
-    """
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        if(full_file):
-            executor.map(lambda summary: summary.generate_segmented_data_full_file(signal_type = "time"), summaries)
-        else:
-            executor.map(lambda summary: summary.generate_segmented_data(signal_type = "time"), summaries)
+    Generate segmented data of specified type for a list of Summary objects.
 
-def load_psd_segmented_data(summaries: list[Summary], full_file = False) -> None:
-    """
-    Generate segmented PSD data for a list of Summary objects.
-    """
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        if(full_file):
-            executor.map(lambda summary: summary.generate_segmented_data_full_file(signal_type = "PSD"), summaries)
-        else:
-            executor.map(lambda summary: summary.generate_segmented_data(signal_type = "PSD"), summaries)
-
-def load_spectogram_segmented_data(summaries: list[Summary], full_file = False) -> None:
-    """
-    Generate segmented PSD data for a list of Summary objects.
+    Args:
+    - summaries (list[Summary]): List of Summary objects to process.
+    - signal_type (str): Type of signal data to generate ("time", "PSD", "spectogram").
+    - full_file (bool, optional): Whether to generate full file data. Defaults to False.
     """
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        if(full_file):
-            executor.map(lambda summary: summary.generate_segmented_data_full_file(signal_type = "spectogram"), summaries)
+        if full_file:
+            executor.map(lambda summary: summary.generate_segmented_data_full_file(signal_type=signal_type), summaries)
         else:
-            executor.map(lambda summary: summary.generate_segmented_data(signal_type = "spectogram"), summaries)
+            executor.map(lambda summary: summary.generate_segmented_data(signal_type=signal_type), summaries)
