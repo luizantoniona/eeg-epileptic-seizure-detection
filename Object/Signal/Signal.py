@@ -1,3 +1,4 @@
+import gc
 import mne
 
 class Signal:
@@ -38,11 +39,9 @@ class Signal:
     def generate_segmented_data(self):
         raise NotImplementedError()
 
-    def generate_segmented_labels(self):
-        raise NotImplementedError()
-
     def delete_mne_data(self):
         """
         Delete mne_data from memory.
         """
         del self.mne_data
+        gc.collect()

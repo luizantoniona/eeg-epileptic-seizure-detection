@@ -20,6 +20,3 @@ class TimeSignal(Signal):
         Generate segmented time data for a specified time interval.
         """
         self.data_segmented.append(self.mne_data.get_data(tmin=t_min, tmax=t_max))
-    
-    def generate_segmented_labels(self):
-        return super().generate_segmented_labels()

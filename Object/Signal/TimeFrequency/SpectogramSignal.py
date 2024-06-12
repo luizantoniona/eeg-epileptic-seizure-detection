@@ -14,12 +14,12 @@ class SpectogramSignal(Signal):
         """
         Generate Spectogram data for all file.
         """
-        self.data = self.mne_data.copy().compute_tfr(method='morlet',
+        self.data = self.mne_data.compute_tfr(method='morlet',
                                                      freqs=self.frequencies(),
                                                      n_jobs=-1,
                                                      verbose='CRITICAL',
                                                      n_cycles=self.frequencies()/2 ).get_data()
-    
+
     def generate_segmented_data(self, t_min, t_max):
         """
         Generate segmented Spectogram data for a specified time interval.
@@ -30,9 +30,6 @@ class SpectogramSignal(Signal):
                                                              n_jobs=-1,
                                                              verbose='CRITICAL',
                                                              n_cycles=self.frequencies()/2 ).get_data())
-    
-    def generate_segmented_labels(self):
-        return super().generate_segmented_labels()
-    
+
     def frequencies(self):
-        return np.arange(1.0, 128.0, 1.0)
+        return np.arange(1.0, 128.0, 8.0)
