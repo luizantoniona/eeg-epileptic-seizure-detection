@@ -78,6 +78,20 @@ class Summary:
             
         return has_anomaly
 
+    def generate_segmented_data_full_file(self, signal_type: str, time_window=5):
+        """
+        Generate segmented data based on type and a specified time window for full file.
+        """
+        self.signal = SignalFactory.signal_by_type(signal_type, Reader.read_edf(self))
+
+        current_time = 0    
+        while current_time + time_window <= self.duration():
+            self.signal.generate_segmented_data(current_time, current_time + time_window)
+            self.signal.label_segmented.append(self.has_anomaly_in_interval(current_time, current_time + time_window))
+            current_time += time_window
+
+        self.signal.delete_mne_data()
+
     def generate_segmented_data(self, signal_type: str, time_window= 5):
         """
         Generate segmented data based on type and a specified time window around seizures.
@@ -106,18 +120,4 @@ class Summary:
                 self.signal.label_segmented.append(self.has_anomaly_in_interval(current_time, current_time + time_window))
                 current_time += time_window
 
-        self.signal.delete_mne_data()
-
-    def generate_segmented_data_full_file(self, signal_type: str, time_window=5):
-        """
-        Generate segmented data based on type and a specified time window for full file.
-        """
-        self.signal = SignalFactory.signal_by_type(signal_type, Reader.read_edf(self))
-
-        current_time = 0    
-        while current_time + time_window <= self.duration():
-            self.signal.generate_segmented_data(current_time, current_time + time_window)
-            self.signal.label_segmented.append(self.has_anomaly_in_interval(current_time, current_time + time_window))
-            current_time += time_window
-            
         self.signal.delete_mne_data()
