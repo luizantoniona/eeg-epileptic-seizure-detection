@@ -43,14 +43,14 @@ def load_segmented_data(summaries: list[Summary], signal_type: str, full_file=Fa
 
     Args:
     - summaries (list[Summary]): List of Summary objects to process.
-    - signal_type (str): Type of signal data to generate ("time", "PSD", "spectogram").
+    - signal_type (str): Type of signal data to generate ("time", "PSD", "spectrogram").
     - full_file (bool, optional): Whether to generate full file data. Defaults to False.
     """
-    def process_summary(summary: Summary):
+    def generate(summary: Summary):
         if full_file:
             summary.generate_segmented_data_full_file(signal_type=signal_type)
         else:
             summary.generate_segmented_data(signal_type=signal_type)
 
     with concurrent.futures.ThreadPoolExecutor() as executor:
-        executor.map(process_summary, summaries)
+        executor.map(generate, summaries)
