@@ -4,7 +4,7 @@ from Object.Signal.Time.TimeSignal import TimeSignal
 from Object.Signal.TimeFrequency.SpectogramSignal import SpectogramSignal
 import mne
 
-def signal_by_type(signal_type: str, mne_object: mne.io.Raw ):
+def signal_by_type(signal_type: str, mne_object: mne.io.Raw):
     if signal_type == "time":
         return TimeSignal(mne_object)
     
