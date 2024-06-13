@@ -132,12 +132,14 @@ The pre-processing step is segmented into two different phases: one for generati
 The data will be processed and inserted into the models in two different domains:
 - Using temporal data for training.
 - Utilizing frequency (Power Spectral Density [PSD]) for training.
+- Using time-frequency (Spectogram) for training.
 
-### CNN (Convolutional Neural Network):
-
-- **[TimeCNN](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/11%20-%20CNN%20Time.ipynb)**
-
-- **[FrequencyCNN](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/12%20-%20CNN%20Frequency.ipynb)**
+### Models:
+- CNN (Convolutional Neural Network)
+- RNN (Recurrent Neural Network)
+- CRNN (Convolutional Recurrent Neural Network)
+- SNN (Siamese Neural Network)
+- ViT (Vision Transformer)
 
 ## Metrics:
 
