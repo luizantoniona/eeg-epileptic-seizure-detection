@@ -1,7 +1,7 @@
-from IA.BaseNN import BaseNN
+from IA.RNN.RNNBase import RNNBase
 import tensorflow as tf
 
-class RNNPSD( BaseNN ):
+class RNNPSD( RNNBase ):
     """
     RNN Model for time data training
     """
@@ -18,11 +18,8 @@ class RNNPSD( BaseNN ):
         self.model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
 
     def name(self):
-        """
-        Return the name of the model.
-        """
-        return "RNN"
-    
+        return super().name()
+
     def signal(self):
         """
         Return the signal type of the model.
