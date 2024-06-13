@@ -1,7 +1,7 @@
-from IA.BaseNN import BaseNN
+from IA.SNN.SNNBase import SNNBase
 import tensorflow as tf
 
-class SNNTime(BaseNN):
+class SNNTime( SNNBase ):
     """
     Siamese Network for time data
     """
@@ -38,11 +38,8 @@ class SNNTime(BaseNN):
         self.model = tf.keras.models.Model(inputs=[input_a, input_b], outputs=output)
 
     def name(self):
-        """
-        Return the name of the model.
-        """
-        return "SNN"
-    
+        return super().name()
+
     def signal(self):
         """
         Return the signal type of the model.

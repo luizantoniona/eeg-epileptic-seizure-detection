@@ -1,11 +1,11 @@
 """
-Module: CNNFactory
+Module: SiameseNNFactory
 """
-from IA.BaseNN import BaseNN
+from IA.SNN.SNNBase import SNNBase
 from IA.SNN.SNNTime import SNNTime
 from IA.SNN.SNNPSD import SNNPSD
 
-def model_by_signal_type(signal_type: str, input_shape) -> BaseNN:
+def model_by_signal_type(signal_type: str, input_shape) -> SNNBase:
     if signal_type == "time":
         return SNNTime(input_shape=input_shape)
     
@@ -15,4 +15,4 @@ def model_by_signal_type(signal_type: str, input_shape) -> BaseNN:
     #TODO: Spectogram SNN
     
     else:
-        return BaseNN()
+        return SNNBase()
