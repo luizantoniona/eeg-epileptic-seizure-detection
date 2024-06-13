@@ -1,9 +1,9 @@
 from IA.BaseNN import BaseNN
 import tensorflow as tf
 
-class CNNSpectogram( BaseNN ):
+class CNNSpectrogram( BaseNN ):
     """
-    CNN Model for Spectogram data training
+    CNN Model for Spectrogram data training
     """
     def __init__(self, input_shape):
         super().__init__()
