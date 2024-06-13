@@ -1,7 +1,7 @@
-from IA.BaseNN import BaseNN
+from IA.CNN.CNNBase import CNNBase
 import tensorflow as tf
 
-class CNNTime( BaseNN ):
+class CNNTime( CNNBase ):
     """
     CNN Model for time data training
     """
@@ -17,19 +17,10 @@ class CNNTime( BaseNN ):
         self.model.add(tf.keras.layers.BatchNormalization())
         self.model.add(tf.keras.layers.GlobalMaxPooling1D())
         self.model.add(tf.keras.layers.Flatten())
-        self.model.add(tf.keras.layers.Dense(128, activation='relu'))
-        self.model.add(tf.keras.layers.Dropout(0.5))
-        self.model.add(tf.keras.layers.Dense(64, activation='relu'))
-        self.model.add(tf.keras.layers.Dropout(0.5))
-        self.model.add(tf.keras.layers.Dense(32, activation='relu'))
-        self.model.add(tf.keras.layers.Dropout(0.5))
-        self.model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
+        super().create_dense()
 
     def name(self):
-        """
-        Return the name of the model.
-        """
-        return "CNN"
+        return super().name()
     
     def signal(self):
         """

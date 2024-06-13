@@ -1,7 +1,7 @@
-from IA.BaseNN import BaseNN
+from IA.CNN.CNNBase import CNNBase
 import tensorflow as tf
 
-class CNNPSD( BaseNN ):
+class CNNPSD( CNNBase ):
     """
     CNN Model for PSD data training
     """
@@ -17,20 +17,11 @@ class CNNPSD( BaseNN ):
         self.model.add(tf.keras.layers.BatchNormalization())
         self.model.add(tf.keras.layers.GlobalMaxPooling1D())
         self.model.add(tf.keras.layers.Flatten())
-        self.model.add(tf.keras.layers.Dense(128, activation='relu'))
-        self.model.add(tf.keras.layers.Dropout(0.5))
-        self.model.add(tf.keras.layers.Dense(64, activation='relu'))
-        self.model.add(tf.keras.layers.Dropout(0.5))
-        self.model.add(tf.keras.layers.Dense(32, activation='relu'))
-        self.model.add(tf.keras.layers.Dropout(0.5))
-        self.model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
-
-    def name(self):
-        """
-        Return the name of the model.
-        """
-        return "CNN"
+        super().create_dense()
     
+    def name(self):
+        return super().name()
+
     def signal(self):
         """
         Return the signal type of the model.

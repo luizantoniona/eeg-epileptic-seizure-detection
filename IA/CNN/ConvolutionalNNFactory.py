@@ -1,12 +1,12 @@
 """
-Module: CNNFactory
+Module: ConvolutionalNNFactory
 """
-from IA.BaseNN import BaseNN
+from IA.CNN.CNNBase import CNNBase
 from IA.CNN.CNNTime import CNNTime
 from IA.CNN.CNNPSD import CNNPSD
 from IA.CNN.CNNSpectrogram import CNNSpectrogram
 
-def model_by_signal_type(signal_type: str, input_shape) -> BaseNN:
+def model_by_signal_type(signal_type: str, input_shape) -> CNNBase:
     if signal_type == "time":
         return CNNTime(input_shape=input_shape)
     
@@ -17,4 +17,4 @@ def model_by_signal_type(signal_type: str, input_shape) -> BaseNN:
         return CNNSpectrogram(input_shape=input_shape)
     
     else:
-        return BaseNN()
+        return CNNBase()
