@@ -1,11 +1,11 @@
 """
-Module: CNNFactory
+Module: VisionTransformerFactory
 """
-from IA.BaseNN import BaseNN
+from IA.ViT.ViTBase import ViTBase
 from IA.ViT.ViTTime import ViTTime
 from IA.ViT.ViTPSD import ViTPSD
 
-def model_by_signal_type(signal_type: str, input_shape) -> BaseNN:
+def model_by_signal_type(signal_type: str, input_shape) -> ViTBase:
     if signal_type == "time":
         return ViTTime(input_shape=input_shape)
     
@@ -15,4 +15,4 @@ def model_by_signal_type(signal_type: str, input_shape) -> BaseNN:
     #TODO: Spectogram ViT
     
     else:
-        return BaseNN()
+        return ViTBase()

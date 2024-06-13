@@ -1,7 +1,7 @@
-from IA.BaseNN import BaseNN
+from IA.ViT.ViTBase import ViTBase
 import tensorflow as tf
 
-class ViTPSD(BaseNN):
+class ViTPSD( ViTBase ):
     """
     Vision Transformer Model for PSD data training
     """
@@ -82,7 +82,10 @@ class ViTPSD(BaseNN):
         return x
 
     def name(self):
+        return super().name()
+
+    def signal(self):
         """
-        Return the name of the model.
+        Return the signal type of the model.
         """
-        return "psd_vit"
+        return "PSD"
