@@ -9,6 +9,18 @@ class BaseNN:
     def __init__(self):
         self.model = tf.keras.models.Sequential()
 
+    def name(self):
+        """
+        Return the name of the model.
+        """
+        raise NotImplementedError()
+    
+    def signal(self):
+        """
+        Return the signal type of the model.
+        """
+        raise NotImplementedError()
+
     def compile(self):
         self.model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
 
