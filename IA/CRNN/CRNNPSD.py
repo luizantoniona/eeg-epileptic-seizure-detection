@@ -1,7 +1,7 @@
-from IA.BaseNN import BaseNN
+from IA.CRNN.CRNNBase import CRNNBase
 import tensorflow as tf
 
-class CRNNPSD(BaseNN):
+class CRNNPSD( CRNNBase ):
     """
     CRNN Model for PSD data training
     """
@@ -22,11 +22,8 @@ class CRNNPSD(BaseNN):
         self.model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
 
     def name(self):
-        """
-        Return the name of the model.
-        """
-        return "CRNN"
-    
+        return super().name()
+
     def signal(self):
         """
         Return the signal type of the model.

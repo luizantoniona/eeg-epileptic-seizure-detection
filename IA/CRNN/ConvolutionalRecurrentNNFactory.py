@@ -1,11 +1,11 @@
 """
-Module: CNNFactory
+Module: ConvolutionalRecurrentNNFactory
 """
-from IA.BaseNN import BaseNN
+from IA.CRNN.CRNNBase import CRNNBase
 from IA.CRNN.CRNNTime import CRNNTime
 from IA.CRNN.CRNNPSD import CRNNPSD
 
-def model_by_signal_type(signal_type: str, input_shape) -> BaseNN:
+def model_by_signal_type(signal_type: str, input_shape) -> CRNNBase:
     if signal_type == "time":
         return CRNNTime(input_shape=input_shape)
     
@@ -15,4 +15,4 @@ def model_by_signal_type(signal_type: str, input_shape) -> BaseNN:
     #TODO: Spectogram CRNN
     
     else:
-        return BaseNN()
+        return CRNNBase()
