@@ -1,7 +1,7 @@
 from IA.BaseNN import BaseNN
 import tensorflow as tf
 
-class TimeSNN(BaseNN):
+class SNNTime(BaseNN):
     """
     Siamese Network for time data
     """
@@ -41,4 +41,10 @@ class TimeSNN(BaseNN):
         """
         Return the name of the model.
         """
-        return "time_snn"
+        return "SNN"
+    
+    def signal(self):
+        """
+        Return the signal type of the model.
+        """
+        return "time"

@@ -1,7 +1,7 @@
 from IA.BaseNN import BaseNN
 import tensorflow as tf
 
-class PSDSNN(BaseNN):
+class SNNPSD(BaseNN):
     """
     Siamese Network for PSD data
     """
@@ -41,4 +41,10 @@ class PSDSNN(BaseNN):
         """
         Return the name of the model.
         """
-        return "psd_snn"
+        return "SNN"
+    
+    def signal(self):
+        """
+        Return the signal type of the model.
+        """
+        return "PSD"

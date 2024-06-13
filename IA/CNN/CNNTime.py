@@ -1,9 +1,9 @@
 from IA.BaseNN import BaseNN
 import tensorflow as tf
 
-class PSDCNN( BaseNN ):
+class CNNTime( BaseNN ):
     """
-    CNN Model for PSD data training
+    CNN Model for time data training
     """
     def __init__(self, input_shape):
         super().__init__()
@@ -29,4 +29,10 @@ class PSDCNN( BaseNN ):
         """
         Return the name of the model.
         """
-        return "psd_cnn"
+        return "CNN"
+    
+    def signal(self):
+        """
+        Return the signal type of the model.
+        """
+        return "time"

@@ -1,13 +1,13 @@
 from IA.BaseNN import BaseNN
 import tensorflow as tf
 
-class PSDViT(BaseNN):
+class ViTTime(BaseNN):
     """
-    Vision Transformer Model for PSD data training
+    Vision Transformer Model for time-series data training
     """
     def __init__(self, input_shape, num_classes, num_layers=8, d_model=64, num_heads=8, mlp_dim=128, dropout_rate=0.1):
         """
-        Initialize the Vision Transformer with a specific architecture for PSD data.
+        Initialize the Vision Transformer with a specific architecture for time-series data.
         """
         super().__init__()
         self.input_shape = input_shape
@@ -85,4 +85,4 @@ class PSDViT(BaseNN):
         """
         Return the name of the model.
         """
-        return "psd_vit"
+        return "time_vit"
