@@ -1,9 +1,9 @@
 from IA.RNN.RNNBase import RNNBase
 import tensorflow as tf
 
-class RNNPSD( RNNBase ):
+class RNNSpectrogram( RNNBase ):
     """
-    RNN Model for PSD data training
+    RNN Model for Spectrogram data training
     """
     def __init__(self, input_shape):
         super().__init__()
@@ -18,4 +18,4 @@ class RNNPSD( RNNBase ):
         """
         Return the signal type of the model.
         """
-        return "PSD"
+        return "spectrogram"
