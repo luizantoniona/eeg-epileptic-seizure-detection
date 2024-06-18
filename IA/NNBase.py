@@ -31,7 +31,8 @@ class NNBase:
         self.history = self.model.fit(train_data, train_labels,
                                       epochs=num_epochs,
                                       batch_size=batch_size,
-                                      validation_data=(val_data, val_labels))
+                                      validation_data=(val_data, val_labels),
+                                      verbose=0)
 
     def summary(self):
         """

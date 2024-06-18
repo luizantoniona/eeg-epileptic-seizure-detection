@@ -12,10 +12,7 @@ class CNNTime( CNNBase ):
         self.model.add(tf.keras.layers.BatchNormalization())
         self.model.add(tf.keras.layers.Conv1D(32, 3, activation='relu'))
         self.model.add(tf.keras.layers.MaxPooling1D(3))
-        self.model.add(tf.keras.layers.Conv1D(64, 1, activation='relu'))
-        self.model.add(tf.keras.layers.Conv1D(128, 1, activation='relu'))
         self.model.add(tf.keras.layers.BatchNormalization())
-        self.model.add(tf.keras.layers.GlobalMaxPooling1D())
         self.model.add(tf.keras.layers.Flatten())
         super().create_dense()
 

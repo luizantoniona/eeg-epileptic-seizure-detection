@@ -19,10 +19,6 @@ class RNNBase( NNBase ):
         Return the signal type of the model.
         """
         raise NotImplementedError()
-    
-    def compile(self):
-        optimizer = tf.keras.optimizers.Adam(learning_rate=0.001)
-        self.model.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['accuracy'])
 
     def create_dense(self):
         self.model.add(tf.keras.layers.Dense(128, activation='relu'))

@@ -31,8 +31,7 @@ def read_edf(summary_model, rename = False, verbose = False):
   mne_model = mne.io.read_raw_edf(summary_model.fullpath(),
                                   include=Commons.selected_channels(), 
                                   preload=False,
-                                  verbose='CRITICAL',
-                                  )
+                                  verbose='critical')
   
   mne_model.drop_channels(Commons.remove_channels(), on_missing='ignore')
 
