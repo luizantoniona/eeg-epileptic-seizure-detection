@@ -13,24 +13,19 @@ def normalize(summaries: list[Summary]):
     """
     scaler = MinMaxScaler()
 
-    for summary in summaries:
-        for i in range(len(summary.signal.data_segmented)):
-            segment = summary.signal.data_segmented[i]
+    shape_size = len(summaries[0].signal.data_segmented[0].shape)
+
+    if shape_size == 2:
+        for summary in summaries:
+            all_samples = np.concatenate(summary.signal.data_segmented)
+            scaler.fit_transform(all_samples)
+            summary.signal.data_segmented = [scaler.transform(sample) for sample in summary.signal.data_segmented]
+
+    elif shape_size == 3:
+        for summary in summaries:
+            all_samples = np.concatenate([sample for segment in summary.signal.data_segmented for sample in segment])
+            scaler.fit(all_samples)
+            summary.signal.data_segmented = [[scaler.transform(sample) for sample in segment] for segment in summary.signal.data_segmented]
             
-            if len(segment.shape) == 2:
-                # Case: (18, 1281) - Data is already in the desired format
-                normalized_segment = scaler.fit_transform(segment)
-                summary.signal.data_segmented[i] = normalized_segment
-            
-            elif len(segment.shape) == 3:
-                # Case: (18, 8, 1281) - Handle each sub-segment
-                normalized_subsegments = []
-                
-                for subsegment in segment:
-                    normalized_subsegment = scaler.fit_transform(subsegment)
-                    normalized_subsegments.append(normalized_subsegment)
-                
-                summary.signal.data_segmented[i] = np.array(normalized_subsegments)
-            
-            else:
-                raise ValueError(f"Unsupported data shape: {segment.shape}")
+    else:
+        raise ValueError(f"Unsupported data shape: {summaries[0].signal.data_segmented[0].shape}")

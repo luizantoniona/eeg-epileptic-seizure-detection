@@ -8,17 +8,17 @@ import Preprocessor.Normalizer.Normalizer as Normalizer
 import Preprocessor.Splitter.Splitter as Splitter
 
 def preprocess( signal_type : str,
-                balance_train = False, balance_val = False, balance_test = False, 
+                balance_train = True, balance_val = True, balance_test = True,
                 train_size=0.70, val_size=0.20, test_size=0.10 ):
     """
     """
     summaries = Loader.load_anomalous_summaries()
 
+    random.shuffle(summaries)
+
     Loader.load_segmented_data(summaries, signal_type=signal_type)
 
     Normalizer.normalize(summaries)
-
-    random.shuffle(summaries)
 
     X_train, y_train, X_validation, y_validation, X_test, y_test = Splitter.split(summaries, train_size, val_size, test_size)
 
