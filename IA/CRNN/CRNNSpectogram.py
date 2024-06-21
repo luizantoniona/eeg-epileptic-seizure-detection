@@ -13,10 +13,10 @@ class CRNNSpectrogram( CRNNBase ):
         self.model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu', padding='same'))
         self.model.add(tf.keras.layers.MaxPooling2D((2, 2), padding='same'))
         self.model.add(tf.keras.layers.BatchNormalization())
-        self.model.add(tf.keras.layers.GlobalMaxPooling2D())
+        self.model.add(tf.keras.layers.TimeDistributed(tf.keras.layers.Flatten()))
         self.model.add(tf.keras.layers.LSTM(128, return_sequences=True))
         self.model.add(tf.keras.layers.GRU(64))
-        super().create_dense()
+        self.create_dense()
 
     def name(self):
         return super().name()

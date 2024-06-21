@@ -7,8 +7,9 @@ class RNNSpectrogram( RNNBase ):
     """
     def __init__(self, input_shape):
         super().__init__()
-        self.model.add(tf.keras.layers.LSTM(128, return_sequences=True, input_shape=input_shape))
-        self.model.add(tf.keras.layers.GRU(64))
+        self.model.add(tf.keras.layers.TimeDistributed(tf.keras.layers.LSTM(128, return_sequences=True), input_shape=input_shape))
+        self.model.add(tf.keras.layers.TimeDistributed(tf.keras.layers.GRU(64)))
+        self.model.add(tf.keras.layers.GlobalAveragePooling1D())
         super().create_dense()
 
     def name(self):
