@@ -8,7 +8,8 @@ class DatabaseSummary( Database ):
     def __init__(self):
         super().__init__()
 
-    def insert_sumarry_data(self, record_name, file_name, start_time, end_time, nr_seizures, start_seizure, end_seizure, nr_channels, ds_channels ):
+    def insert_sumarry_data(self, record_name, file_name, start_time, end_time,
+                            nr_occurrence, start_occurrence, end_occurrence, nr_channels, ds_channels, disease_type ):
         """
         Insert summary data into the database.
         """
@@ -17,7 +18,8 @@ class DatabaseSummary( Database ):
         fd.close()
 
         try:
-            self.db.cursor().execute(sql_file, [record_name, file_name, start_time, end_time, nr_seizures, start_seizure, end_seizure, nr_channels, ds_channels ])
+            self.db.cursor().execute(sql_file, [record_name, file_name, start_time, end_time,
+                                                nr_occurrence, start_occurrence, end_occurrence, nr_channels, ds_channels, disease_type ])
             self.db.commit()
         except:
             print("Registro já existe")

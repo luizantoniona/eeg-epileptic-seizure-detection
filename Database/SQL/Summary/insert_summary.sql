@@ -4,13 +4,15 @@ INSERT INTO summary_info
     file_name,
     start_time,
     end_time,
-    nr_seizures,
-    start_seizure,
-    end_seizure,
+    nr_occurrence,
+    start_occurrence,
+    end_occurrence,
     nr_channels,
-    ds_channels
+    ds_channels,
+    disease_type
 )
 VALUES (
+    %s,
     %s,
     %s,
     %s,

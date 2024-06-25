@@ -77,7 +77,9 @@ def summary_info(content, record_name):
                                             ','.join(start_seizure),
                                             ','.join(end_seizure),
                                             nr_channels,
-                                            ','.join(ds_channels))
+                                            ','.join(ds_channels),
+                                            'epilepsy'
+                                            )
                     else:
                         print("Registro já inserido: " + file_name)
 
