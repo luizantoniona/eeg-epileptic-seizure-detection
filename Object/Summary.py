@@ -52,7 +52,7 @@ class Summary:
         duration = self.end_time - self.start_time
         return duration.total_seconds()
     
-    def start_time_of_seizure(self, nr_seizure = 0):
+    def start_time_of_ocurrence(self, nr_seizure = 0):
         """
         Return the start time of a specific seizure.
         """
@@ -61,7 +61,7 @@ class Summary:
         else:
             return self.start_occurrence[nr_seizure - 1]
         
-    def end_time_of_seizure(self, nr_seizure = 0):
+    def end_time_of_ocurrence(self, nr_seizure = 0):
         """
         Return the end time of a specific seizure.
         """
@@ -77,7 +77,7 @@ class Summary:
         has_anomaly = 'normal'
 
         for i in range(self.nr_occurrence):
-            if self.start_time_of_seizure(i) <= tmin < self.end_time_of_seizure(i) or self.start_time_of_seizure(i) < tmax <= self.end_time_of_seizure(i):
+            if self.start_time_of_ocurrence(i) <= tmin < self.end_time_of_ocurrence(i) or self.start_time_of_ocurrence(i) < tmax <= self.end_time_of_ocurrence(i):
                 has_anomaly = self.disease_type
             
         return has_anomaly
