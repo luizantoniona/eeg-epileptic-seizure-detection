@@ -98,14 +98,14 @@ class Summary:
 
     def generate_segmented_data(self, signal_type: str, time_window= 5):
         """
-        Generate segmented data based on type and a specified time window around seizures.
+        Generate segmented data based on type and a specified time window around disease ocurrence.
         """
         self.signal = SignalFactory.signal_by_type(signal_type, Reader.read_edf(self))
 
-        for seizure_index in range(self.nr_occurrence):
+        for ocurrence_index in range(self.nr_occurrence):
 
-            start_occurrence_time = self.start_occurrence[seizure_index]
-            end_occurrence_time = self.end_occurrence[seizure_index]
+            start_occurrence_time = self.start_occurrence[ocurrence_index]
+            end_occurrence_time = self.end_occurrence[ocurrence_index]
             seizure_duration = end_occurrence_time - start_occurrence_time
 
             fragment_start = start_occurrence_time - int(seizure_duration / 2)

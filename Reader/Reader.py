@@ -40,15 +40,15 @@ def read_edf(summary_model, rename = False, verbose = False):
 
   mne_model.reorder_channels(Commons.selected_channels())
 
-  if summary_model.nr_seizures > 0:
+  if summary_model.nr_occurrence > 0:
     start_times = []
     duration = []
     event_name = []
 
-    for seizure_index in range(summary_model.nr_seizures):
-      start_times.append(summary_model.start_seizure[seizure_index])
-      duration.append(summary_model.end_seizure[seizure_index] - summary_model.start_seizure[seizure_index])
-      event_name.append('Anomaly - ' + str(seizure_index))
+    for ocurrence_index in range(summary_model.nr_occurrence):
+      start_times.append(summary_model.start_occurrence[ocurrence_index])
+      duration.append(summary_model.end_occurrence[ocurrence_index] - summary_model.start_occurrence[ocurrence_index])
+      event_name.append('Anomaly - ' + str(ocurrence_index))
 
     mne_model.set_annotations(mne.Annotations(np.array(start_times),
                                               np.array(duration),
