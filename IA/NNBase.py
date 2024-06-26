@@ -6,8 +6,15 @@ class NNBase:
     """
     Neural Network Basic Model methods
     """
-    def __init__(self):
-        self.model = tf.keras.models.Sequential()
+    def __init__(self, input_shape):
+        self.input_shape = input_shape
+        self.construct_model()
+
+    def construct_model(self):
+        """
+        Construct the model for the Neural Network
+        """
+        raise NotImplementedError()
 
     def name(self):
         """
