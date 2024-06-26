@@ -6,8 +6,11 @@ class CRNNPSD( CRNNBase ):
     CRNN Model for PSD data training
     """
     def __init__(self, input_shape):
-        super().__init__()
-        self.model.add(tf.keras.layers.Conv1D(64, 3, activation='relu', input_shape=input_shape))
+        super().__init__(input_shape)
+
+    def construct_model(self):
+        self.model = tf.keras.models.Sequential()
+        self.model.add(tf.keras.layers.Conv1D(64, 3, activation='relu', input_shape=self.input_shape))
         self.model.add(tf.keras.layers.MaxPooling1D(2))
         self.model.add(tf.keras.layers.Conv1D(128, 3, activation='relu'))
         self.model.add(tf.keras.layers.MaxPooling1D(2))
