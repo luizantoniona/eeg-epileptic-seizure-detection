@@ -138,7 +138,6 @@ The data will be processed and inserted into the models in two different domains
 - CNN (Convolutional Neural Network)
 - RNN (Recurrent Neural Network)
 - CRNN (Convolutional Recurrent Neural Network)
-- SNN (Siamese Neural Network)
 - ViT (Vision Transformer)
 
 ## Metrics:
