@@ -11,6 +11,19 @@ def preprocess( signal_type : str,
                 balance_train = True, balance_val = True, balance_test = True,
                 train_size=0.70, val_size=0.20, test_size=0.10 ):
     """
+    Preprocess the data by loading, normalizing, splitting, and balancing it.
+
+    Args:
+        signal_type (str): Type of signal to load.
+        balance_train (bool): Whether to balance the training data.
+        balance_val (bool): Whether to balance the validation data.
+        balance_test (bool): Whether to balance the test data.
+        train_size (float): Proportion of data to use for training.
+        val_size (float): Proportion of data to use for validation.
+        test_size (float): Proportion of data to use for testing.
+
+    Returns:
+        tuple: Processed data split into training, validation, and test sets.
     """
     summaries = Loader.load_anomalous_summaries()
 
