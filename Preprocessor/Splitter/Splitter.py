@@ -4,6 +4,7 @@ Module: Splitter
 This module provides functions to split data into training, validation and test sets.
 """
 from Object.Summary import Summary
+from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 import numpy as np
 
@@ -29,6 +30,10 @@ def split(summaries: list[Summary], train_size, val_size, test_size, random_stat
 
     all_segmented_data = np.concatenate([summary.signal.get_data_segmented() for summary in summaries])
     all_segmented_label = np.concatenate([summary.signal.get_label_segmented() for summary in summaries])
+
+    label_encoder = LabelEncoder()
+    label_encoder.fit(all_segmented_label)
+    all_segmented_label = label_encoder.transform(all_segmented_label)
 
     total_size = train_size + val_size + test_size
     if not abs(total_size - 1.0) < 1e-9:
