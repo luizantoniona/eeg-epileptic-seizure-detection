@@ -1,6 +1,7 @@
 """
 Module: Preprocessor
 """
+import mne
 import random
 import Preprocessor.Balancer.Balancer as Balancer
 import Preprocessor.Loader.Loader as Loader
@@ -26,6 +27,8 @@ def preprocess( signal_type : str,
         tuple: Processed data split into training, validation, and test sets.
     """
     summaries = Loader.load_anomalous_summaries()
+
+    mne.set_log_level("CRITICAL")
 
     random.shuffle(summaries)
 
