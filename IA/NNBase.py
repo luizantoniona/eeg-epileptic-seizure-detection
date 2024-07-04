@@ -39,7 +39,8 @@ class NNBase:
                                       epochs=num_epochs,
                                       batch_size=batch_size,
                                       validation_data=(val_data, val_labels),
-                                      verbose=0)
+                                      verbose=0
+                                      )
 
     def summary(self):
         """
