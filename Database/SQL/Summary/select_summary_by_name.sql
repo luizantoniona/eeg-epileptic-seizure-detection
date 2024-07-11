@@ -1,2 +1,2 @@
 SELECT * FROM summary_info
-    WHERE file_name = %s;
+    WHERE file_name = ?;

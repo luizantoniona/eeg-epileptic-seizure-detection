@@ -1,10 +1,10 @@
-import mysql.connector
+import sqlite3
 
 class Database:
     """
     Class: Database
     
-    Packages: mysql-connector-python
+    Packages: sqlite3
     """
 
     def __init__(self):
@@ -12,13 +12,9 @@ class Database:
 
     def connect(self):
         """
-        Establish a connection to the MySQL database.
+        Establish a connection to the SQLite database.
         """
-        return mysql.connector.connect(user=self.username(),
-                                    password=self.password(),                              
-                                    host=self.ip(),
-                                    database=self.name(),
-                                    auth_plugin='mysql_native_password')
+        return sqlite3.connect(self.name() + '.db')
 
     def execute_from_file(self, filename):
         """
@@ -47,24 +43,6 @@ class Database:
 
     def name(self):
         """
-        Returns the name of the MySQL database.
+        Returns the name of the SQLite database.
         """
         return "eeg_data"
-
-    def username(self):
-        """
-        Returns the username used for connecting to the MySQL database.
-        """
-        return "root"
-
-    def password(self):
-        """
-        Returns the password used for connecting to the MySQL database.
-        """
-        return "luiz"
-
-    def ip(self):
-        """
-        Returns the IP address or hostname of the MySQL database server.
-        """
-        return "127.0.0.1"

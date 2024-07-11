@@ -12,14 +12,14 @@ INSERT INTO summary_info
     disease_type
 )
 VALUES (
-    %s,
-    %s,
-    %s,
-    %s,
-    %s,
-    %s,
-    %s,
-    %s,
-    %s,
-    %s
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?
 );
