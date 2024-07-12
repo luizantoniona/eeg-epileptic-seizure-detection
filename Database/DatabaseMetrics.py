@@ -36,11 +36,9 @@ class DatabaseMetrics( Database ):
         sql_file = fd.read()
         fd.close()
 
-        cursor = self.db.cursor(buffered=True, dictionary=True)
-
         try:
-            cursor.execute(sql_file, [domain])
-            return cursor.fetchall()
+            self.cursor.execute(sql_file, (domain,))
+            return self.cursor.fetchall()
         except:
             print("Não há registros")
     
@@ -52,11 +50,9 @@ class DatabaseMetrics( Database ):
         sql_file = fd.read()
         fd.close()
 
-        cursor = self.db.cursor(buffered=True, dictionary=True)
-
         try:
-            cursor.execute(sql_file, [model_name])
-            return cursor.fetchall()
+            self.cursor.execute(sql_file, (model_name,))
+            return self.cursor.fetchall()
         except:
             print("Não há registros")
 
@@ -68,10 +64,8 @@ class DatabaseMetrics( Database ):
         sql_file = fd.read()
         fd.close()
 
-        cursor = self.db.cursor(buffered=True, dictionary=True)
-
         try:
-            cursor.execute(sql_file, [model_name, domain_name])
-            return cursor.fetchall()
+            self.cursor.execute(sql_file, (model_name, domain_name,))
+            return self.cursor.fetchall()
         except:
             print("Não há registros")
