@@ -1,4 +1,12 @@
+from datetime import datetime, timedelta
 from Object.Summary import Summary
+
+def time_to_timedelta(time_str):
+    parts = time_str.split(':')
+    hours = int(parts[0])
+    minutes = int(parts[1])
+    seconds = int(parts[2])
+    return timedelta(hours=hours, minutes=minutes, seconds=seconds)
 
 def model_from_tuple(db_object) -> Summary:
 
@@ -16,8 +24,8 @@ def model_from_tuple(db_object) -> Summary:
     model = Summary (
         summary_tupple['record_name'],
         summary_tupple['file_name'],
-        summary_tupple['start_time'],
-        summary_tupple['end_time'],
+        time_to_timedelta(summary_tupple['start_time']),
+        time_to_timedelta(summary_tupple['end_time']),
         summary_tupple['nr_occurrence'],
         summary_start_times,
         summary_end_times,
