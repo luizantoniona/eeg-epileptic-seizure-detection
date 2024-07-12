@@ -1,5 +1,7 @@
 # Epileptic Seizure Detection in EEG
 
+## TODO: REVIEW README.me
+
 ## Dataset
 
 The dataset used in this work was the [CHB-MIT Scalp EEG Database](https://physionet.org/physiobank/database/chbmit/) from PhysioNet [1]. The exams in this dataset were generated at Boston Children's Hospital. All patients were monitored at a sampling rate of 256 Hz with 16-bit quantization, and the electrodes were placed according to the 10–20 system of the International Federation of Clinical Neurophysiology ([IFCN](https://www.ifcn.info/)). The dataset contains information from 23 patients, where each case contains between 9 and 42 continuous samples from a single subject.
@@ -12,10 +14,10 @@ After an analysis of the data contained in the summaries, we arrived at a relati
 | :---------: | :----------: | :--------: | :------: | :---------: | :-----------: | :---------: | :---------: | :--------------: |
 |    chb01    | chb01_01.edf |  12:34:22  | 13:13:07 |      2      |  1862, 2000   | 1963, 2213  |     24      | FP1-F7,F7-T7,... |
 
-To store the records of the table above, a [MySQL](https://www.mysql.com/) database was used, as it is simple to use and contains a Python library.
+To store the records of the table above, a [SQLite](https://www.sqlite.org/) database was used, as it is simple to use and contains a Python library.
 
 ## [Database Configuration](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/02%20-%20Database%20Configuration.ipynb)
-- Creates the **database** based on the information from [database.py](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/database/database.py).
+- Creates the **database** based on the information from [Database.py](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/Database/Database.py).
 - Creates the **summary_info** table, designated to store summary information from the EEG's data.
 - Creates the **metrics_info** table, designated to store metrics between models for further comparison.
 

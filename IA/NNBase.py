@@ -1,6 +1,6 @@
+import keras
 import matplotlib.pyplot as plt
 import numpy as np
-import tensorflow as tf
 
 class NNBase:
     """
@@ -8,6 +8,7 @@ class NNBase:
     """
     def __init__(self, input_shape):
         self.input_shape = input_shape
+        self.model: keras.Model = None
         self.construct_model()
 
     def construct_model(self):
@@ -39,7 +40,7 @@ class NNBase:
                                       epochs=num_epochs,
                                       batch_size=batch_size,
                                       validation_data=(val_data, val_labels),
-                                      verbose=0
+                                      #verbose=0
                                       )
 
     def summary(self):
@@ -83,4 +84,4 @@ class NNBase:
         """
         Load the model from the specified filepath.
         """
-        self.model = tf.keras.models.load_model(filepath)
+        self.model = keras.models.load_model(filepath)

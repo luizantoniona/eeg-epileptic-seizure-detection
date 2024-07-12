@@ -1,5 +1,5 @@
+import keras
 from IA.NNBase import NNBase
-import tensorflow as tf
 
 class RNNBase( NNBase ):
     """
@@ -27,10 +27,10 @@ class RNNBase( NNBase ):
         raise NotImplementedError()
 
     def create_dense(self):
-        self.model.add(tf.keras.layers.Dense(128, activation='relu'))
-        self.model.add(tf.keras.layers.Dropout(0.5))
-        self.model.add(tf.keras.layers.Dense(64, activation='relu'))
-        self.model.add(tf.keras.layers.Dropout(0.5))
-        self.model.add(tf.keras.layers.Dense(32, activation='relu'))
-        self.model.add(tf.keras.layers.Dropout(0.5))
-        self.model.add(tf.keras.layers.Dense(1, activation='sigmoid'))
+        self.model.add(keras.layers.Dense(128, activation='relu'))
+        self.model.add(keras.layers.Dropout(0.5))
+        self.model.add(keras.layers.Dense(64, activation='relu'))
+        self.model.add(keras.layers.Dropout(0.5))
+        self.model.add(keras.layers.Dense(32, activation='relu'))
+        self.model.add(keras.layers.Dropout(0.5))
+        self.model.add(keras.layers.Dense(1, activation='sigmoid'))

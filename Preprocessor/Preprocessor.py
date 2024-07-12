@@ -47,8 +47,8 @@ def preprocess( signal_type : str,
     if ( balance_test ):
         X_test, y_test = Balancer.balance(X_test, y_test)
 
-    print(X_train.shape)
-    print(X_validation.shape)
-    print(X_test.shape)
+    print("TRAIN SHAPE:", X_train.shape)
+    print("VALIDATION SHAPE:", X_validation.shape)
+    print("TEST SHAPE:", X_test.shape)
 
     return X_train, y_train, X_validation, y_validation, X_test, y_test
