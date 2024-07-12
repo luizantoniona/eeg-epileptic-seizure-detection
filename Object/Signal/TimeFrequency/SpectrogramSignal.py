@@ -38,7 +38,6 @@ class SpectrogramSignal(Signal):
         3.5 - 7.5 -> Theta
         7.5 - 12.5 -> Alpha
         12.5 - 30 -> Beta
-        30 - 60 -> Low Gamma
-        60 - 128 -> High Gamma
+        30+ -> Gamma
         """
-        return np.array([0.5, 3.5, 7.5, 12.5, 30, 60, 128])
+        return np.arange(1, 45, 5)
