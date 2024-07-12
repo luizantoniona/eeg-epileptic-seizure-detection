@@ -1,6 +1,8 @@
 from Object.Summary import Summary
 
-def model_from_tuple(summary_tupple) -> Summary:
+def model_from_tuple(db_object) -> Summary:
+
+    summary_tupple = dict(db_object)
 
     summary_start_times = []
     summary_end_times = []

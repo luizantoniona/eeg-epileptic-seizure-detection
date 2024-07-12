@@ -9,6 +9,7 @@ class Database:
 
     def __init__(self):
         self.db = self.connect()
+        self.db.row_factory = sqlite3.Row
         self.cursor = self.db.cursor()
 
     def connect(self):
