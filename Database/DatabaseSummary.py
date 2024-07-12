@@ -9,7 +9,8 @@ class DatabaseSummary( Database ):
         super().__init__()
 
     def insert_sumarry_data(self, record_name, file_name, start_time, end_time,
-                            nr_occurrence, start_occurrence, end_occurrence, nr_channels, ds_channels, disease_type ):
+                            nr_occurrence, start_occurrence, end_occurrence,
+                            nr_channels, ds_channels, disease_type):
         """
         Insert summary data into the database.
         """
@@ -18,11 +19,12 @@ class DatabaseSummary( Database ):
         fd.close()
 
         try:
-            self.db.cursor().execute(sql_file, (record_name, file_name, start_time, end_time,
-                                                nr_occurrence, start_occurrence, end_occurrence, nr_channels, ds_channels, disease_type ))
+            self.cursor.execute(sql_file, (record_name, file_name, start_time, end_time,
+                                                nr_occurrence, start_occurrence, end_occurrence,
+                                                nr_channels, ds_channels, disease_type,))
             self.db.commit()
         except:
-            print("Registro já existe")
+            print("Registro já existe:", file_name)
 
     def summary_by_name(self, file_name):
         """
@@ -32,13 +34,11 @@ class DatabaseSummary( Database ):
         sql_file = fd.read()
         fd.close()
 
-        cursor = self.db.cursor(buffered=True, dictionary=True)
-
         try:
-            cursor.execute(sql_file, [file_name])
-            return cursor.fetchone()
+            self.cursor.execute(sql_file, (file_name,))
+            return self.cursor.fetchone()
         except:
-            print("Não há registro para o nome")
+            print("Não há registro para o nome:", file_name)
 
     def summaries(self):
         """
@@ -48,11 +48,9 @@ class DatabaseSummary( Database ):
         sql_file = fd.read()
         fd.close()
 
-        cursor = self.db.cursor(buffered=True, dictionary=True)
-
         try:
-            cursor.execute(sql_file)
-            return cursor.fetchall()
+            self.cursor.execute(sql_file)
+            return self.cursor.fetchall()
         except:
             print("Não há registros")
 
@@ -64,10 +62,8 @@ class DatabaseSummary( Database ):
         sql_file = fd.read()
         fd.close()
 
-        cursor = self.db.cursor(buffered=True, dictionary=True)
-
         try:
-            cursor.execute(sql_file)
-            return cursor.fetchall()
+            self.cursor.execute(sql_file)
+            return self.cursor.fetchall()
         except:
             print("Não há registros")

@@ -9,6 +9,7 @@ class Database:
 
     def __init__(self):
         self.db = self.connect()
+        self.cursor = self.db.cursor()
 
     def connect(self):
         """
@@ -28,18 +29,9 @@ class Database:
 
         for command in sql_commands:
             try:
-                self.db.cursor().execute(command)
+                self.cursor.execute(command)
             except:
                 print("Erro ao executar")
-
-    def execute(self, query : str):
-        """
-        Execute SQL query.
-        """
-        try:
-            self.db.cursor().execute(query)
-        except:
-            print("Can't run!")
 
     def name(self):
         """

@@ -1,3 +1,3 @@
 SELECT * FROM metrics_info
-    WHERE model_name = %s
-    AND model_data_domain = %s;
+    WHERE model_name = ?
+    AND model_data_domain = ?;
