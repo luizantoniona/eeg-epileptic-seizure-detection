@@ -1,5 +1,5 @@
+import keras
 from IA.RNN.RNNBase import RNNBase
-import tensorflow as tf
 
 class RNNTime( RNNBase ):
     """
@@ -9,9 +9,13 @@ class RNNTime( RNNBase ):
         super().__init__(input_shape)
 
     def construct_model(self):
-        self.model = tf.keras.models.Sequential()
-        self.model.add(tf.keras.layers.LSTM(128, return_sequences=True, input_shape=self.input_shape))
-        self.model.add(tf.keras.layers.GRU(64))
+        self.model = keras.models.Sequential()
+        self.model.add(keras.layers.InputLayer(shape=self.input_shape))
+        
+        self.model.add(keras.layers.LSTM(16, return_sequences=True))
+        self.model.add(keras.layers.LSTM(8))
+        self.model.add(keras.layers.Flatten())
+
         super().create_dense()
 
     def name(self):
