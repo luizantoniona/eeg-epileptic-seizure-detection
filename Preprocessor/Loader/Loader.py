@@ -44,6 +44,7 @@ def load_segmented_data(summaries: list[Summary], signal_type: str, time_window:
     Args:
     - summaries (list[Summary]): List of Summary objects to process.
     - signal_type (str): Type of signal data to generate ("time", "PSD", "spectrogram").
+    - time_window (int): Length of the time window wich the data will be segmented.
     - full_file (bool, optional): Whether to generate full file data. Defaults to False.
     """
     def generate(summary: Summary):
