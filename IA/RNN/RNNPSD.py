@@ -12,8 +12,8 @@ class RNNPSD( RNNBase ):
         self.model = keras.models.Sequential()
         self.model.add(keras.layers.InputLayer(shape=self.input_shape))
 
-        self.model.add(keras.layers.LSTM(16, return_sequences=True))
-        self.model.add(keras.layers.LSTM(8))
+        self.model.add(keras.layers.LSTM(32, return_sequences=True))
+        self.model.add(keras.layers.LSTM(16))
         self.model.add(keras.layers.Flatten())
         
         super().create_dense()

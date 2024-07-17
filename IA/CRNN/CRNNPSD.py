@@ -22,8 +22,8 @@ class CRNNPSD( CRNNBase ):
         self.model.add(keras.layers.MaxPooling2D((1, 2)))
 
         self.model.add(keras.layers.TimeDistributed(keras.layers.Flatten()))
-        self.model.add(keras.layers.LSTM(16, return_sequences=True))
-        self.model.add(keras.layers.GRU(8))
+        self.model.add(keras.layers.LSTM(32, return_sequences=True))
+        self.model.add(keras.layers.LSTM(16))
 
         super().create_dense()
 
