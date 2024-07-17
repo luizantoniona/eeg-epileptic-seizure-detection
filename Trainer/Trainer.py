@@ -1,13 +1,17 @@
 """
 Module: Trainer
 """
+import os
 import IA.NeuralNetworkModelFactory as NNModelFactory
 from Metric.Metric import Metric
 
 NR_EPOCHS = 100 #TODO: Use Keras Turner
 BATCH_SIZE = 256 #TODO: Use Keras Turner
 
-def train(X_train, y_train, X_val, y_val, X_test, y_test, model_type: str, signal_type: str):
+def train(X_train, y_train, X_val, y_val, X_test, y_test,
+          model_type: str, signal_type: str):
+
+    os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
     neural_network_model = NNModelFactory.model_by_type(model_type, signal_type, X_train[0].shape)
 
@@ -18,7 +22,7 @@ def train(X_train, y_train, X_val, y_val, X_test, y_test, model_type: str, signa
 
     neural_network_model.fit(X_train, y_train, num_epochs=NR_EPOCHS, batch_size=BATCH_SIZE, val_data=X_val, val_labels=y_val)
 
-    #neural_network_model.plot_train_val()
+    neural_network_model.plot_train_val()
 
     neural_network_model.predict(X_test)
     #neural_network_model.print_predictions(y_test)
@@ -27,4 +31,4 @@ def train(X_train, y_train, X_val, y_val, X_test, y_test, model_type: str, signa
     metric.all_metrics()
     # metric.metrics_to_database()
 
-    metric.plot_roc_auc(y_test, neural_network_model.predictions)
+    #metric.plot_roc_auc(y_test, neural_network_model.predictions)
