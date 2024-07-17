@@ -14,10 +14,13 @@ class CRNNTime( CRNNBase ):
 
         self.model.add(keras.layers.Conv2D(16, (3, 3), activation='relu'))
         self.model.add(keras.layers.MaxPooling2D((2, 2)))
+
         self.model.add(keras.layers.Conv2D(32, (3, 3), activation='relu'))
         self.model.add(keras.layers.MaxPooling2D((2, 2)))
+
         self.model.add(keras.layers.Conv2D(64, (3, 3), activation='relu'))
         self.model.add(keras.layers.MaxPooling2D((2, 1)))
+
         self.model.add(keras.layers.TimeDistributed(keras.layers.Flatten()))
         self.model.add(keras.layers.LSTM(16, return_sequences=True))
         self.model.add(keras.layers.GRU(8))

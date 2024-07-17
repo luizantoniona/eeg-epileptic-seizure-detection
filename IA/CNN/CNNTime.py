@@ -15,9 +15,11 @@ class CNNTime( CNNBase ):
         self.model.add(keras.layers.Conv2D(16, (3, 3), activation='relu'))
         self.model.add(keras.layers.MaxPooling2D((3, 3)))
         self.model.add(keras.layers.BatchNormalization())
+
         self.model.add(keras.layers.Conv2D(32, (3, 3), activation='relu'))
         self.model.add(keras.layers.MaxPooling2D((3, 3)))
         self.model.add(keras.layers.BatchNormalization())
+        
         self.model.add(keras.layers.Flatten())
         
         super().create_dense()

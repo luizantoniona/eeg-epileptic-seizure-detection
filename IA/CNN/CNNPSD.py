@@ -1,5 +1,5 @@
+import keras
 from IA.CNN.CNNBase import CNNBase
-import tensorflow as tf
 
 class CNNPSD( CNNBase ):
     """
@@ -9,14 +9,19 @@ class CNNPSD( CNNBase ):
         super().__init__(input_shape)
 
     def construct_model(self):
-        self.model = tf.keras.models.Sequential()
-        self.model.add(tf.keras.layers.Conv1D(16, 3, activation='relu', input_shape=self.input_shape))
-        self.model.add(tf.keras.layers.MaxPooling1D(3))
-        self.model.add(tf.keras.layers.BatchNormalization())
-        self.model.add(tf.keras.layers.Conv1D(32, 3, activation='relu'))
-        self.model.add(tf.keras.layers.MaxPooling1D(3))
-        self.model.add(tf.keras.layers.BatchNormalization())
-        self.model.add(tf.keras.layers.Flatten())
+        self.model = keras.models.Sequential()
+        self.model.add(keras.layers.InputLayer(shape=self.input_shape))
+
+        self.model.add(keras.layers.Conv2D(16, (3, 3), activation='relu'))
+        self.model.add(keras.layers.MaxPooling2D((3, 3)))
+        self.model.add(keras.layers.BatchNormalization())
+
+        self.model.add(keras.layers.Conv2D(32, (3, 3), activation='relu'))
+        self.model.add(keras.layers.MaxPooling2D((3, 3)))
+        self.model.add(keras.layers.BatchNormalization())
+        
+        self.model.add(keras.layers.Flatten())
+        
         super().create_dense()
     
     def name(self):

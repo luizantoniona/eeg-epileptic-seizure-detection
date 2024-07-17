@@ -1,5 +1,5 @@
+import keras
 from IA.CRNN.CRNNBase import CRNNBase
-import tensorflow as tf
 
 class CRNNPSD( CRNNBase ):
     """
@@ -9,13 +9,22 @@ class CRNNPSD( CRNNBase ):
         super().__init__(input_shape)
 
     def construct_model(self):
-        self.model = tf.keras.models.Sequential()
-        self.model.add(tf.keras.layers.Conv1D(64, 3, activation='relu', input_shape=self.input_shape))
-        self.model.add(tf.keras.layers.MaxPooling1D(2))
-        self.model.add(tf.keras.layers.Conv1D(128, 3, activation='relu'))
-        self.model.add(tf.keras.layers.MaxPooling1D(2))
-        self.model.add(tf.keras.layers.LSTM(128, return_sequences=True))
-        self.model.add(tf.keras.layers.GRU(64))
+        self.model = keras.models.Sequential()
+        self.model.add(keras.layers.InputLayer(shape=self.input_shape))
+
+        self.model.add(keras.layers.Conv2D(16, (3, 3), activation='relu'))
+        self.model.add(keras.layers.MaxPooling2D((2, 2)))
+
+        self.model.add(keras.layers.Conv2D(32, (3, 3), activation='relu'))
+        self.model.add(keras.layers.MaxPooling2D((2, 2)))
+
+        self.model.add(keras.layers.Conv2D(64, (3, 3), activation='relu'))
+        self.model.add(keras.layers.MaxPooling2D((1, 2)))
+
+        self.model.add(keras.layers.TimeDistributed(keras.layers.Flatten()))
+        self.model.add(keras.layers.LSTM(16, return_sequences=True))
+        self.model.add(keras.layers.GRU(8))
+
         super().create_dense()
 
     def name(self):
