@@ -29,8 +29,9 @@ class NNBase:
         """
         raise NotImplementedError()
 
-    def compile(self):
-        self.model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+    def compile(self, learning_rate: float = 0.001):
+        optimizer = keras.optimizers.Adam(learning_rate=learning_rate)
+        self.model.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['accuracy'])
 
     def fit(self, train_data, train_labels, num_epochs, batch_size, val_data, val_labels):
         """

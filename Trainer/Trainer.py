@@ -9,7 +9,7 @@ NR_EPOCHS = 100 #TODO: Use Keras Turner
 BATCH_SIZE = 256 #TODO: Use Keras Turner
 
 def train(X_train, y_train, X_val, y_val, X_test, y_test,
-          model_type: str, signal_type: str):
+          model_type: str, signal_type: str, learning_rate: float = 0.001):
 
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
@@ -18,7 +18,7 @@ def train(X_train, y_train, X_val, y_val, X_test, y_test,
     print(neural_network_model.name())
     print(signal_type)
 
-    neural_network_model.compile()
+    neural_network_model.compile(learning_rate=learning_rate)
 
     neural_network_model.fit(X_train, y_train, num_epochs=NR_EPOCHS, batch_size=BATCH_SIZE, val_data=X_val, val_labels=y_val)
 
