@@ -82,7 +82,9 @@ class Summary:
             
         return has_anomaly
 
-    def generate_segmented_data_full_file(self, signal_type: str, time_window=5):
+    def generate_segmented_data_full_file(self, 
+                                          signal_type: str,
+                                          time_window: int = 5):
         """
         Generate segmented data based on type and a specified time window for full file.
         """
@@ -96,7 +98,9 @@ class Summary:
 
         self.signal.delete_mne_data()
 
-    def generate_segmented_data(self, signal_type: str, time_window= 5):
+    def generate_segmented_data(self,
+                                signal_type: str,
+                                time_window: int = 5):
         """
         Generate segmented data based on type and a specified time window around disease ocurrence.
         """

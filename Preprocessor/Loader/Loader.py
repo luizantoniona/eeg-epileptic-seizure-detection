@@ -37,7 +37,7 @@ def load_anomalous_summaries() -> list[Summary]:
 
     return summaries
 
-def load_segmented_data(summaries: list[Summary], signal_type: str, full_file=False) -> None:
+def load_segmented_data(summaries: list[Summary], signal_type: str, time_window: int, full_file=False) -> None:
     """
     Generate segmented data of specified type for a list of Summary objects.
 
@@ -48,9 +48,9 @@ def load_segmented_data(summaries: list[Summary], signal_type: str, full_file=Fa
     """
     def generate(summary: Summary):
         if full_file:
-            summary.generate_segmented_data_full_file(signal_type=signal_type)
+            summary.generate_segmented_data_full_file(signal_type=signal_type, time_window=time_window)
         else:
-            summary.generate_segmented_data(signal_type=signal_type)
+            summary.generate_segmented_data(signal_type=signal_type, time_window=time_window)
 
     with concurrent.futures.ThreadPoolExecutor() as executor:
         executor.map(generate, summaries)

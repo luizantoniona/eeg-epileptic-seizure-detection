@@ -8,7 +8,7 @@ import Preprocessor.Loader.Loader as Loader
 import Preprocessor.Normalizer.Normalizer as Normalizer
 import Preprocessor.Splitter.Splitter as Splitter
 
-def preprocess( signal_type : str,
+def preprocess( signal_type : str, time_window: int = 5,
                 balance_train = True, balance_val = True, balance_test = True,
                 train_size=0.70, val_size=0.20, test_size=0.10 ):
     """
@@ -32,7 +32,7 @@ def preprocess( signal_type : str,
 
     random.shuffle(summaries)
 
-    Loader.load_segmented_data(summaries, signal_type=signal_type)
+    Loader.load_segmented_data(summaries, signal_type=signal_type, time_window=time_window)
 
     Normalizer.normalize(summaries)
 
