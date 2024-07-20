@@ -9,7 +9,6 @@ class NNBase:
     def __init__(self, input_shape):
         self.input_shape = input_shape
         self.model: keras.Model = None
-        self.construct_model()
 
     def construct_model(self):
         """
