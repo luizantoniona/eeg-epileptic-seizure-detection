@@ -3,3 +3,6 @@ data/
 Tuner/
 *_checkpoints/
 *pycache*/
+
+#Files
+*.db
