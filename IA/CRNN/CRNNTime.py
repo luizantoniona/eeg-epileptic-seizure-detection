@@ -40,7 +40,7 @@ class CRNNTime( CRNNBase ):
             return_sequences=True)
         )
         self.model.add(keras.layers.LSTM(
-            hyper_param.Int(name='lstm_units_2', min_value=8, max_value=128, step=8, default=8))
+            hyper_param.Int(name='lstm_units_2', min_value=8, max_value=64, step=8, default=8))
         )
 
         super().create_dense(hyper_param=hyper_param)

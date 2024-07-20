@@ -18,7 +18,7 @@ class RNNSpectrogram( RNNBase ):
             return_sequences=True))
         )
         self.model.add(keras.layers.TimeDistributed(keras.layers.LSTM(
-            hyper_param.Int(name='lstm_units_1', min_value=8, max_value=128, step=8, default=64)))
+            hyper_param.Int(name='lstm_units_1', min_value=8, max_value=64, step=8, default=64)))
         )
         self.model.add(keras.layers.GlobalAveragePooling1D())
         
