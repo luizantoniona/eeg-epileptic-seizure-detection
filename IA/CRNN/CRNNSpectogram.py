@@ -1,5 +1,6 @@
+import keras
+import keras_tuner as kt
 from IA.CRNN.CRNNBase import CRNNBase
-import tensorflow as tf
 
 class CRNNSpectrogram( CRNNBase ):
     """
@@ -8,18 +9,21 @@ class CRNNSpectrogram( CRNNBase ):
     def __init__(self, input_shape):
         super().__init__(input_shape)
 
-    def construct_model(self):
-        self.model = tf.keras.models.Sequential()
-        self.model.add(tf.keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=self.input_shape, padding='same'))
-        self.model.add(tf.keras.layers.MaxPooling2D((2, 2), padding='same'))
-        self.model.add(tf.keras.layers.BatchNormalization())
-        self.model.add(tf.keras.layers.Conv2D(64, (3, 3), activation='relu', padding='same'))
-        self.model.add(tf.keras.layers.MaxPooling2D((2, 2), padding='same'))
-        self.model.add(tf.keras.layers.BatchNormalization())
-        self.model.add(tf.keras.layers.TimeDistributed(tf.keras.layers.Flatten()))
-        self.model.add(tf.keras.layers.LSTM(128, return_sequences=True))
-        self.model.add(tf.keras.layers.GRU(64))
-        self.create_dense()
+    def construct_model(self,  hyper_param: kt.HyperParameters):
+        self.model = keras.models.Sequential()
+        self.model.add(keras.layers.InputLayer(shape=self.input_shape))
+
+        self.model.add(keras.layers.Conv2D(16, (3, 3), activation='relu'))
+        self.model.add(keras.layers.MaxPooling2D((3, 3)))
+
+        self.model.add(keras.layers.Conv2D(32, (3, 3), activation='relu'))
+        self.model.add(keras.layers.MaxPooling2D((2, 2)))
+
+        self.model.add(keras.layers.TimeDistributed(keras.layers.Flatten()))
+        self.model.add(keras.layers.LSTM(16, return_sequences=True))
+        self.model.add(keras.layers.GRU(8))
+        
+        super().create_dense(hyper_param=hyper_param)
 
     def name(self):
         return super().name()
