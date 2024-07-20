@@ -31,7 +31,7 @@ class CNNTime( CNNBase ):
         
         self.model.add(keras.layers.Flatten())
         
-        super().create_dense(hyper_param)
+        super().create_dense(hyper_param=hyper_param)
 
     def name(self):
         return super().name()
