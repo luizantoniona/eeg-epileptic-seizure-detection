@@ -1,4 +1,5 @@
 from Object.Signal.Signal import Signal
+import gc
 import mne
 import numpy as np
 
@@ -12,24 +13,32 @@ class SpectrogramSignal(Signal):
 
     def generate_data(self):
         """
-        Generate Spectogram data for all file.
+        Generate Spectrogram data for all file.
         """
-        self.data = self.mne_data.compute_tfr(method='morlet',
-                                                     freqs=self.frequencies(),
-                                                     n_jobs=-1,
-                                                     verbose='CRITICAL',
-                                                     n_cycles=self.frequencies()).get_data()
+        spectrogram = self.mne_data.compute_tfr(method='multitaper',
+                                                freqs=self.frequencies(),
+                                                n_jobs=4,
+                                                n_cycles=self.frequencies())
+        
+        self.data = spectrogram.get_data()
+        del spectrogram
+        spectrogram = None
+        gc.collect()
 
     def generate_segmented_data(self, t_min, t_max):
         """
-        Generate segmented Spectogram data for a specified time interval.
+        Generate segmented Spectrogram data for a specified time interval.
         """
-        self.data_segmented.append(self.mne_data.compute_tfr(method='morlet',
-                                                             freqs=self.frequencies(),
-                                                             tmin=t_min, tmax=t_max,
-                                                             n_jobs=-1,
-                                                             verbose='CRITICAL',
-                                                             n_cycles=self.frequencies()).get_data())
+        spectrogram = self.mne_data.compute_tfr(method='multitaper',
+                                                freqs=self.frequencies(),
+                                                tmin=t_min, tmax=t_max,
+                                                n_jobs=4,
+                                                n_cycles=self.frequencies())
+        
+        self.data_segmented.append(spectrogram.get_data())
+        del spectrogram
+        spectrogram = None
+        gc.collect()
 
     def frequencies(self):
         """
@@ -40,4 +49,4 @@ class SpectrogramSignal(Signal):
         12.5 - 30 -> Beta
         30+ -> Gamma
         """
-        return np.arange(1, 45, 5)
+        return np.arange(1, 60, 10)

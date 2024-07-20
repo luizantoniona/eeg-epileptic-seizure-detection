@@ -1,4 +1,5 @@
 from Object.Signal.Signal import Signal
+import gc
 import mne
 
 class PSDSignal(Signal):
@@ -13,10 +14,21 @@ class PSDSignal(Signal):
         """
         Generate PSD data for all file.
         """
-        self.data = self.mne_data.compute_psd(verbose=False).get_data()
+        psd = self.mne_data.compute_psd()
+        
+        self.data = psd.get_data()
+        del psd
+        psd = None
+        gc.collect()
     
     def generate_segmented_data(self, t_min, t_max):
         """
         Generate segmented PSD data for a specified time interval.
         """
-        self.data_segmented.append(self.mne_data.compute_psd(tmin=t_min, tmax=t_max, verbose='CRITICAL').get_data())
+        psd = self.mne_data.compute_psd(tmin=t_min,
+                                        tmax=t_max)
+        
+        self.data_segmented.append(psd.get_data())
+        del psd
+        psd = None
+        gc.collect()
