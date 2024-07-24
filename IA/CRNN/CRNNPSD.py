@@ -32,7 +32,7 @@ class CRNNPSD( CRNNBase ):
             kernel_size=(3, 3),
             activation='relu')
         )
-        self.model.add(keras.layers.MaxPooling2D((2, 1)))
+        self.model.add(keras.layers.MaxPooling2D((1, 2)))
 
         self.model.add(keras.layers.TimeDistributed(keras.layers.Flatten()))
         self.model.add(keras.layers.LSTM(
