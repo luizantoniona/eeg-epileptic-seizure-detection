@@ -7,7 +7,7 @@ Packages:
 """
 
 import os
-import wfdb 
+import wfdb
 from urllib.request import urlretrieve
 
 def get_summary( part_code ):
