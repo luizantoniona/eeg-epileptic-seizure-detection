@@ -4,15 +4,15 @@
 
 ## Dataset
 
-The dataset used in this work was the [CHB-MIT Scalp EEG Database](https://physionet.org/physiobank/database/chbmit/) from PhysioNet [1]. The exams in this dataset were generated at Boston Children's Hospital. All patients were monitored at a sampling rate of 256 Hz with 16-bit quantization, and the electrodes were placed according to the 10–20 system of the International Federation of Clinical Neurophysiology ([IFCN](https://www.ifcn.info/)). The dataset contains information from 23 patients, where each case contains between 9 and 42 continuous samples from a single subject.
+The dataset used in this work was the [CHB-MIT Scalp EEG Database](https://physionet.org/physiobank/database/chbmit/) from PhysioNet [1]. The exams in this dataset were generated at Boston Children's Hospital. All patients were monitored at a sampling rate of 256 Hz with 16-bit quantization, and the electrodes were placed according to the 10–20 system of the International Federation of Clinical Neurophysiology ([IFCN](https://www.ifcn.info/)). The dataset contains information from 22 patients, where each case contains between 9 and 42 continuous samples from a single subject.
 
 The dataset comes with a summary for each patient, containing crucial details about the exams, such as file name, start and end times, and the number of seizures. Given the complexity and volume of files, we opted for a database solution to streamline access and enhance readability of this information.
 
 After an analysis of the data contained in the summaries, we arrived at a relational table with the following information:
 
-| record_name |  file_name   | start_time | end_time | nr_seizures | start_seizure | end_seizure | nr_channels |   ds_channels    |
-| :---------: | :----------: | :--------: | :------: | :---------: | :-----------: | :---------: | :---------: | :--------------: |
-|    chb01    | chb01_01.edf |  12:34:22  | 13:13:07 |      2      |  1862, 2000   | 1963, 2213  |     24      | FP1-F7,F7-T7,... |
+|record_name| file_name | start_time | end_time | nr_occurrence | start_occurrence | end_occurrence | nr_channels | ds_channels |
+|:---------:|:---------:|:----------:|:--------:|:-----------:|:-------------:|:-----------:|:-----------:|:-----------:|
+|ch01|chb01_01.edf|12:34:22|13:13:07|2|1862, 2000|1963, 2213| 24 | FP1-F7,F7-T7,...|
 
 To store the records of the table above, a [SQLite](https://www.sqlite.org/) database was used, as it is simple to use and contains a Python library.
 
@@ -101,8 +101,6 @@ The pre-processing step is segmented into two different phases: one for generati
 
 - **Balance:** This step involves balancing the distribution of samples within the training data to prevent the model from being biased towards certain value.
 
-- **Shuffle:** The training data is shuffled to randomize the order of samples, which helps prevent the model from learning any patterns based on the order of data points.
-
 - **Training:** This stage involves training the machine learning model using the balanced and shuffled training data.
 
 - **Evaluation:** After training, the model's performance is evaluated using the test datasets to acess its generalization ability and effectiveness.
@@ -131,7 +129,7 @@ The pre-processing step is segmented into two different phases: one for generati
 ## Models and Training
 
 ### Data Domains
-The data will be processed and inserted into the models in two different domains:
+The data will be processed and inserted into the models in three different domains:
 - Using temporal data for training.
 - Utilizing frequency (Power Spectral Density [PSD]) for training.
 - Using time-frequency (Spectogram) for training.
@@ -171,7 +169,7 @@ A set of metrics was used to evaluate the performance of the models. For those m
 
 ### Models Evaluations:
 
-- **[CNN Metrics Comparison](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/15%20-%20CNN%20Evaluation.ipynb)**
+TODO
 
 ## References
 
