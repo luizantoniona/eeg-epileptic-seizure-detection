@@ -6,8 +6,8 @@ class RNNBase( NNBase ):
     """
     RNN Base Model
     """
-    def __init__(self, input_shape):
-        super().__init__(input_shape)
+    def __init__(self, input_shape, window_length: int):
+        super().__init__(input_shape, window_length)
 
     def construct_model(self):
         """

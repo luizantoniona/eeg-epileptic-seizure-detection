@@ -2,7 +2,7 @@ INSERT INTO metrics_info
 (
     model_name,
     model_data_domain,
-    model_time_window,
+    model_window_length,
     accuracy,
     `precision`,
     sensitivity,

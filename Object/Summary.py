@@ -84,23 +84,23 @@ class Summary:
 
     def generate_segmented_data_full_file(self, 
                                           signal_type: str,
-                                          time_window: int):
+                                          window_length: int):
         """
         Generate segmented data based on type and a specified time window for full file.
         """
         self.signal = SignalFactory.signal_by_type(signal_type, Reader.read_edf(self))
 
         current_time = 0    
-        while current_time + time_window <= self.duration():
-            self.signal.generate_segmented_data(current_time, current_time + time_window)
-            self.signal.label_segmented.append(self.has_anomaly_in_interval(current_time, current_time + time_window))
-            current_time += time_window
+        while current_time + window_length <= self.duration():
+            self.signal.generate_segmented_data(current_time, current_time + window_length)
+            self.signal.label_segmented.append(self.has_anomaly_in_interval(current_time, current_time + window_length))
+            current_time += window_length
 
         self.signal.delete_mne_data()
 
     def generate_segmented_data(self,
                                 signal_type: str,
-                                time_window: int):
+                                window_length: int):
         """
         Generate segmented data based on type and a specified time window around disease ocurrence.
         """
@@ -123,9 +123,9 @@ class Summary:
 
             current_time = fragment_start
 
-            while current_time + time_window <= fragment_end:
-                self.signal.generate_segmented_data(current_time, current_time + time_window)
-                self.signal.label_segmented.append(self.has_anomaly_in_interval(current_time, current_time + time_window))
-                current_time += time_window
+            while current_time + window_length <= fragment_end:
+                self.signal.generate_segmented_data(current_time, current_time + window_length)
+                self.signal.label_segmented.append(self.has_anomaly_in_interval(current_time, current_time + window_length))
+                current_time += window_length
 
         self.signal.delete_mne_data()

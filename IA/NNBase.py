@@ -6,8 +6,9 @@ class NNBase:
     """
     Neural Network Basic Model methods
     """
-    def __init__(self, input_shape):
+    def __init__(self, input_shape, window_length: int):
         self.input_shape = input_shape
+        self.window_length = window_length
         self.model: keras.Model = None
 
     def construct_model(self):
@@ -40,7 +41,7 @@ class NNBase:
                                       epochs=num_epochs,
                                       batch_size=batch_size,
                                       validation_data=(val_data, val_labels),
-                                      #verbose=0
+                                      verbose=0
                                       )
 
     def summary(self):
@@ -53,6 +54,7 @@ class NNBase:
         """
         Plot training and validation accuracy over epochs.
         """
+        plt.title(self.name() + " " + self.signal() + " " + str(self.window_length))
         plt.plot(self.history.history['accuracy'], label='accuracy')
         plt.plot(self.history.history['val_accuracy'], label = 'val_accuracy')
         plt.xlabel('Epoch')

@@ -2,7 +2,7 @@ CREATE TABLE metrics_info
 (
     model_name VARCHAR(20),
     model_data_domain VARCHAR(20),
-    model_time_window INTEGER,
+    model_window_length INTEGER,
     accuracy FLOAT,
     `precision` FLOAT,
     sensitivity FLOAT,

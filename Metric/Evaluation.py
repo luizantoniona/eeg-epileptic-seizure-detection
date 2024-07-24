@@ -1,14 +1,14 @@
 class Evaluation:
     """
     """
-    def __init__(self, model_name, model_data_domain, model_time_window,
+    def __init__(self, model_name, model_data_domain, model_window_length,
                 true_positives, true_negatives, false_positives, false_negatives, total_samples,
                 accuracy, precision, sensitivity, specificity, true_positive_rate, false_positive_rate, f1_score):
         """
         """
         self.model_name = model_name
         self.model_data_domain = model_data_domain
-        self.model_time_window = model_time_window
+        self.model_window_length = model_window_length
 
         self.true_positives = true_positives
         self.true_negatives = true_negatives

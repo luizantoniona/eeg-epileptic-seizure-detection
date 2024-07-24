@@ -11,15 +11,15 @@ class Evaluator:
     """
 
     """
-    def __init__(self, model_name, model_data_domain, model_time_window):
+    def __init__(self, model_name, model_data_domain, model_window_length):
         """
         """
         self.model_name = model_name
         self.model_data_domain = model_data_domain
-        self.model_time_window = model_time_window
+        self.model_window_length = model_window_length
 
         database = DatabaseMetrics()
-        db_objects = database.metrics_by_model_domain_window(model_name, model_data_domain, model_time_window)
+        db_objects = database.metrics_by_model_domain_window(model_name, model_data_domain, model_window_length)
 
         self.evaluations: list[Evaluation] = []
 
@@ -42,7 +42,7 @@ class Evaluator:
     def show_name(self):
         print("MODEL:", self.model_name)
         print("DATA DOMAIN:", self.model_data_domain)
-        print("WINDOW SIZE:", self.model_time_window)
+        print("WINDOW SIZE:", self.model_window_length)
 
     def show_sample(self):
         print("SAMPLE:")

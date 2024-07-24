@@ -1,2 +1,2 @@
 SELECT * FROM metrics_info
-    WHERE model_time_window = ?;
+    WHERE model_window_length = ?;
