@@ -10,7 +10,8 @@ NR_EPOCHS = 100 #TODO: Use Keras Tuner
 BATCH_SIZE = 256 #TODO: Use Keras Tuner
 
 def train(X_train, y_train, X_val, y_val, X_test, y_test,
-          model_type: str, signal_type: str, learning_rate: float = 0.001):
+          model_type: str, signal_type: str, time_window: int,
+          learning_rate: float = 0.001):
 
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
@@ -20,11 +21,11 @@ def train(X_train, y_train, X_val, y_val, X_test, y_test,
         neural_network_model.compile(learning_rate=learning_rate)
         return neural_network_model.model
     
-    tuner = kt.RandomSearch(build,
-                            objective='val_accuracy',
-                            max_trials=10,
-                            directory='Tuner',
-                            project_name=model_type + "_" + signal_type)
+    tuner = kt.BayesianOptimization(build,
+                                    objective='val_accuracy',
+                                    max_trials=20,
+                                    directory='Tuner',
+                                    project_name=model_type + "_" + signal_type + "_" + str(time_window))
     
     tuner.search_space_summary()
     tuner.search(X_train, y_train, epochs=50, validation_data=(X_val, y_val))
@@ -43,7 +44,7 @@ def train(X_train, y_train, X_val, y_val, X_test, y_test,
     neural_network_model.predict(X_test)
     #neural_network_model.print_predictions(y_test)
 
-    metric = Metric(y_test, neural_network_model.predictions, neural_network_model.name(), signal_type)
+    metric = Metric(y_test, neural_network_model.predictions, neural_network_model.name(), signal_type, time_window)
     metric.all_metrics()
-    # metric.metrics_to_database()
+    metric.metrics_to_database()
     # metric.plot_roc_auc(y_test, neural_network_model.predictions)

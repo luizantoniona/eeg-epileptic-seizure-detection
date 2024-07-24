@@ -2,6 +2,7 @@ INSERT INTO metrics_info
 (
     model_name,
     model_data_domain,
+    model_time_window,
     accuracy,
     `precision`,
     sensitivity,
@@ -16,6 +17,7 @@ INSERT INTO metrics_info
     total_samples
 )
 VALUES (
+    ?,
     ?,
     ?,
     ?,

@@ -8,7 +8,7 @@ class DatabaseMetrics( Database ):
     def __init__(self):
         super().__init__()
 
-    def insert_metrics_data(self, model_name, model_data_domain,
+    def insert_metrics_data(self, model_name, model_data_domain, model_time_window,
                             accuracy, precision, sensitivity, specificity,
                             true_positive_rate, false_positive_rate, f1_score,
                             true_positives, true_negatives, false_positives, false_negatives, total_samples):
@@ -20,7 +20,7 @@ class DatabaseMetrics( Database ):
         fd.close()
 
         try:
-            self.cursor.execute(sql_file, (model_name, model_data_domain,
+            self.cursor.execute(sql_file, (model_name, model_data_domain, model_time_window,
                                                 accuracy, precision, sensitivity, specificity,
                                                 true_positive_rate, false_positive_rate, f1_score,
                                                 true_positives, true_negatives, false_positives, false_negatives, total_samples,))
@@ -56,16 +56,30 @@ class DatabaseMetrics( Database ):
         except:
             print("Não há registros")
 
-    def metrics_by_model_and_domain(self, model_name, domain_name):
+    def metrics_by_model_domain(self, model_name, domain_name):
         """
         Retrieve metrics by model and domain.
         """
-        fd = open("./Database/SQL/Metrics/select_metrics_by_model_and_domain.sql", 'r')
+        fd = open("./Database/SQL/Metrics/select_metrics_by_model_domain.sql", 'r')
         sql_file = fd.read()
         fd.close()
 
         try:
             self.cursor.execute(sql_file, (model_name, domain_name,))
+            return self.cursor.fetchall()
+        except:
+            print("Não há registros")
+
+    def metrics_by_model_domain_window(self, model_name, domain_name, time_window):
+        """
+        Retrieve metrics by model, domain and time_window.
+        """
+        fd = open("./Database/SQL/Metrics/select_metrics_by_model_domain_window.sql", 'r')
+        sql_file = fd.read()
+        fd.close()
+
+        try:
+            self.cursor.execute(sql_file, (model_name, domain_name, time_window,))
             return self.cursor.fetchall()
         except:
             print("Não há registros")

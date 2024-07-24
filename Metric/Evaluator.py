@@ -1,41 +1,51 @@
-"""
-
-"""
 import numpy as np
 import sklearn.metrics as metrics
 from statistics import mean 
 from statistics import median
 from statistics import pstdev
+from Database.DatabaseMetrics import DatabaseMetrics
+from Metric.Evaluation import Evaluation
+import Metric.EvaluatorConverter as Converter
 
 class Evaluator:
     """
-    
+
     """
-    def __init__(self, model_name, model_data_domain,
-                true_positives, true_negatives, false_positives, false_negatives, total_samples,
-                accuracy, precision, sensitivity, specificity, true_positive_rate, false_positive_rate, f1_score):
+    def __init__(self, model_name, model_data_domain, model_time_window):
         """
-        
         """
         self.model_name = model_name
         self.model_data_domain = model_data_domain
-        self.true_positives = true_positives
-        self.true_negatives = true_negatives
-        self.false_positives = false_positives
-        self.false_negatives = false_negatives
-        self.total_samples = total_samples
-        self.accuracy = accuracy
-        self.precision = precision
-        self.sensitivity = sensitivity
-        self.specificity = specificity
-        self.true_positive_rate = true_positive_rate
-        self.false_positive_rate = false_positive_rate
-        self.f1_score = f1_score
+        self.model_time_window = model_time_window
+
+        database = DatabaseMetrics()
+        db_objects = database.metrics_by_model_domain_window(model_name, model_data_domain, model_time_window)
+
+        self.evaluations: list[Evaluation] = []
+
+        for db_object in db_objects:
+            self.evaluations.append(Converter.model_from_tuple(db_object))
+
+        self.true_positives = [evaluation.true_positives for evaluation in self.evaluations]
+        self.true_negatives = [evaluation.true_negatives for evaluation in self.evaluations]
+        self.false_positives = [evaluation.false_positives for evaluation in self.evaluations]
+        self.false_negatives = [evaluation.false_negatives for evaluation in self.evaluations]
+        self.total_samples = [evaluation.total_samples for evaluation in self.evaluations]
+        self.accuracy = [evaluation.accuracy for evaluation in self.evaluations]
+        self.precision = [evaluation.precision for evaluation in self.evaluations]
+        self.sensitivity = [evaluation.sensitivity for evaluation in self.evaluations]
+        self.specificity = [evaluation.specificity for evaluation in self.evaluations]
+        self.true_positive_rate = [evaluation.true_positive_rate for evaluation in self.evaluations]
+        self.false_positive_rate = [evaluation.false_positive_rate for evaluation in self.evaluations]
+        self.f1_score = [evaluation.f1_score for evaluation in self.evaluations]
 
     def show_name(self):
         print("MODEL:", self.model_name)
         print("DATA DOMAIN:", self.model_data_domain)
-        print("------------------------------------")
+        print("WINDOW SIZE:", self.model_time_window)
+
+    def show_sample(self):
+        print("SAMPLE:")
         print('True Positives:', mean(self.true_positives))
         print('True Negatives:', mean(self.true_negatives))
         print('False Positives:', mean(self.false_positives))

@@ -11,10 +11,11 @@ import sklearn.metrics as metrics
 class Metric:
    """
    """
-   def __init__(self, test, predictions, model_name, model_data_domain):
+   def __init__(self, test, predictions, model_name, model_data_domain, model_time_window):
 
       self.model_name = model_name
       self.model_data_domain = model_data_domain
+      self.model_time_window = model_time_window
 
       self.true_positives = 0
       self.true_negatives = 0
@@ -56,7 +57,7 @@ class Metric:
 
    def metrics_to_database(self):
       database = DatabaseMetrics()
-      database.insert_metrics_data(self.model_name, self.model_data_domain,
+      database.insert_metrics_data(self.model_name, self.model_data_domain, self.model_time_window,
                              self.accuracy, self.precision, self.sensitivity, self.specificity, self.true_positive_rate, self.false_positive_rate, self.f1_score,
                              self.true_positives, self.true_negatives, self.false_positives, self.false_negatives, self.total_samples )
 
