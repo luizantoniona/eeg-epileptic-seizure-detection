@@ -84,7 +84,7 @@ class Summary:
 
     def generate_segmented_data_full_file(self, 
                                           signal_type: str,
-                                          time_window: int = 5):
+                                          time_window: int):
         """
         Generate segmented data based on type and a specified time window for full file.
         """
@@ -100,7 +100,7 @@ class Summary:
 
     def generate_segmented_data(self,
                                 signal_type: str,
-                                time_window: int = 5):
+                                time_window: int):
         """
         Generate segmented data based on type and a specified time window around disease ocurrence.
         """
@@ -121,7 +121,7 @@ class Summary:
             if fragment_end > self.duration():
                 fragment_end = self.duration()
 
-            current_time = fragment_start    
+            current_time = fragment_start
 
             while current_time + time_window <= fragment_end:
                 self.signal.generate_segmented_data(current_time, current_time + time_window)
