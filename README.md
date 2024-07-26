@@ -60,6 +60,8 @@ The pre-processing step is segmented into two different phases: one for generati
 
   - **Compute PSD (Power Spectral Density):** If the requested data is in the frequency domain, compute the Power Spectral Density (PSD) of each segment.
 
+  - **Compute Spectrogram:** If the requested data is in the time-frequency domain, compute the spectrogram of each segment.
+
 - **Pre-processed data:** Obtain the pre-processed data as the output of the entire process.
 
 ```mermaid
@@ -117,12 +119,10 @@ The pre-processing step is segmented into two different phases: one for generati
    F[Test]
    end
    G[Balance]
-   H[Shuffle]
    D-->G
-   G-->H
+   G-->I
    I((Training))
    J((Evaluation))
-   H-->I
    E-->I
    F-->J
 ```
