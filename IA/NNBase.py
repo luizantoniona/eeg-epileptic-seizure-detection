@@ -1,4 +1,5 @@
 import keras
+import keras_tuner as kt
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -29,8 +30,10 @@ class NNBase:
         """
         raise NotImplementedError()
 
-    def compile(self, learning_rate: float = 0.001):
-        optimizer = keras.optimizers.Adam(learning_rate=learning_rate)
+    def compile(self, hyper_param: kt.HyperParameters):
+        optimizer = keras.optimizers.Adam(
+            hyper_param.Float("learning_rate", 1e-4, 1e-2, sampling="log", default=1e-3)
+        )
         self.model.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['accuracy'])
 
     def fit(self, train_data, train_labels, num_epochs, batch_size, val_data, val_labels):
