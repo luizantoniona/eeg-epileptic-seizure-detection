@@ -32,7 +32,7 @@ class NNBase:
 
     def compile(self, hyper_param: kt.HyperParameters):
         optimizer = keras.optimizers.Adam(
-            hyper_param.Float("learning_rate", 1e-4, 1e-2, sampling="log", default=1e-3)
+            hyper_param.Float("learning_rate", min_value=1e-5, max_value=1e-3, sampling="log", default=1e-3)
         )
         self.model.compile(optimizer=optimizer, loss='binary_crossentropy', metrics=['accuracy'])
 
