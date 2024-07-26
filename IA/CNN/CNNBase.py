@@ -8,12 +8,7 @@ class CNNBase( NNBase ):
     """
     def __init__(self, input_shape, window_length: int):
         super().__init__(input_shape, window_length)
-
-    def construct_model(self):
-        """
-        Construct the model for the CNN
-        """
-        raise NotImplementedError()
+        self.convolution_counter: int = 0
 
     def name(self):
         """
@@ -21,32 +16,29 @@ class CNNBase( NNBase ):
         """
         return "CNN"
     
-    def signal(self):
-        """
-        Return the signal type of the model.
-        """
-        raise NotImplementedError()
-    
+    def create_dropout_layer(self, hyper_param: kt.HyperParameters,
+                             min_value: int, max_value: int,
+                             step_value: int, default_value: int):
+        return super().create_dropout_layer(hyper_param, min_value, max_value, step_value, default_value)
+
+    def create_convolution_layer(self, hyper_param: kt.HyperParameters,
+                                 min_value: int, max_value: int,
+                                 step_value: int, default_value: int):
+        convolution_layer = keras.layers.Conv2D(
+            hyper_param.Int(name=f"conv_{self.convolution_counter}",
+                            min_value=min_value, max_value=max_value,
+                            step=step_value, default=default_value),
+            kernel_size=(3, 3),
+            activation='relu'
+        )
+        self.convolution_counter = self.convolution_counter + 1
+        return convolution_layer
+
     def create_dense(self, hyper_param: kt.HyperParameters):
-        self.model.add(keras.layers.Dense(
-            hyper_param.Int(name='dense_1', min_value=32, max_value=256, step=32, default=128),
-            activation='relu'
-        ))
-        self.model.add(keras.layers.Dropout(
-            hyper_param.Float(name='dropout_1', min_value=0.3, max_value=0.7, step=0.1, default=0.5)
-        ))
-        self.model.add(keras.layers.Dense(
-            hyper_param.Int(name='dense_2', min_value=16, max_value=128, step=16, default=64),
-            activation='relu'
-        ))
-        self.model.add(keras.layers.Dropout(
-            hyper_param.Float(name='dropout_2', min_value=0.3, max_value=0.7, step=0.1, default=0.5)
-        ))
-        self.model.add(keras.layers.Dense(
-            hyper_param.Int(name='dense_3', min_value=8, max_value=64, step=8, default=32),
-            activation='relu'
-        ))
-        self.model.add(keras.layers.Dropout(
-            hyper_param.Float(name='dropout_3', min_value=0.3, max_value=0.7, step=0.1, default=0.5)
-        ))
+        self.model.add(super().create_dense_layer(hyper_param, min_value=32, max_value=256, step_value=8, default_value=128))
+        self.model.add(super().create_dropout_layer(hyper_param, min_value=0.1, max_value=0.8, step_value=0.1, default_value=0.5))
+
+        self.model.add(super().create_dense_layer(hyper_param, min_value=16, max_value=128, step_value=8, default_value=64))
+        self.model.add(super().create_dropout_layer(hyper_param, min_value=0.1, max_value=0.8, step_value=0.1, default_value=0.5))
+
         self.model.add(keras.layers.Dense(1, activation='sigmoid'))
