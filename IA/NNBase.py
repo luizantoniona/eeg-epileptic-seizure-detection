@@ -11,24 +11,29 @@ class NNBase:
         self.input_shape = input_shape
         self.window_length = window_length
         self.model: keras.Model = None
+        self.dense_count: int = 0
+        self.dropout_count: int = 0
 
-    def construct_model(self):
-        """
-        Construct the model for the Neural Network
-        """
-        raise NotImplementedError()
+    def create_dense_layer(self, hyper_param: kt.HyperParameters,
+                           min_value: int, max_value: int, step_value: int, default_value: int):
+        dense_layer = keras.layers.Dense(
+            hyper_param.Int(name=f"dense_{self.dense_count}",
+                            min_value=min_value, max_value=max_value,
+                            step=step_value, default=default_value),
+            activation='relu'
+        )
+        self.dense_count = self.dense_count + 1
+        return dense_layer
 
-    def name(self):
-        """
-        Return the name of the model.
-        """
-        raise NotImplementedError()
-    
-    def signal(self):
-        """
-        Return the signal type of the model.
-        """
-        raise NotImplementedError()
+    def create_dropout_layer(self, hyper_param: kt.HyperParameters,
+                             min_value: int, max_value: int, step_value: int, default_value: int):
+        dropout_layer = keras.layers.Dropout(
+            hyper_param.Float(name=f"dropout_{self.dense_count}",
+                              min_value=min_value, max_value=max_value,
+                              step=step_value, default=default_value)
+        )
+        self.dropout_count = self.dropout_count + 1
+        return dropout_layer
 
     def compile(self, hyper_param: kt.HyperParameters):
         optimizer = keras.optimizers.Adam(
@@ -44,7 +49,7 @@ class NNBase:
                                       epochs=num_epochs,
                                       batch_size=batch_size,
                                       validation_data=(val_data, val_labels),
-                                      verbose=0
+                                      #verbose=0,
                                       )
 
     def summary(self):
