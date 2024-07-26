@@ -81,10 +81,13 @@ The pre-processing step is segmented into two different phases: one for generati
    E-->G
    G{Domain?}
    H[Compute PSD]
-   I[Pre-processed data]
-   G-->|Time| I
+   I[Compute Spectrogram]
+   J[Pre-processed data]
+   G-->|Time| J
    G-->|Frequency| H
-   H-->I
+   G-->|Time-Frequency| I
+   H-->J
+   I-->J
 ```
 
 #### Adjust data for training:
@@ -119,12 +122,16 @@ The pre-processing step is segmented into two different phases: one for generati
    F[Test]
    end
    G[Balance]
+   H[Balance]
+   I[Balance]
    D-->G
-   G-->I
-   I((Training))
-   J((Evaluation))
-   E-->I
-   F-->J
+   E-->H
+   F-->I
+   J((Training))
+   K((Evaluation))
+   G-->J
+   H-->J
+   I-->K
 ```
 ## Models and Training
 
