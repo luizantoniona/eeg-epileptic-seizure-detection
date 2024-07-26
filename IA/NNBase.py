@@ -28,7 +28,7 @@ class NNBase:
     def create_dropout_layer(self, hyper_param: kt.HyperParameters,
                              min_value: int, max_value: int, step_value: int, default_value: int):
         dropout_layer = keras.layers.Dropout(
-            hyper_param.Float(name=f"dropout_{self.dense_count}",
+            hyper_param.Float(name=f"dropout_{self.dropout_count}",
                               min_value=min_value, max_value=max_value,
                               step=step_value, default=default_value)
         )
