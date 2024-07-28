@@ -13,35 +13,18 @@ class CRNNPSD( CRNNBase ):
         self.model = keras.models.Sequential()
         self.model.add(keras.layers.InputLayer(shape=self.input_shape))
 
-        self.model.add(keras.layers.Conv2D(
-            hyper_param.Int(name='filters_1', min_value=8, max_value=128, step=8, default=16),
-            kernel_size=(3, 3),
-            activation='relu')
-        )
-        self.model.add(keras.layers.MaxPooling2D((2, 2)))
+        self.model.add(super().create_convolution_layer(hyper_param, min_value=8, max_value=64, step_value=8, default_value=16))
+        self.model.add(keras.layers.MaxPooling2D((3, 3)))
+        self.model.add(super().create_dropout_layer(hyper_param, min_value=0.1, max_value=0.8, step_value=0.1, default_value=0.5))
 
-        self.model.add(keras.layers.Conv2D(
-            hyper_param.Int(name='filters_2', min_value=8, max_value=128, step=8, default=16),
-            kernel_size=(3, 3),
-            activation='relu')
-        )
-        self.model.add(keras.layers.MaxPooling2D((2, 2)))
-
-        self.model.add(keras.layers.Conv2D(
-            hyper_param.Int(name='filters_3', min_value=8, max_value=128, step=8, default=16),
-            kernel_size=(3, 3),
-            activation='relu')
-        )
-        self.model.add(keras.layers.MaxPooling2D((1, 2)))
+        self.model.add(super().create_convolution_layer(hyper_param, min_value=16, max_value=128, step_value=8, default_value=32))
+        self.model.add(keras.layers.MaxPooling2D((3, 3)))
+        self.model.add(super().create_dropout_layer(hyper_param, min_value=0.1, max_value=0.8, step_value=0.1, default_value=0.5))
 
         self.model.add(keras.layers.TimeDistributed(keras.layers.Flatten()))
-        self.model.add(keras.layers.LSTM(
-            hyper_param.Int(name='lstm_units_1', min_value=8, max_value=128, step=8, default=16),
-            return_sequences=True)
-        )
-        self.model.add(keras.layers.LSTM(
-            hyper_param.Int(name='lstm_units_2', min_value=8, max_value=64, step=8, default=8))
-        )
+
+        self.model.add(super().create_lstm_layer(hyper_param, min_value=8, max_value=64, step_value=8, default_value=32, return_sequences=True))
+        self.model.add(super().create_lstm_layer(hyper_param, min_value=8, max_value=32, step_value=8, default_value=16))
 
         super().create_dense(hyper_param=hyper_param)
 

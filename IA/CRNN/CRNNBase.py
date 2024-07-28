@@ -37,9 +37,9 @@ class CRNNBase( NNBase ):
     
     def create_lstm_layer(self, hyper_param: kt.HyperParameters,
                           min_value: int, max_value: int,
-                          step_value: int, default_value: int, return_sequences: bool):
+                          step_value: int, default_value: int, return_sequences: bool = False):
         lstm_layer = keras.layers.LSTM(
-            hyper_param.Int(name=f"lstm_{self.dense_count}", min_value=min_value, max_value=max_value, step=step_value, default=default_value),
+            hyper_param.Int(name=f"lstm_{self.lstm_count}", min_value=min_value, max_value=max_value, step=step_value, default=default_value),
             return_sequences=return_sequences
         )
         self.lstm_count = self.lstm_count + 1
