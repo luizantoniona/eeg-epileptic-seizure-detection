@@ -7,7 +7,7 @@ import IA.NeuralNetworkModelFactory as NNModelFactory
 from Metric.Metric import Metric
 
 NR_EPOCHS = 100 #TODO: Use Keras Tuner
-BATCH_SIZE = 256 #TODO: Use Keras Tuner
+BATCH_SIZE = 32 #TODO: Use Keras Tuner
 
 def train(X_train, y_train, X_val, y_val, X_test, y_test,
           model_type: str, signal_type: str, window_length: int):
@@ -27,7 +27,7 @@ def train(X_train, y_train, X_val, y_val, X_test, y_test,
                                     project_name=signal_type + "_" + str(window_length) + "_" + model_type)
     
     tuner.search_space_summary()
-    tuner.search(X_train, y_train, epochs=100, validation_data=(X_val, y_val))
+    tuner.search(X_train, y_train, epochs=50, batch_size=BATCH_SIZE, validation_data=(X_val, y_val))
     best_hps = tuner.get_best_hyperparameters()[0]
 
     neural_network_model = NNModelFactory.model_by_type(model_type, signal_type, X_train[0].shape, window_length)
