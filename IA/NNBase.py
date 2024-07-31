@@ -85,13 +85,13 @@ class NNBase:
         for i in range(len(y_test)):
             print("PREDICTION: " + str(self.predictions[i]) + " | " +  "REAL: " + str(y_test[i]))
 
-    def save_model(self, filepath):
+    def save_model(self, filepath: str):
         """
         Save the model to the specified filepath.
         """
         self.model.save(filepath)
 
-    def load_model(self, filepath):
+    def load_model(self, filepath: str):
         """
         Load the model from the specified filepath.
         """
