@@ -2,6 +2,10 @@
 
 ## TODO: REVIEW README.me
 
+## Packages used in this project:
+- Tensorflow
+- MNE library
+
 ## Dataset
 
 The dataset used in this work was the [CHB-MIT Scalp EEG Database](https://physionet.org/physiobank/database/chbmit/) from PhysioNet [1]. The exams in this dataset were generated at Boston Children's Hospital. All patients were monitored at a sampling rate of 256 Hz with 16-bit quantization, and the electrodes were placed according to the 10–20 system of the International Federation of Clinical Neurophysiology ([IFCN](https://www.ifcn.info/)). The dataset contains information from 22 patients, where each case contains between 9 and 42 continuous samples from a single subject.
