@@ -83,3 +83,18 @@ class DatabaseMetrics( Database ):
             return self.cursor.fetchall()
         except:
             print("Não há registros")
+
+    def highest_accuracy(self, model_name, domain_name, window_length):
+        """
+        Retrieve metrics by model, domain and window_length.
+        """
+        fd = open("./Database/SQL/Metrics/select_metrics_with_highest_accuracy.sql", 'r')
+        sql_file = fd.read()
+        fd.close()
+
+        try:
+            self.cursor.execute(sql_file, (model_name, domain_name, window_length,))
+            return self.cursor.fetchall()
+        except:
+            print("Não há registros")
+            return None
