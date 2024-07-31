@@ -43,3 +43,6 @@ def train(X_train, y_train, X_val, y_val, X_test, y_test,
     metric.all_metrics()
     metric.metrics_to_database()
     # metric.plot_roc_auc(y_test, neural_network_model.predictions)
+
+    model_filepath = f'Models/{signal_type}/{str(window_length)}/{model_type}_{str(metric.accuracy)}.keras'
+    neural_network_model.save_model(filepath=model_filepath)
