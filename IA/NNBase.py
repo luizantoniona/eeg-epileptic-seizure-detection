@@ -14,6 +14,15 @@ class NNBase:
         self.dense_count: int = 0
         self.dropout_count: int = 0
 
+    def construct_model(self, hyper_param: kt.HyperParameters):
+        raise NotImplementedError()
+    
+    def name(self):
+        raise NotImplementedError()
+    
+    def signal(self):
+        raise NotImplementedError()
+
     def create_dense_layer(self, hyper_param: kt.HyperParameters,
                            min_value: int, max_value: int, step_value: int, default_value: int):
         dense_layer = keras.layers.Dense(
