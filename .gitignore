@@ -1,8 +1,9 @@
 #Folders
 data/
-Tuner/
 *_checkpoints/
 *pycache*/
+Models/
 
 #Files
 *.db
+*.h5
