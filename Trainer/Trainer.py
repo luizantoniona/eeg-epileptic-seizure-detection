@@ -24,7 +24,7 @@ def train(X_train, y_train, X_val, y_val, X_test, y_test,
                                     objective='val_accuracy',
                                     max_trials=20,
                                     directory='Tuner',
-                                    project_name=signal_type + "_" + str(window_length) + "_" + model_type)
+                                    project_name=signal_type + "/" + str(window_length) + "_" + model_type)
     
     tuner.search_space_summary()
     tuner.search(X_train, y_train, epochs=50, batch_size=BATCH_SIZE, validation_data=(X_val, y_val))
