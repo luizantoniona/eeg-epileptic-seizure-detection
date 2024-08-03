@@ -51,7 +51,7 @@ def load_segmented_data(summaries: list[Summary], signal_type: str, window_lengt
         if full_file:
             summary.generate_segmented_data_full_file(signal_type=signal_type, window_length=window_length)
         else:
-            summary.generate_segmented_data(signal_type=signal_type, window_length=window_length)
+            summary.generate_segmented_data_around_seizures(signal_type=signal_type, window_length=window_length)
 
     with concurrent.futures.ThreadPoolExecutor() as executor:
         executor.map(generate, summaries)

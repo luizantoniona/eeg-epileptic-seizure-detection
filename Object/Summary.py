@@ -88,7 +88,7 @@ class Summary:
         """
         Generate segmented data based on type and a specified time window for full file.
         """
-        self.signal = SignalFactory.signal_by_type(signal_type, Reader.read_edf(self))
+        self.signal: Signal = SignalFactory.signal_by_type(signal_type, Reader.read_edf(self))
 
         current_time = 0    
         while current_time + window_length <= self.duration():
@@ -98,7 +98,7 @@ class Summary:
 
         self.signal.delete_mne_data()
 
-    def generate_segmented_data(self,
+    def generate_segmented_data_around_seizures(self,
                                 signal_type: str,
                                 window_length: int):
         """
