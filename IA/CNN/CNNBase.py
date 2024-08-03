@@ -23,13 +23,14 @@ class CNNBase( NNBase ):
 
     def create_convolution_layer(self, hyper_param: kt.HyperParameters,
                                  min_value: int, max_value: int,
-                                 step_value: int, default_value: int):
+                                 step_value: int, default_value: int, padding: str = 'valid'):
         convolution_layer = keras.layers.Conv2D(
             hyper_param.Int(name=f"conv_{self.convolution_counter}",
                             min_value=min_value, max_value=max_value,
                             step=step_value, default=default_value),
             kernel_size=(3, 3),
-            activation='relu'
+            activation='relu',
+            padding=padding
         )
         self.convolution_counter = self.convolution_counter + 1
         return convolution_layer
