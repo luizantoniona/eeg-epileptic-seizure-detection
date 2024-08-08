@@ -75,6 +75,21 @@ class Evaluator:
         print('F1-Score:', pstdev(self.f1_score))
         print("------------------------------------")
 
+    def show_mean_deviation(self):
+        print("MODEL:", self.model_name)
+        print("DATA DOMAIN:", self.model_data_domain)
+        print("WINDOW SIZE:", self.model_window_length)
+        print("SAMPLES:", len(self.evaluations))
+        print("MEAN +- DEVIATION:")
+        print('Accuracy:', mean(self.accuracy), "+-", pstdev(self.accuracy))
+        print('Precision:', mean(self.precision), "+-", pstdev(self.precision))
+        print('Sensitivity:', mean(self.sensitivity), "+-", pstdev(self.sensitivity))
+        print('Specificity:', mean(self.specificity), "+-", pstdev(self.specificity))
+        print('TPR:', mean(self.true_positive_rate), "+-", pstdev(self.true_positive_rate))
+        print('FPR:', mean(self.false_positive_rate), "+-", pstdev(self.false_positive_rate))
+        print('F1-Score:', mean(self.f1_score), "+-", pstdev(self.f1_score))
+        print("------------------------------------")
+
     def show_median(self):
         print("MEDIAN:")
         print('Accuracy:', median(self.accuracy))
