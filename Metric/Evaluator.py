@@ -59,9 +59,9 @@ class Evaluator:
         print('Precision:', mean(self.precision))
         print('Sensitivity:', mean(self.sensitivity))
         print('Specificity:', mean(self.specificity))
+        print('F1-Score:', mean(self.f1_score))
         print('TPR:', mean(self.true_positive_rate))
         print('FPR:', mean(self.false_positive_rate))
-        print('F1-Score:', mean(self.f1_score))
         print("------------------------------------")
 
     def show_deviation(self):
@@ -70,12 +70,12 @@ class Evaluator:
         print('Precision:', pstdev(self.precision))
         print('Sensitivity:', pstdev(self.sensitivity))
         print('Specificity:', pstdev(self.specificity))
+        print('F1-Score:', pstdev(self.f1_score))
         print('TPR:', pstdev(self.true_positive_rate))
         print('FPR:', pstdev(self.false_positive_rate))
-        print('F1-Score:', pstdev(self.f1_score))
         print("------------------------------------")
 
-    def show_mean_deviation(self):
+    def show(self):
         print("MODEL:", self.model_name)
         print("DATA DOMAIN:", self.model_data_domain)
         print("WINDOW SIZE:", self.model_window_length)
@@ -85,9 +85,9 @@ class Evaluator:
         print('Precision:', mean(self.precision), "+-", pstdev(self.precision))
         print('Sensitivity:', mean(self.sensitivity), "+-", pstdev(self.sensitivity))
         print('Specificity:', mean(self.specificity), "+-", pstdev(self.specificity))
+        print('F1-Score:', mean(self.f1_score), "+-", pstdev(self.f1_score))
         print('TPR:', mean(self.true_positive_rate), "+-", pstdev(self.true_positive_rate))
         print('FPR:', mean(self.false_positive_rate), "+-", pstdev(self.false_positive_rate))
-        print('F1-Score:', mean(self.f1_score), "+-", pstdev(self.f1_score))
         print("------------------------------------")
 
     def show_median(self):
@@ -96,9 +96,9 @@ class Evaluator:
         print('Precision:', median(self.precision))
         print('Sensitivity:', median(self.sensitivity))
         print('Specificity:', median(self.specificity))
+        print('F1-Score:', median(self.f1_score))
         print('TPR:', median(self.true_positive_rate))
         print('FPR:', median(self.false_positive_rate))
-        print('F1-Score:', median(self.f1_score))
         print("------------------------------------")
 
     def generate_roc_auc_data(self):
