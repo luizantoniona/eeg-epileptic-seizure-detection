@@ -24,7 +24,7 @@ def train(X_train, y_train, X_val, y_val, X_test, y_test,
                                     objective='val_accuracy',
                                     max_trials=20,
                                     directory='Tuner',
-                                    project_name=signal_type + "/" + str(window_length) + "_" + model_type)
+                                    project_name="data/" + signal_type + "/" + str(window_length) + "_" + model_type)
     
     tuner.search_space_summary()
     tuner.search(X_train, y_train, epochs=50, batch_size=BATCH_SIZE, validation_data=(X_val, y_val))
@@ -44,5 +44,5 @@ def train(X_train, y_train, X_val, y_val, X_test, y_test,
     metric.metrics_to_database()
     # metric.plot_roc_auc(y_test, neural_network_model.predictions)
 
-    model_filepath = f'Models/{signal_type}/{str(window_length)}/{model_type}_{str(metric.accuracy)}.keras'
+    model_filepath = f'data/Models/{signal_type}/{str(window_length)}/{model_type}_{str(metric.accuracy)}.keras'
     neural_network_model.save_model(filepath=model_filepath)
