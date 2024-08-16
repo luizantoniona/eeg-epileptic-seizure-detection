@@ -1,9 +1,10 @@
 #Folders
-data/
 *_checkpoints/
 *pycache*/
-Models/
+data/Models/
 
 #Files
 *.db
+*.edf
 *.h5
+*.txt
