@@ -2,6 +2,7 @@ import keras
 import keras_tuner as kt
 import matplotlib.pyplot as plt
 import numpy as np
+from IA.TrainingDropMonitor import TrainingDropMonitor
 
 class NNBase:
     """
@@ -13,6 +14,7 @@ class NNBase:
         self.model: keras.Model = None
         self.dense_count: int = 0
         self.dropout_count: int = 0
+        self.callbacks = []
 
     def construct_model(self, hyper_param: kt.HyperParameters):
         raise NotImplementedError()
@@ -54,12 +56,36 @@ class NNBase:
         """
         Train the model with the provided training data and labels.
         """
+        self.add_callbacks()
         self.history = self.model.fit(train_data, train_labels,
                                       epochs=num_epochs,
                                       batch_size=batch_size,
                                       validation_data=(val_data, val_labels),
+                                      callbacks=self.callbacks,
                                       #verbose=0,
                                       )
+        
+    def add_callbacks(self, monitor='val_accuracy', patience=5, min_delta=0.2):
+        """
+        Add callbacks for training. 
+        - EarlyStopping: Stops training when the validation accuracy drops by more than `min_delta` (20% by default) after `patience` epochs.
+
+        Parameters:
+        - monitor: The metric to monitor, default is 'val_accuracy'.
+        - patience: The number of epochs to wait before stopping if no improvement, default is 1.
+        - min_delta: The minimum change to qualify as an improvement, here used to define the 20% drop.
+        """
+
+        if not hasattr(self, 'callbacks') or self.callbacks is None:
+            self.callbacks = []
+
+        drop_monitor = TrainingDropMonitor(
+            monitor=monitor, 
+            min_delta=min_delta,
+            patience=patience
+        )
+
+        self.callbacks.extend([drop_monitor])
 
     def summary(self):
         """
