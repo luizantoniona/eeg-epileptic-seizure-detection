@@ -22,7 +22,6 @@ class CNNPSD( CNNBase ):
         self.model.add(super().create_dropout_layer(hyper_param, min_value=0.1, max_value=0.8, step_value=0.1, default_value=0.5))
         
         self.model.add(keras.layers.Flatten())
-        
         super().create_dense(hyper_param=hyper_param)
     
     def name(self):

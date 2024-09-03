@@ -6,7 +6,6 @@ class CNNSpectrogram( CNNBase ):
     """
     CNN Model for Spectrogram data training
     """
-
     def __init__(self, input_shape, window_length: int):
         super().__init__(input_shape, window_length)
 
