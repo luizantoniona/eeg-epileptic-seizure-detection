@@ -22,7 +22,6 @@ class SpectrogramSignal(Signal):
         
         self.data = spectrogram.get_data()
         del spectrogram
-        spectrogram = None
         gc.collect()
 
     def generate_segmented_data(self, t_min, t_max):
@@ -37,7 +36,6 @@ class SpectrogramSignal(Signal):
         
         self.data_segmented.append(spectrogram.get_data())
         del spectrogram
-        spectrogram = None
         gc.collect()
 
     def frequencies(self):

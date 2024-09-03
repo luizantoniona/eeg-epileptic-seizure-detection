@@ -18,7 +18,6 @@ class PSDSignal(Signal):
         
         self.data = psd.get_data()
         del psd
-        psd = None
         gc.collect()
     
     def generate_segmented_data(self, t_min, t_max):
@@ -30,5 +29,4 @@ class PSDSignal(Signal):
         
         self.data_segmented.append(psd.get_data())
         del psd
-        psd = None
         gc.collect()

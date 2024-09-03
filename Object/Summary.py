@@ -1,3 +1,4 @@
+import numpy as np
 import Reader.Reader as Reader
 import Object.Signal.SignalFactory as SignalFactory
 from Object.Signal import Signal
@@ -128,4 +129,6 @@ class Summary:
                 self.signal.label_segmented.append(self.has_anomaly_in_interval(current_time, current_time + window_length))
                 current_time += 1
 
+        self.signal.data_segmented = np.array(self.signal.segmented_data) if self.signal.segmented_data else None
+        self.signal.label_segmented = np.array(self.signal.label_segmented) if self.signal.label_segmented else None
         self.signal.delete_mne_data()
