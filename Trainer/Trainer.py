@@ -12,6 +12,7 @@ BATCH_SIZE = 32 #TODO: Use Keras Tuner
 def train(X_train, y_train, X_val, y_val, X_test, y_test,
           model_type: str, signal_type: str, window_length: int):
 
+    os.environ['TF_GPU_ALLOCATOR'] = 'cuda_malloc_async'
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
     def build(hp):

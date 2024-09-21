@@ -44,6 +44,7 @@ class Signal:
         Delete mne_data from memory.
         """
         if self.mne_data is not None:
+            self.mne_data.close()
             del self.mne_data
             self.mne_data = None
             gc.collect()
