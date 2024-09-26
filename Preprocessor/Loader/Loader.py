@@ -8,6 +8,7 @@ import concurrent.futures
 import Object.SummaryConverter as Converter
 from Database.DatabaseSummary import DatabaseSummary
 from Object.Summary import Summary
+from Object.Signal.SignalTypeEnum import SignalTypeEnum
 
 def load_summaries() -> list[Summary]:
     """
@@ -37,13 +38,13 @@ def load_anomalous_summaries() -> list[Summary]:
 
     return summaries
 
-def load_segmented_data(summaries: list[Summary], signal_type: str, window_length: int, full_file=False) -> None:
+def load_segmented_data(summaries: list[Summary], signal_type: SignalTypeEnum, window_length: int, full_file=False) -> None:
     """
     Generate segmented data of specified type for a list of Summary objects.
 
     Args:
     - summaries (list[Summary]): List of Summary objects to process.
-    - signal_type (str): Type of signal data to generate ("time", "PSD", "spectrogram").
+    - signal_type (SignalTypeEnum): Type of signal data to generate ("Time", "PSD", "Spectrogram").
     - window_length (int): Length of the time window wich the data will be segmented.
     - full_file (bool, optional): Whether to generate full file data. Defaults to False.
     """

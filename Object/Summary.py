@@ -2,6 +2,7 @@ import numpy as np
 import Reader.Reader as Reader
 import Object.Signal.SignalFactory as SignalFactory
 from Object.Signal import Signal
+from Object.Signal.SignalTypeEnum import SignalTypeEnum
 
 class Summary:
     """
@@ -84,7 +85,7 @@ class Summary:
         return has_anomaly
 
     def generate_segmented_data_full_file(self, 
-                                          signal_type: str,
+                                          signal_type: SignalTypeEnum,
                                           window_length: int):
         """
         Generate segmented data based on type and a specified time window for full file.
@@ -100,7 +101,7 @@ class Summary:
         self.signal.delete_mne_data()
 
     def generate_segmented_data_around_seizures(self,
-                                signal_type: str,
+                                signal_type: SignalTypeEnum,
                                 window_length: int):
         """
         Generate segmented data based on type and a specified time window around disease ocurrence.

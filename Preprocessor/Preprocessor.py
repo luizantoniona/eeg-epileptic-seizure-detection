@@ -7,8 +7,10 @@ import Preprocessor.Balancer.Balancer as Balancer
 import Preprocessor.Loader.Loader as Loader
 import Preprocessor.Normalizer.Normalizer as Normalizer
 import Preprocessor.Splitter.Splitter as Splitter
+import Preprocessor.Transposer.Transposer as Transposer
+from Object.Signal.SignalTypeEnum import SignalTypeEnum
 
-def preprocess( signal_type : str, window_length: int,
+def preprocess( signal_type : SignalTypeEnum, window_length: int,
                 balance_train = True, balance_val = True, balance_test = True,
                 train_size=0.70, val_size=0.20, test_size=0.10 ):
     """
@@ -50,5 +52,7 @@ def preprocess( signal_type : str, window_length: int,
     print("TRAIN SHAPE:", X_train.shape)
     print("VALIDATION SHAPE:", X_validation.shape)
     print("TEST SHAPE:", X_test.shape)
+
+    Transposer.transpose() # TODO: Implementar
 
     return X_train, y_train, X_validation, y_validation, X_test, y_test
