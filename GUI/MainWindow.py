@@ -1,9 +1,10 @@
 from PyQt5.QtWidgets import QHBoxLayout
+from PyQt5.QtWidgets import  QPushButton
 from PyQt5.QtWidgets import QVBoxLayout
 from PyQt5.QtWidgets import QWidget
-from GUI.Component.DomainBox import DomainBox
-from GUI.Component.NetworkBox import NetworkBox
-from GUI.Component.WindowSizeBox import WindowSizeBox
+from GUI.Component.DomainWidget import DomainWidget
+from GUI.Component.NeuralNetworkWidget import NeuralNetworkWidget
+from GUI.Component.WindowSizeWidget import WindowSizeWidget
 
 TITLE = "EEG Aplication"
 
@@ -14,21 +15,41 @@ class MainWindow(QWidget):
         self.setWindowTitle(TITLE)
         self.setGeometry(100, 100, 500, 500)
 
-        mainLayout = QHBoxLayout()
+        mainLayout = QVBoxLayout()
         
-        trainLayout = QVBoxLayout()
-        testLayout = QVBoxLayout()
-        
+        selectionLayout = QVBoxLayout()
+        buttonLayout = QHBoxLayout()
 
-        networkWidget = NetworkBox()
-        domainWidget = DomainBox()
-        windowWidget = WindowSizeBox()
+        self.network_widget = NeuralNetworkWidget()
+        self.domain_widget = DomainWidget()
+        self.window_widget = WindowSizeWidget()
 
-        trainLayout.addWidget(networkWidget)
-        trainLayout.addWidget(domainWidget)
-        trainLayout.addWidget(windowWidget)
+        selectionLayout.addWidget(self.network_widget)
+        selectionLayout.addWidget(self.domain_widget)
+        selectionLayout.addWidget(self.window_widget)
 
-        mainLayout.addLayout(testLayout)
-        mainLayout.addLayout(trainLayout)
+        self.train_button = QPushButton("Train")
+        self.test_button = QPushButton("Test")
+        self.evaluate_button = QPushButton("Evaluate")
+
+        self.train_button.clicked.connect(self.train_model)
+        self.test_button.clicked.connect(self.test_model)
+        self.evaluate_button.clicked.connect(self.evaluate_model)
+
+        buttonLayout.addWidget(self.train_button)
+        buttonLayout.addWidget(self.test_button)
+        buttonLayout.addWidget(self.evaluate_button)
+
+        mainLayout.addLayout(selectionLayout)
+        mainLayout.addLayout(buttonLayout)
 
         self.setLayout(mainLayout)
+
+    def train_model(self):
+        print("Training the model...")
+
+    def test_model(self):
+        print("Testing the model...")
+
+    def evaluate_model(self):
+        print("Evaluating the model...")

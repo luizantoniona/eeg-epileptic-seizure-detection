@@ -1,11 +1,18 @@
+from PyQt5.QtWidgets import QFrame
 from PyQt5.QtWidgets import QHBoxLayout
+from PyQt5.QtWidgets import QLabel
 from PyQt5.QtWidgets import QRadioButton
+from PyQt5.QtWidgets import QVBoxLayout
 from PyQt5.QtWidgets import QWidget
 
-class WindowSizeBox(QWidget):
+class WindowSizeWidget(QWidget):
     def __init__(self):
         super().__init__()
         self.window_size : int = 0
+        self.label = QLabel("Window Size:")
+
+        verticalLine = QVBoxLayout()
+        verticalLine.addWidget(self.label)
 
         horizontalLine = QHBoxLayout()
 
@@ -24,7 +31,13 @@ class WindowSizeBox(QWidget):
         horizontalLine.addWidget(self.radioW5)
         horizontalLine.addWidget(self.radioW10)
 
-        self.setLayout(horizontalLine)
+        line = QFrame()
+        line.setFrameShape(QFrame.HLine)
+        line.setFrameShadow(QFrame.Sunken)
+
+        verticalLine.addLayout(horizontalLine)
+        verticalLine.addWidget(line)
+        self.setLayout(verticalLine)
 
     def on_selected(self):
         selected_button = self.sender()
