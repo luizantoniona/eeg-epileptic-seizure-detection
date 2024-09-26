@@ -16,9 +16,9 @@ class DomainWidget(QWidget):
 
         horizontalLine = QHBoxLayout()
 
-        self.radioTime = QRadioButton("time", self)
+        self.radioTime = QRadioButton("Time", self)
         self.radioPSD = QRadioButton("PSD", self)
-        self.radioSpectrogram = QRadioButton("spectrogram", self)
+        self.radioSpectrogram = QRadioButton("Spectrogram", self)
 
         self.radioTime.toggled.connect(self.on_selected)
         self.radioPSD.toggled.connect(self.on_selected)
