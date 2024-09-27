@@ -43,7 +43,7 @@ def train(X_train, y_train, X_val, y_val, X_test, y_test,
     neural_network_model.predict(X_test)
     #neural_network_model.print_predictions(y_test)
 
-    metric = Metric(y_test, neural_network_model.predictions, neural_network_model.name(), signal_type, window_length)
+    metric = Metric(y_test, neural_network_model.predictions, neural_network_model.name(), signal_type.name, window_length)
     metric.all_metrics()
     metric.metrics_to_database()
     # metric.plot_roc_auc(y_test, neural_network_model.predictions)
