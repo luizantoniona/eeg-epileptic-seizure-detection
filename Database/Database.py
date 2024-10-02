@@ -16,7 +16,7 @@ class Database:
         """
         Establish a connection to the SQLite database.
         """
-        return sqlite3.connect(self.name() + '.db')
+        return sqlite3.connect("data/" + self.name() + '.db')
 
     def execute_from_file(self, filename):
         """
