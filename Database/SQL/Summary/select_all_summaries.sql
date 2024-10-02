@@ -1,1 +1,2 @@
-SELECT * FROM summary_info;
+SELECT * FROM summary_info 
+    WHERE dataset_name = ?;

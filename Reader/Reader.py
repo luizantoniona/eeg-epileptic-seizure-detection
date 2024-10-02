@@ -24,7 +24,7 @@ def rename_channels(mne_object: mne.io.Raw):
   mne_object.rename_channels(replace_dict)
   mne_object.set_montage('standard_1020')
 
-def read_edf(summary_model, rename = False, verbose = False):
+def read_edf(summary_model, rename = False, verbose = True):
   if(verbose):
     print('Reading:', summary_model.fullpath())
   

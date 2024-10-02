@@ -8,16 +8,18 @@ import Preprocessor.Loader.Loader as Loader
 import Preprocessor.Normalizer.Normalizer as Normalizer
 import Preprocessor.Splitter.Splitter as Splitter
 import Preprocessor.Transposer.Transposer as Transposer
+from Dataset.DatasetTypeEnum import DatasetTypeEnum
 from Object.Signal.SignalTypeEnum import SignalTypeEnum
 
-def preprocess( signal_type : SignalTypeEnum, window_length: int,
-                balance_train = True, balance_val = True, balance_test = True,
-                train_size=0.70, val_size=0.20, test_size=0.10 ):
+def preprocess( signal_type: SignalTypeEnum, dataset_type: DatasetTypeEnum, window_length: int,
+                train_size=0.70, val_size=0.20, test_size=0.10,
+                balance_train = True, balance_val = True, balance_test = True ):
     """
     Preprocess the data by loading, normalizing, splitting, and balancing it.
 
     Args:
-        signal_type (str): Type of signal to load.
+        signal_type (SignalTypeEnum): Type of signal to load.
+        dataset_type (DatasetTypeEnum): Type of dataset to load.
         balance_train (bool): Whether to balance the training data.
         balance_val (bool): Whether to balance the validation data.
         balance_test (bool): Whether to balance the test data.
@@ -28,11 +30,9 @@ def preprocess( signal_type : SignalTypeEnum, window_length: int,
     Returns:
         tuple: Processed data split into training, validation, and test sets.
     """
-    summaries = Loader.load_anomalous_summaries()
+    summaries = Loader.load_anomalous_summaries(dataset_type=dataset_type)
 
     mne.set_log_level("CRITICAL")
-
-    random.shuffle(summaries)
 
     Loader.load_segmented_data(summaries, signal_type=signal_type, window_length=window_length)
 

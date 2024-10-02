@@ -40,7 +40,7 @@ class DatabaseSummary( Database ):
         except:
             print("Não há registro para o nome:", file_name)
 
-    def summaries(self):
+    def summaries(self, dataset_name):
         """
         Retrieve all summary data from the database.
         """
@@ -49,12 +49,12 @@ class DatabaseSummary( Database ):
         fd.close()
 
         try:
-            self.cursor.execute(sql_file)
+            self.cursor.execute(sql_file, (dataset_name,))
             return self.cursor.fetchall()
         except:
             print("Não há registros")
 
-    def summaries_with_anomaly(self):
+    def summaries_with_anomaly(self, dataset_name):
         """
         Retrieve all summary data with anomaly information from the database.
         """
@@ -63,7 +63,7 @@ class DatabaseSummary( Database ):
         fd.close()
 
         try:
-            self.cursor.execute(sql_file)
+            self.cursor.execute(sql_file, (dataset_name,))
             return self.cursor.fetchall()
         except:
             print("Não há registros")

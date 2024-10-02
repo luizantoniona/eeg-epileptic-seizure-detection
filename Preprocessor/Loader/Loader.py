@@ -7,6 +7,7 @@ This module provides functions to load and process summary data from a database,
 import concurrent.futures
 import Object.SummaryConverter as Converter
 from Database.DatabaseSummary import DatabaseSummary
+from Dataset.DatasetTypeEnum import DatasetTypeEnum
 from Object.Summary import Summary
 from Object.Signal.SignalTypeEnum import SignalTypeEnum
 
@@ -24,14 +25,14 @@ def load_summaries() -> list[Summary]:
 
     return summaries
 
-def load_anomalous_summaries() -> list[Summary]:
+def load_anomalous_summaries(dataset_type: DatasetTypeEnum) -> list[Summary]:
     """
     Load anomalous summary data from the database and convert it into Summary objects.
     """
     summaries = []
 
     database = DatabaseSummary()
-    db_objects = database.summaries_with_anomaly()
+    db_objects = database.summaries_with_anomaly(dataset_type.name)
 
     for db_object in db_objects:
         summaries.append(Converter.model_from_tuple(db_object))

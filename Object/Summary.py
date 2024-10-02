@@ -9,6 +9,7 @@ class Summary:
     A class representing a summary of data.
 
     Attributes:
+    - dataset_name (str): Name of the dataset.
     - record_name (str): Name of the record.
     - file_name (str): Name of the data file.
     - start_time (str): Start time of the data.
@@ -22,10 +23,11 @@ class Summary:
     - signal: An instance of signal model (Signal).
     """
 
-    def __init__(self, record_name: str, file_name: str, start_time, end_time,
+    def __init__(self, dataset_name: str, record_name: str, file_name: str, start_time, end_time,
                  nr_occurrence: int, start_occurrence, end_occurrence,
                  nr_channels, ds_channels, disease_type: str):
         
+        self.dataset_name = dataset_name
         self.record_name = record_name
         self.file_name = file_name
         self.start_time = start_time
@@ -45,7 +47,7 @@ class Summary:
         """
         Return the full path of the data file.
         """
-        return "./data/" + self.record_name + "/" + self.file_name
+        return "./data/" + self.dataset_name + "/" + self.record_name + "/" + self.file_name
     
     def duration(self):
         """

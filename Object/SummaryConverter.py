@@ -22,6 +22,7 @@ def model_from_tuple(db_object) -> Summary:
         summary_end_times = [int(x) for x in str(summary_tupple['end_occurrence']).split(',')]
 
     model = Summary (
+        summary_tupple['dataset_name'],
         summary_tupple['record_name'],
         summary_tupple['file_name'],
         time_to_timedelta(summary_tupple['start_time']),
