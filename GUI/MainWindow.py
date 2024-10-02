@@ -1,10 +1,14 @@
+import sys
 from PyQt5.QtWidgets import QHBoxLayout
 from PyQt5.QtWidgets import  QPushButton
 from PyQt5.QtWidgets import QVBoxLayout
 from PyQt5.QtWidgets import QWidget
+from GUI.Component.DatasetWidget import DatasetWidget
 from GUI.Component.DomainWidget import DomainWidget
+from GUI.Component.InfoPanelWidget import InfoPanelWidget
 from GUI.Component.NeuralNetworkWidget import NeuralNetworkWidget
 from GUI.Component.WindowSizeWidget import WindowSizeWidget
+from Metric.Evaluator import Evaluator
 
 TITLE = "EEG Aplication"
 
@@ -13,43 +17,68 @@ class MainWindow(QWidget):
         super().__init__()
 
         self.setWindowTitle(TITLE)
-        self.setGeometry(100, 100, 500, 500)
+        self.setGeometry(100, 100, 800, 800)
 
-        mainLayout = QVBoxLayout()
-        
-        selectionLayout = QVBoxLayout()
-        buttonLayout = QHBoxLayout()
+        self.dataset_widget = DatasetWidget()
+        self.dataset_widget.currentIndexChanged.connect(self.check_conditions)
 
         self.network_widget = NeuralNetworkWidget()
-        self.domain_widget = DomainWidget()
-        self.window_widget = WindowSizeWidget()
+        self.network_widget.currentIndexChanged.connect(self.check_conditions)
 
-        selectionLayout.addWidget(self.network_widget)
-        selectionLayout.addWidget(self.domain_widget)
-        selectionLayout.addWidget(self.window_widget)
+        self.domain_widget = DomainWidget()
+        self.domain_widget.currentIndexChanged.connect(self.check_conditions)
+
+        self.window_widget = WindowSizeWidget()
+        self.window_widget.currentIndexChanged.connect(self.check_conditions)
+
+        self.info_panel_widget = InfoPanelWidget()
+        sys.stdout = self.info_panel_widget
 
         self.train_button = QPushButton("Train")
-        self.test_button = QPushButton("Test")
-        self.evaluate_button = QPushButton("Evaluate")
-
+        self.train_button.setEnabled(False)
         self.train_button.clicked.connect(self.train_model)
-        self.test_button.clicked.connect(self.test_model)
+
+        self.evaluate_button = QPushButton("Evaluate")
+        self.evaluate_button.setEnabled(False)
         self.evaluate_button.clicked.connect(self.evaluate_model)
 
-        buttonLayout.addWidget(self.train_button)
-        buttonLayout.addWidget(self.test_button)
-        buttonLayout.addWidget(self.evaluate_button)
+        self.mainLayout = QHBoxLayout()
+        self.selectionLayout = QVBoxLayout()
+        self.infoLayout = QVBoxLayout()
+        self.buttonLayout = QHBoxLayout()
 
-        mainLayout.addLayout(selectionLayout)
-        mainLayout.addLayout(buttonLayout)
+        self.selectionLayout.addWidget(self.dataset_widget)
+        self.selectionLayout.addWidget(self.network_widget)
+        self.selectionLayout.addWidget(self.domain_widget)
+        self.selectionLayout.addWidget(self.window_widget)
 
-        self.setLayout(mainLayout)
+        self.infoLayout.addWidget(self.info_panel_widget)
+
+        self.buttonLayout.addWidget(self.train_button)
+        self.buttonLayout.addWidget(self.evaluate_button)
+
+        self.selectionLayout.addLayout(self.buttonLayout)
+        self.mainLayout.addLayout(self.selectionLayout)
+        self.mainLayout.addLayout(self.infoLayout)
+
+        self.setLayout(self.mainLayout)
+
+    def check_conditions(self):
+        if self.network_widget.getChecked() and self.domain_widget.getChecked() and self.window_widget.getChecked():
+            self.train_button.setEnabled(False) #TODO HABILITAR E CRIAR ROTINA PARA TREINO
+            self.evaluate_button.setEnabled(True)
+        else:
+            self.train_button.setEnabled(False)
+            self.evaluate_button.setEnabled(False)
 
     def train_model(self):
         print("Training the model...")
 
-    def test_model(self):
-        print("Testing the model...")
-
     def evaluate_model(self):
-        print("Evaluating the model...")
+        self.info_panel_widget.clear()
+        MODEL = self.network_widget.network
+        DOMAIN = self.domain_widget.domain
+        WINDOW = self.window_widget.window_size
+
+        model_eval = Evaluator(model_name=MODEL, model_data_domain=DOMAIN, model_window_length=WINDOW)
+        model_eval.show()
