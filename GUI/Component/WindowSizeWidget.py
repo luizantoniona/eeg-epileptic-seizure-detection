@@ -1,45 +1,48 @@
+from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtWidgets import QComboBox
 from PyQt5.QtWidgets import QFrame
-from PyQt5.QtWidgets import QHBoxLayout
 from PyQt5.QtWidgets import QLabel
-from PyQt5.QtWidgets import QRadioButton
 from PyQt5.QtWidgets import QVBoxLayout
 from PyQt5.QtWidgets import QWidget
 
 class WindowSizeWidget(QWidget):
+    currentIndexChanged = pyqtSignal()
+
     def __init__(self):
         super().__init__()
+        self.checked: bool = False
         self.window_size : int = 0
         self.label = QLabel("Window Size:")
 
-        verticalLine = QVBoxLayout()
-        verticalLine.addWidget(self.label)
+        self.separator = QFrame()
+        self.separator.setFrameShape(QFrame.HLine)
+        self.separator.setFrameShadow(QFrame.Sunken)
 
-        horizontalLine = QHBoxLayout()
+        self.combo_box = QComboBox()
+        self.combo_box.currentIndexChanged.connect(self.on_selected)
+        self.combo_box.addItems([
+            "Select Window Size",
+            "1",
+            "2",
+            "5",
+            "10",
+        ])
 
-        self.radioW1 = QRadioButton("1", self)
-        self.radioW2 = QRadioButton("2", self)
-        self.radioW5 = QRadioButton("5", self)
-        self.radioW10 = QRadioButton("10", self)
+        self.custom_layout = QVBoxLayout()
+        self.custom_layout.addWidget(self.separator)
+        self.custom_layout.addWidget(self.label)
+        self.custom_layout.addWidget(self.combo_box)
+        self.setLayout(self.custom_layout)
 
-        self.radioW1.toggled.connect(self.on_selected)
-        self.radioW2.toggled.connect(self.on_selected)
-        self.radioW5.toggled.connect(self.on_selected)
-        self.radioW10.toggled.connect(self.on_selected)
-
-        horizontalLine.addWidget(self.radioW1)
-        horizontalLine.addWidget(self.radioW2)
-        horizontalLine.addWidget(self.radioW5)
-        horizontalLine.addWidget(self.radioW10)
-
-        line = QFrame()
-        line.setFrameShape(QFrame.HLine)
-        line.setFrameShadow(QFrame.Sunken)
-
-        verticalLine.addLayout(horizontalLine)
-        verticalLine.addWidget(line)
-        self.setLayout(verticalLine)
+    def getChecked(self):
+        return self.checked
 
     def on_selected(self):
-        selected_button = self.sender()
-        if selected_button.isChecked():
-            self.window_size = int(selected_button.text())
+        if self.combo_box.currentIndex() > 0 :
+            self.checked = True
+            self.window_size = int(self.combo_box.currentText())
+
+        else:
+            self.checked = False
+
+        self.currentIndexChanged.emit()
