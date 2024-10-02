@@ -1,5 +1,6 @@
 INSERT INTO summary_info
 (
+    dataset_name,
     record_name,
     file_name,
     start_time,
@@ -12,6 +13,7 @@ INSERT INTO summary_info
     disease_type
 )
 VALUES (
+    ?,
     ?,
     ?,
     ?,

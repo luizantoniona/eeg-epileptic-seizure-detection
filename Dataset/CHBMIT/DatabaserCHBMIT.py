@@ -7,7 +7,7 @@ import re
 from Database.DatabaseSummary import DatabaseSummary
 
 def get_summary_info( record ):
-    directory = "./data/" + record + '/'
+    directory = "./data/CHBMIT/" + record + '/'
     filename = record + '-summary.txt'
     fullpath = os.path.join( directory, filename )
 
@@ -63,13 +63,15 @@ def summary_info(content, record_name):
 
         else:
             if file_name != "":
-                directory = "data/" + record_name + '/'
+                directory = "data/CHBMIT/" + record_name + '/'
                 fullpath = os.path.join( directory, file_name )
 
                 if os.path.exists( fullpath ):
                     if database.summary_by_name(file_name) == None:
                         print("Inserindo: " + file_name)
-                        database.insert_sumarry_data(record_name,
+                        database.insert_sumarry_data(
+                                            "CHBMIT",
+                                            record_name,
                                             file_name,
                                             start_time,
                                             end_time,
@@ -91,7 +93,7 @@ def summary_info(content, record_name):
                 nr_seizures = ""
 
 def execute():
-    records_list = os.listdir('data/')
+    records_list = os.listdir('data/CHBMIT/')
     part_codes = sorted(list(set([record.split('/')[0] for record in records_list])))
 
     for record in part_codes:

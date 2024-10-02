@@ -1,5 +1,6 @@
 CREATE TABLE summary_info
 (
+    dataset_name VARCHAR(20),
     record_name VARCHAR(20),
     file_name VARCHAR(20),
     start_time TIME,

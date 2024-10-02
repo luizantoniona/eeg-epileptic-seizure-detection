@@ -1,9 +1,5 @@
 """
 Module: DownloaderCHBMIT
-
-Packages: 
-    - requests
-    - wfdb
 """
 
 import os
@@ -12,7 +8,7 @@ from urllib.request import urlretrieve
 
 def get_summary( part_code ):
     url = "https://physionet.org/physiobank/database/chbmit/" + part_code + '/' + part_code + '-summary.txt'
-    directory = "./data/" + part_code + '/'
+    directory = "./data/CHBMIT/" + part_code + '/'
     filename = part_code + "-summary.txt"
 
     fullpath = os.path.join( directory, filename )
@@ -25,7 +21,7 @@ def get_summary( part_code ):
 
 def get_edf_by_record(record, file):
     url = "https://physionet.org/physiobank/database/chbmit/" + record + '/' + file
-    directory = "./data/" + record + '/'
+    directory = "./data/CHBMIT/" + record + '/'
     filename = file
 
     fullpath = os.path.join( directory, filename )
