@@ -1,42 +1,47 @@
+from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtWidgets import QComboBox
 from PyQt5.QtWidgets import QFrame
-from PyQt5.QtWidgets import QHBoxLayout
 from PyQt5.QtWidgets import QLabel
-from PyQt5.QtWidgets import QRadioButton
 from PyQt5.QtWidgets import QVBoxLayout
 from PyQt5.QtWidgets import QWidget
 
 class DomainWidget(QWidget):
+    currentIndexChanged = pyqtSignal()
+
     def __init__(self):
         super().__init__()
+        self.checked: bool = False
         self.domain : str = ""
-        self.label = QLabel("Data Type:")
+        self.label = QLabel("Domain Type:")
 
-        verticalLine = QVBoxLayout()
-        verticalLine.addWidget(self.label)
+        self.separator = QFrame()
+        self.separator.setFrameShape(QFrame.HLine)
+        self.separator.setFrameShadow(QFrame.Sunken)
 
-        horizontalLine = QHBoxLayout()
+        self.combo_box = QComboBox()
+        self.combo_box.currentIndexChanged.connect(self.on_selected)
+        self.combo_box.addItems([
+            "Select Domain",
+            "Time",
+            "PSD",
+            "Spectrogram",
+        ])
 
-        self.radioTime = QRadioButton("Time", self)
-        self.radioPSD = QRadioButton("PSD", self)
-        self.radioSpectrogram = QRadioButton("Spectrogram", self)
+        self.custom_layout = QVBoxLayout()
+        self.custom_layout.addWidget(self.separator)
+        self.custom_layout.addWidget(self.label)
+        self.custom_layout.addWidget(self.combo_box)
+        self.setLayout(self.custom_layout)
 
-        self.radioTime.toggled.connect(self.on_selected)
-        self.radioPSD.toggled.connect(self.on_selected)
-        self.radioSpectrogram.toggled.connect(self.on_selected)
-
-        horizontalLine.addWidget(self.radioTime)
-        horizontalLine.addWidget(self.radioPSD)
-        horizontalLine.addWidget(self.radioSpectrogram)
-
-        line = QFrame()
-        line.setFrameShape(QFrame.HLine)
-        line.setFrameShadow(QFrame.Sunken)
-
-        verticalLine.addLayout(horizontalLine)
-        verticalLine.addWidget(line)
-        self.setLayout(verticalLine)
+    def getChecked(self):
+        return self.checked
 
     def on_selected(self):
-        selected_button = self.sender()
-        if selected_button.isChecked():
-            self.domain = selected_button.text()
+        if self.combo_box.currentIndex() > 0 :
+            self.checked = True
+            self.domain = self.combo_box.currentText()
+
+        else:
+            self.checked = False
+
+        self.currentIndexChanged.emit()
