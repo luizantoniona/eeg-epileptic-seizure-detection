@@ -28,48 +28,6 @@ class DatabaseMetrics( Database ):
         except:
             print("Não foi possível inserir")
 
-    def metrics_by_domain(self, domain):
-        """
-        Retrieve metrics by domain.
-        """
-        fd = open("./Database/SQL/Metrics/select_metrics_by_domain.sql", 'r')
-        sql_file = fd.read()
-        fd.close()
-
-        try:
-            self.cursor.execute(sql_file, (domain,))
-            return self.cursor.fetchall()
-        except:
-            print("Não há registros")
-    
-    def metrics_by_model(self, model_name):
-        """
-        Retrieve metrics by model.
-        """
-        fd = open("./Database/SQL/Metrics/select_metrics_by_model.sql", 'r')
-        sql_file = fd.read()
-        fd.close()
-
-        try:
-            self.cursor.execute(sql_file, (model_name,))
-            return self.cursor.fetchall()
-        except:
-            print("Não há registros")
-
-    def metrics_by_model_domain(self, model_name, domain_name):
-        """
-        Retrieve metrics by model and domain.
-        """
-        fd = open("./Database/SQL/Metrics/select_metrics_by_model_domain.sql", 'r')
-        sql_file = fd.read()
-        fd.close()
-
-        try:
-            self.cursor.execute(sql_file, (model_name, domain_name,))
-            return self.cursor.fetchall()
-        except:
-            print("Não há registros")
-
     def metrics_by_model_domain_window(self, dataset_name, model_name, domain_name, window_length):
         """
         Retrieve metrics by model, domain and window_length.
