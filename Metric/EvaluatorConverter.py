@@ -8,6 +8,7 @@ def model_from_tuple( metric_tuple ) -> Evaluation:
     Converts metric tuple from database to Evaluation object
     """
     model = Evaluation (
+        metric_tuple['dataset_name'],
         metric_tuple['model_name'],
         metric_tuple['model_data_domain'],
         metric_tuple['model_window_length'],

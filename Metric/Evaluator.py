@@ -11,15 +11,16 @@ class Evaluator:
     """
 
     """
-    def __init__(self, model_name, model_data_domain, model_window_length):
+    def __init__(self, dataset_name, model_name, model_data_domain, model_window_length):
         """
         """
+        self.dataset_name = dataset_name
         self.model_name = model_name
         self.model_data_domain = model_data_domain
         self.model_window_length = model_window_length
 
         database = DatabaseMetrics()
-        db_objects = database.metrics_by_model_domain_window(model_name, model_data_domain, model_window_length)
+        db_objects = database.metrics_by_model_domain_window(dataset_name, model_name, model_data_domain, model_window_length)
 
         self.evaluations: list[Evaluation] = []
 

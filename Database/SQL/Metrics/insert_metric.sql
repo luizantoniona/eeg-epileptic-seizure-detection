@@ -1,5 +1,6 @@
 INSERT INTO metrics_info
 (
+    dataset_name,
     model_name,
     model_data_domain,
     model_window_length,
@@ -17,6 +18,7 @@ INSERT INTO metrics_info
     total_samples
 )
 VALUES (
+    ?,
     ?,
     ?,
     ?,

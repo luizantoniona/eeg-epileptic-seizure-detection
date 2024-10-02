@@ -1,5 +1,6 @@
 CREATE TABLE metrics_info
 (
+    dataset_name VARCHAR(20),
     model_name VARCHAR(20),
     model_data_domain VARCHAR(20),
     model_window_length INTEGER,
