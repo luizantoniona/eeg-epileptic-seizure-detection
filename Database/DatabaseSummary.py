@@ -8,7 +8,7 @@ class DatabaseSummary( Database ):
     def __init__(self):
         super().__init__()
 
-    def insert_sumarry_data(self, record_name, file_name, start_time, end_time,
+    def insert_sumarry_data(self, dataset_name, record_name, file_name, start_time, end_time,
                             nr_occurrence, start_occurrence, end_occurrence,
                             nr_channels, ds_channels, disease_type):
         """
@@ -19,7 +19,7 @@ class DatabaseSummary( Database ):
         fd.close()
 
         try:
-            self.cursor.execute(sql_file, (record_name, file_name, start_time, end_time,
+            self.cursor.execute(sql_file, (dataset_name, record_name, file_name, start_time, end_time,
                                                 nr_occurrence, start_occurrence, end_occurrence,
                                                 nr_channels, ds_channels, disease_type,))
             self.db.commit()
