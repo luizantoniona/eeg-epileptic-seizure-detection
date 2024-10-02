@@ -50,6 +50,8 @@ def load_segmented_data(summaries: list[Summary], signal_type: SignalTypeEnum, w
     - full_file (bool, optional): Whether to generate full file data. Defaults to False.
     """
     def generate(summary: Summary):
+        print(f"GENERATE [SIGNAL_TYPE]:{signal_type.name} [WINDOW]:{str(window_length)} [FILE]:{summary.fullpath()}")
+
         if full_file:
             summary.generate_segmented_data_full_file(signal_type=signal_type, window_length=window_length)
         else:
