@@ -5,6 +5,7 @@ import keras_tuner as kt
 import os
 import tensorflow as tf
 import IA.NeuralNetworkModelFactory as NNModelFactory
+from Dataset.DatasetTypeEnum import DatasetTypeEnum
 from IA.NeuralNetworkTypeEnum import NeuralNetworkTypeEnum
 from Object.Signal.SignalTypeEnum import SignalTypeEnum
 from Metric.Metric import Metric
@@ -13,7 +14,8 @@ NR_EPOCHS = 100 #TODO: Use Keras Tuner
 BATCH_SIZE = 32 #TODO: Use Keras Tuner
 
 def train(X_train, y_train, X_val, y_val, X_test, y_test,
-          model_type: NeuralNetworkTypeEnum, signal_type: SignalTypeEnum, window_length: int):
+          dataset_type: DatasetTypeEnum, model_type: NeuralNetworkTypeEnum, signal_type: SignalTypeEnum,
+          window_length: int):
 
     os.environ['TF_GPU_ALLOCATOR'] = 'cuda_malloc_async'
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
@@ -43,7 +45,9 @@ def train(X_train, y_train, X_val, y_val, X_test, y_test,
     neural_network_model.predict(X_test)
     #neural_network_model.print_predictions(y_test)
 
-    metric = Metric(y_test, neural_network_model.predictions, neural_network_model.name(), signal_type.name, window_length)
+    metric = Metric(y_test, neural_network_model.predictions,
+                    dataset_name=dataset_type.name, model_name=neural_network_model.name(),
+                    model_data_domain=signal_type.name, model_window_length=window_length)
     metric.all_metrics()
     metric.metrics_to_database()
     # metric.plot_roc_auc(y_test, neural_network_model.predictions)
