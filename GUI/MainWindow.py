@@ -64,7 +64,7 @@ class MainWindow(QWidget):
         self.setLayout(self.mainLayout)
 
     def check_conditions(self):
-        if self.network_widget.getChecked() and self.domain_widget.getChecked() and self.window_widget.getChecked():
+        if self.dataset_widget.getChecked() and self.network_widget.getChecked() and self.domain_widget.getChecked() and self.window_widget.getChecked():
             self.train_button.setEnabled(False) #TODO HABILITAR E CRIAR ROTINA PARA TREINO
             self.evaluate_button.setEnabled(True)
         else:
@@ -76,9 +76,10 @@ class MainWindow(QWidget):
 
     def evaluate_model(self):
         self.info_panel_widget.clear()
+        DATASET = self.dataset_widget.dataset
         MODEL = self.network_widget.network
         DOMAIN = self.domain_widget.domain
         WINDOW = self.window_widget.window_size
 
-        model_eval = Evaluator(model_name=MODEL, model_data_domain=DOMAIN, model_window_length=WINDOW)
+        model_eval = Evaluator(dataset_name=DATASET, model_name=MODEL, model_data_domain=DOMAIN, model_window_length=WINDOW)
         model_eval.show()

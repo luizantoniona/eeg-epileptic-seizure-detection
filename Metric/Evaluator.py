@@ -77,10 +77,11 @@ class Evaluator:
         print("------------------------------------")
 
     def show(self):
-        print("MODEL:", self.model_name)
-        print("DATA DOMAIN:", self.model_data_domain)
-        print("WINDOW SIZE:", self.model_window_length)
-        print("SAMPLES:", len(self.evaluations))
+        print(f"DATASET: {self.dataset_name}")
+        print(f"MODEL: {self.model_name}")
+        print(f"DATA DOMAIN: {self.model_data_domain}")
+        print(f"WINDOW SIZE: {self.model_window_length}")
+        print(f"SAMPLES: {len(self.evaluations)}")
         print("MEAN +- DEVIATION:")
         print('Accuracy:', mean(self.accuracy)*100, "+-", pstdev(self.accuracy)*100)
         print('Precision:', mean(self.precision)*100, "+-", pstdev(self.precision)*100)
