@@ -1,50 +1,57 @@
 # Epileptic Seizure Detection in EEG
 
-## TODO: REVIEW README.me
+This project focuses on the detection of epileptic seizures in EEG data using various machine learning models. The data used in this project is sourced from the CHB-MIT Scalp EEG Database, and the models implemented aim to classify EEG signals using different data domains: temporal, frequency, and time-frequency.
 
-## Packages used in this project:
-- Tensorflow
-- MNE library
+## Table of Contents
+- [Packages](#packages)
+- [Database](#database)
+- [Dataset](#dataset)
+- [Pre-processing](#pre-processing)
+- [Models and Training](#models-and-training)
+- [Metrics](#metrics)
+- [References](#references)
+- [License](#license)
 
-## Dataset
+## Packages
+The following Python libraries were used in this project:
+
+- `wfdb` – For download dataset files and info.
+- `Tensorflow` – For model training and evaluation.
+- `MNE` – For EEG signal processing.
+- `Keras Tuner` – For hyperparameter optimization.
+- `PyQt` – Used to develop the front-end interface for the application.
+
+## Graphical Application
+
+TODO
+
+## Datasets
+
+### CHB-MIT
 
 The dataset used in this work was the [CHB-MIT Scalp EEG Database](https://physionet.org/physiobank/database/chbmit/) from PhysioNet [1]. The exams in this dataset were generated at Boston Children's Hospital. All patients were monitored at a sampling rate of 256 Hz with 16-bit quantization, and the electrodes were placed according to the 10–20 system of the International Federation of Clinical Neurophysiology ([IFCN](https://www.ifcn.info/)). The dataset contains information from 22 patients, where each case contains between 9 and 42 continuous samples from a single subject.
 
 The dataset comes with a summary for each patient, containing crucial details about the exams, such as file name, start and end times, and the number of seizures. Given the complexity and volume of files, we opted for a database solution to streamline access and enhance readability of this information.
 
-After an analysis of the data contained in the summaries, we arrived at a relational table with the following information:
+## Database
 
-|record_name| file_name | start_time | end_time | nr_occurrence | start_occurrence | end_occurrence | nr_channels | ds_channels |
-|:---------:|:---------:|:----------:|:--------:|:-----------:|:-------------:|:-----------:|:-----------:|:-----------:|
-|ch01|chb01_01.edf|12:34:22|13:13:07|2|1862, 2000|1963, 2213| 24 | FP1-F7,F7-T7,...|
+The database is created to store information about the datasets and training information.
 
-To store the records of the table above, a [SQLite](https://www.sqlite.org/) database was used, as it is simple to use and contains a Python library.
+### summary_info:
 
-## [Database Configuration](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/02%20-%20Database%20Configuration.ipynb)
-- Creates the **database** based on the information from [Database.py](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/Database/Database.py).
-- Creates the **summary_info** table, designated to store summary information from the EEG's data.
-- Creates the **metrics_info** table, designated to store metrics between models for further comparison.
+Used to store information about the files in the dataset.
 
-## [Dataset Downloader](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/01%20-%20Dataset%20Downloader.ipynb)
-- Download the dataset from [CHB-MIT Scalp EEG Database](https://physionet.org/physiobank/database/chbmit/) and stores it at data/ directory.
+| dataset_name | record_name | file_name | start_time | end_time | nr_occurrence | start_occurrence | end_occurrence | nr_channels | ds_channels |
+|---|---|---|---|---|---|---|---|---|---|
+| CHBMIT | ch01 | chb01_01.edf | 12:34:22 | 13:13:07 | 2 | 1862, 2000 | 1963, 2213 | 24 | FP1-F7,F7-T7,... |
 
-## [Dataset Database](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/03%20-%20Dataset%20to%20Database.ipynb)
-- Is used to insert sample models to the database following the flowchart:
-  
-```mermaid
-   flowchart LR
-   A{Has next summary?} -->|Yes| B[Read summary]
-   A -->|No| C[END]
-   B --> D{Has next sample?}
-   D -->|No| A
-   D -->|Yes| E[Read sample]
-   E --> F{File exists?}
-   F -->|No| D
-   F -->|Yes| G{Is in database?}
-   G -->|Yes| D
-   G -->|No| H[(Insert in database)]
-   H --> D
-```
+### metrics_info:
+
+Used to store information about the training sessions of models.
+
+| dataset_name | model_name | model_data_domain | model_window | accuracy | precision | sensitivity | specificity | true_positive_rate | false_positive_rate | f1_score |
+|---|---|---|---|---|---|---|---|---|---|---|
+| CHBMIT | CNN | Time | 5 | 0.876 | 0.876 | 0.876 | 0.876 | 0.876 | 0.876 | 0.876 |
 
 ## Pre-processing
 
@@ -141,15 +148,19 @@ The pre-processing step is segmented into two different phases: one for generati
 
 ### Data Domains
 The data will be processed and inserted into the models in three different domains:
-- Using temporal data for training.
-- Utilizing frequency (Power Spectral Density [PSD]) for training.
-- Using time-frequency (Spectogram) for training.
+- Temporal:
+   - Raw EEG.
+
+- Frequency:
+   - Power Spectral Density - PSD.
+
+- Time-frequency 
+   - Spectrogram.
 
 ### Models:
 - CNN (Convolutional Neural Network)
 - RNN (Recurrent Neural Network)
 - CRNN (Convolutional Recurrent Neural Network)
-- ViT (Vision Transformer)
 
 ## Metrics:
 
@@ -157,26 +168,13 @@ A set of metrics was used to evaluate the performance of the models. For those m
 
 ### Used Metrics:
 
-**Acuracy:**
-- $Acu = \frac{TP + TN}{T}$
-
-**Precision:**
-- $Pre = \frac{TP}{TP + FP}$
-
-**Sensitivity:**
-- $Sen = \frac{TP}{FN + FP}$
-
-**Specificity:**
-- $Spe = \frac{TN}{TN + FP}$
-
-**True Positive Rate:**
-- $TPR = \frac{TP}{TP + FP}$
-
-**False Positive Rate:**
-- $FPR = \frac{FP}{FP + TN}$
-
-**F1-Score:**
-- $F1 = \frac{2 \times Acu \times Sen}{Acu + Sen}$
+| Metric          | Equation |
+|:---------------:|:--------:|
+| **Acuracy**     | $Acu = \frac{TP + TN}{T}$ |
+| **Precision**   | $Pre = \frac{TP}{TP + FP}$ |
+| **Sensitivity** | $Sen = \frac{TP}{FN + FP}$ |
+| **Specificity** | $Spe = \frac{TN}{TN + FP}$ |
+| **F1-Score**    | $F1 = \frac{2 \times Acu \times Sen}{Acu + Sen}$ |
 
 ### Models Evaluations:
 
