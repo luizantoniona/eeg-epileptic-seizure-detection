@@ -39,5 +39,5 @@ class DatabaseWidget(QWidget):
         self.check_is_configured()
 
     def check_is_configured(self):
-        self.configure_button.setEnabled(not DatabaseConfiguration.is_configurated())
-        self.checked = DatabaseConfiguration.is_configurated()
+        self.configure_button.setEnabled(not DatabaseConfiguration.is_configured())
+        self.checked = DatabaseConfiguration.is_configured()
