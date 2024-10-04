@@ -31,7 +31,7 @@ class DatasetWidget(QWidget):
         self.custom_layout.addWidget(self.combo_box)
         self.setLayout(self.custom_layout)
 
-    def getChecked(self):
+    def get_checked(self):
         return self.checked
 
     def on_selected(self):
