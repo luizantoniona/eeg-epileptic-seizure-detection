@@ -32,75 +32,42 @@ class Evaluator:
         self.false_positives = [evaluation.false_positives for evaluation in self.evaluations]
         self.false_negatives = [evaluation.false_negatives for evaluation in self.evaluations]
         self.total_samples = [evaluation.total_samples for evaluation in self.evaluations]
-        self.accuracy = [evaluation.accuracy for evaluation in self.evaluations]
-        self.precision = [evaluation.precision for evaluation in self.evaluations]
-        self.sensitivity = [evaluation.sensitivity for evaluation in self.evaluations]
-        self.specificity = [evaluation.specificity for evaluation in self.evaluations]
+
+        self.accuracy = [evaluation.accuracy*100 for evaluation in self.evaluations]
+        self.precision = [evaluation.precision*100 for evaluation in self.evaluations]
+        self.sensitivity = [evaluation.sensitivity*100 for evaluation in self.evaluations]
+        self.specificity = [evaluation.specificity*100 for evaluation in self.evaluations]
+        self.f1_score = [evaluation.f1_score*100 for evaluation in self.evaluations]
+
         self.true_positive_rate = [evaluation.true_positive_rate for evaluation in self.evaluations]
         self.false_positive_rate = [evaluation.false_positive_rate for evaluation in self.evaluations]
-        self.f1_score = [evaluation.f1_score for evaluation in self.evaluations]
 
-    def show_name(self):
-        print("MODEL:", self.model_name)
-        print("DATA DOMAIN:", self.model_data_domain)
-        print("WINDOW SIZE:", self.model_window_length)
-
-    def show_sample(self):
-        print("SAMPLE:")
-        print('True Positives:', mean(self.true_positives))
-        print('True Negatives:', mean(self.true_negatives))
-        print('False Positives:', mean(self.false_positives))
-        print('False Negatives:', mean(self.false_negatives))
-        print('Total Samples:', mean(self.total_samples))
+    def info(self):
+        print("[MODEL INFORMATION]")
+        print(f"[DATASET]: {self.dataset_name}")
+        print(f"[MODEL]: {self.model_name}")
+        print(f"[DOMAIN]: {self.model_data_domain}")
+        print(f"[WINDOW]: {self.model_window_length}")
         print("------------------------------------")
 
-    def show_mean(self):
-        print("MEAN:")
-        print('Accuracy:', mean(self.accuracy))
-        print('Precision:', mean(self.precision))
-        print('Sensitivity:', mean(self.sensitivity))
-        print('Specificity:', mean(self.specificity))
-        print('F1-Score:', mean(self.f1_score))
-        print('TPR:', mean(self.true_positive_rate))
-        print('FPR:', mean(self.false_positive_rate))
+    def samples(self):
+        print("[SAMPLE STATISTICS]")
+        print(f"[True Positives]: {mean(self.true_positives):.2f}")
+        print(f"[True Negatives]: {mean(self.true_negatives):.2f}")
+        print(f"[False Positives]: {mean(self.false_positives):.2f}")
+        print(f"[False Negatives]: {mean(self.false_negatives):.2f}")
+        print(f"[Total Samples]: {mean(self.total_samples):.2f}")
         print("------------------------------------")
 
-    def show_deviation(self):
-        print("DEVIATION:")
-        print('Accuracy:', pstdev(self.accuracy))
-        print('Precision:', pstdev(self.precision))
-        print('Sensitivity:', pstdev(self.sensitivity))
-        print('Specificity:', pstdev(self.specificity))
-        print('F1-Score:', pstdev(self.f1_score))
-        print('TPR:', pstdev(self.true_positive_rate))
-        print('FPR:', pstdev(self.false_positive_rate))
-        print("------------------------------------")
-
-    def show(self):
-        print(f"DATASET: {self.dataset_name}")
-        print(f"MODEL: {self.model_name}")
-        print(f"DATA DOMAIN: {self.model_data_domain}")
-        print(f"WINDOW SIZE: {self.model_window_length}")
-        print(f"SAMPLES: {len(self.evaluations)}")
-        print("MEAN +- DEVIATION:")
-        print('Accuracy:', mean(self.accuracy)*100, "+-", pstdev(self.accuracy)*100)
-        print('Precision:', mean(self.precision)*100, "+-", pstdev(self.precision)*100)
-        print('Sensitivity:', mean(self.sensitivity)*100, "+-", pstdev(self.sensitivity)*100)
-        print('Specificity:', mean(self.specificity)*100, "+-", pstdev(self.specificity)*100)
-        print('F1-Score:', mean(self.f1_score)*100, "+-", pstdev(self.f1_score)*100)
-        print('TPR:', mean(self.true_positive_rate)*100, "+-", pstdev(self.true_positive_rate)*100)
-        print('FPR:', mean(self.false_positive_rate)*100, "+-", pstdev(self.false_positive_rate)*100)
-        print("------------------------------------")
-
-    def show_median(self):
-        print("MEDIAN:")
-        print('Accuracy:', median(self.accuracy))
-        print('Precision:', median(self.precision))
-        print('Sensitivity:', median(self.sensitivity))
-        print('Specificity:', median(self.specificity))
-        print('F1-Score:', median(self.f1_score))
-        print('TPR:', median(self.true_positive_rate))
-        print('FPR:', median(self.false_positive_rate))
+    def report(self):
+        print("[MODEL EVALUATION REPORT]")
+        print(f"[Accuracy]: {mean(self.accuracy):.2f}% ± {pstdev(self.accuracy):.2f}%")
+        print(f"[Precision]: {mean(self.precision):.2f}% ± {pstdev(self.precision):.2f}%")
+        print(f"[Sensitivity]: {mean(self.sensitivity):.2f}% ± {pstdev(self.sensitivity):.2f}%")
+        print(f"[Specificity]: {mean(self.specificity):.2f}% ± {pstdev(self.specificity):.2f}%")
+        print(f"[F1-Score]: {mean(self.f1_score):.2f}% ± {pstdev(self.f1_score):.2f}%")
+        print(f"[TPR]: {mean(self.true_positive_rate):.2f}% ± {pstdev(self.true_positive_rate):.2f}%")
+        print(f"[FPR]: {mean(self.false_positive_rate):.2f}% ± {pstdev(self.false_positive_rate):.2f}%")
         print("------------------------------------")
 
     def generate_roc_auc_data(self):

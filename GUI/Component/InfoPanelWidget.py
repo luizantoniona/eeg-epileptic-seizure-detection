@@ -13,7 +13,7 @@ class InfoPanelWidget(QWidget):
         self.setLayout(self.custom_layout)
 
     def write(self, message):
-        self.info_panel.append(message)
+        self.info_panel.insertPlainText(message)
 
     def clear(self):
         self.info_panel.clear()
