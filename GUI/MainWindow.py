@@ -68,7 +68,7 @@ class MainWindow(QWidget):
         self.setLayout(self.mainLayout)
 
     def check_conditions(self):
-        if self.dataset_widget.get_checked() and self.network_widget.get_checked() and self.domain_widget.get_checked() and self.window_widget.get_checked():
+        if self.database_widget.get_checked() and self.dataset_widget.get_checked() and self.network_widget.get_checked() and self.domain_widget.get_checked() and self.window_widget.get_checked():
             self.train_button.setEnabled(False) #TODO HABILITAR E CRIAR ROTINA PARA TREINO
             self.evaluate_button.setEnabled(True)
 
