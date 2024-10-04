@@ -16,7 +16,6 @@ def model_by_type(model_type: NeuralNetworkTypeEnum, signal_type: SignalTypeEnum
                                                            input_shape=input_shape,
                                                            window_length=window_length)
 
-
         case NeuralNetworkTypeEnum.CNN:
             return ConvolutionalNNFactory.model_by_signal_type(signal_type=signal_type,
                                                                input_shape=input_shape,
@@ -26,5 +25,6 @@ def model_by_type(model_type: NeuralNetworkTypeEnum, signal_type: SignalTypeEnum
             return ConvolutionalRecurrentNNFactory.model_by_signal_type(signal_type=signal_type,
                                                                         input_shape=input_shape,
                                                                         window_length=window_length)
+
         case _:
             return NNBase()
