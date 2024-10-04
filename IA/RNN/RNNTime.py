@@ -29,4 +29,4 @@ class RNNTime( RNNBase ):
         """
         Return the signal type of the model.
         """
-        return "time"
+        return "Time"

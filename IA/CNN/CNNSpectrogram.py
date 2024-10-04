@@ -31,4 +31,4 @@ class CNNSpectrogram( CNNBase ):
         """
         Return the signal type of the model.
         """
-        return "spectrogram"
+        return "Spectrogram"

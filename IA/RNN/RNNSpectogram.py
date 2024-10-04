@@ -31,4 +31,4 @@ class RNNSpectrogram( RNNBase ):
         """
         Return the signal type of the model.
         """
-        return "spectrogram"
+        return "Spectrogram"

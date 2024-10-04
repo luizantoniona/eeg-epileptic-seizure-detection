@@ -35,4 +35,4 @@ class CRNNSpectrogram( CRNNBase ):
         """
         Return the signal type of the model.
         """
-        return "spectrogram"
+        return "Spectrogram"
