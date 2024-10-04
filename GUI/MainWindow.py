@@ -1,8 +1,9 @@
 import sys
 from PyQt5.QtWidgets import QHBoxLayout
-from PyQt5.QtWidgets import  QPushButton
+from PyQt5.QtWidgets import QPushButton
 from PyQt5.QtWidgets import QVBoxLayout
 from PyQt5.QtWidgets import QWidget
+from GUI.Component.DatabaseWidget import DatabaseWidget
 from GUI.Component.DatasetWidget import DatasetWidget
 from GUI.Component.DomainWidget import DomainWidget
 from GUI.Component.InfoPanelWidget import InfoPanelWidget
@@ -18,6 +19,8 @@ class MainWindow(QWidget):
 
         self.setWindowTitle(TITLE)
         self.setGeometry(100, 100, 800, 800)
+
+        self.database_widget = DatabaseWidget()
 
         self.dataset_widget = DatasetWidget()
         self.dataset_widget.currentIndexChanged.connect(self.check_conditions)
@@ -47,6 +50,7 @@ class MainWindow(QWidget):
         self.infoLayout = QVBoxLayout()
         self.buttonLayout = QHBoxLayout()
 
+        self.selectionLayout.addWidget(self.database_widget)
         self.selectionLayout.addWidget(self.dataset_widget)
         self.selectionLayout.addWidget(self.network_widget)
         self.selectionLayout.addWidget(self.domain_widget)
@@ -64,22 +68,32 @@ class MainWindow(QWidget):
         self.setLayout(self.mainLayout)
 
     def check_conditions(self):
-        if self.dataset_widget.getChecked() and self.network_widget.getChecked() and self.domain_widget.getChecked() and self.window_widget.getChecked():
+        if self.dataset_widget.get_checked() and self.network_widget.get_checked() and self.domain_widget.get_checked() and self.window_widget.get_checked():
             self.train_button.setEnabled(False) #TODO HABILITAR E CRIAR ROTINA PARA TREINO
             self.evaluate_button.setEnabled(True)
+
         else:
             self.train_button.setEnabled(False)
             self.evaluate_button.setEnabled(False)
 
-    def train_model(self):
-        print("Training the model...")
-
     def evaluate_model(self):
         self.info_panel_widget.clear()
+
         DATASET = self.dataset_widget.dataset
         MODEL = self.network_widget.network
         DOMAIN = self.domain_widget.domain
         WINDOW = self.window_widget.window_size
+        model_evaluation = Evaluator(dataset_name=DATASET, model_name=MODEL, model_data_domain=DOMAIN, model_window_length=WINDOW)
 
-        model_eval = Evaluator(dataset_name=DATASET, model_name=MODEL, model_data_domain=DOMAIN, model_window_length=WINDOW)
-        model_eval.show()
+        try:
+            model_evaluation.info()
+            model_evaluation.samples()
+            model_evaluation.report()
+        
+        except:
+            self.info_panel_widget.clear()
+            model_evaluation.info()
+            print("MODEL NOT TRAINED")
+
+    def train_model(self):
+        print("Training the model...")

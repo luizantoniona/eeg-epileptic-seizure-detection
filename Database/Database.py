@@ -34,7 +34,19 @@ class Database:
             except:
                 print("Erro ao executar")
 
-    def name(self):
+    def verify_table(self, table_name) -> bool:
+        fd = open("./Database/SQL/Structure/verify_table_by_name.sql", 'r')
+        sql_file = fd.read()
+        fd.close()
+
+        try:
+            self.cursor.execute(sql_file, (table_name,))
+            return self.cursor.fetchone()
+        except:
+            return False
+
+    @staticmethod
+    def name():
         """
         Returns the name of the SQLite database.
         """
