@@ -18,8 +18,6 @@ def get_summary(part_code):
     if not os.path.exists(fullpath):
         os.makedirs(directory)
         urlretrieve(url, fullpath)
-    else:
-        print(part_code + ": Já existe")
 
 
 def get_edf_by_record(record, file):
@@ -31,13 +29,15 @@ def get_edf_by_record(record, file):
 
     if not os.path.exists(fullpath):
         try:
+            print(fullpath + ": Downloading")
             urlretrieve(url, fullpath)
-            print(fullpath + ": Baixado!")
+            print(fullpath + ": Downloaded")
+
         except:
-            print(filename + ": Não foi possivel, verificar")
+            print(filename + ": Not possible, verify!")
 
     else:
-        print(fullpath + ": Já existe!")
+        print(fullpath + ": Exists!")
 
 
 def download():

@@ -1,6 +1,7 @@
 import Dataset.DatasetConfigure as DatasetConfigure
 from Dataset.DatasetTypeEnum import dataset_enum_by_name
 from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtCore import QThread
 from PyQt5.QtWidgets import QComboBox
 from PyQt5.QtWidgets import QFrame
 from PyQt5.QtWidgets import QLabel
@@ -17,6 +18,7 @@ class DatasetWidget(QWidget):
         self.checked: bool = False
         self.dataset: str = ""
         self.label = QLabel("Dataset:")
+        self.configured_label = QLabel("Select Dataset")
 
         self.separator = QFrame()
         self.separator.setFrameShape(QFrame.HLine)
@@ -39,6 +41,7 @@ class DatasetWidget(QWidget):
         self.custom_layout.addWidget(self.separator)
         self.custom_layout.addWidget(self.label)
         self.custom_layout.addWidget(self.combo_box)
+        self.custom_layout.addWidget(self.configured_label)
         self.custom_layout.addWidget(self.configure_button)
         self.setLayout(self.custom_layout)
 
@@ -46,17 +49,49 @@ class DatasetWidget(QWidget):
         return self.checked
 
     def on_selected(self):
-        if self.combo_box.currentIndex() > 0 and self.check_dataset_configured(self.combo_box.currentText()):
-            self.checked = True
-            self.dataset = self.combo_box.currentText()
+        dataset_name = self.combo_box.currentText()
+
+        if self.combo_box.currentIndex() > 0:
+            if self.check_dataset_configured(dataset_name):
+                self.configured_label.setText("Dataset Configured")
+                self.checked = True
+                self.dataset = dataset_name
+
+            else:
+                self.configured_label.setText("Dataset Not Configured")
+                self.checked = False
+                self.configure_button.setEnabled(True)
 
         else:
+            self.configured_label.setText("Select Dataset")
             self.checked = False
+            self.dataset = ""
+            self.configure_button.setEnabled(False)
 
         self.currentIndexChanged.emit()
 
-    def check_dataset_configured(self, dataset_name):
-        DatasetConfigure.configure(dataset_type=dataset_enum_by_name(dataset_name))
+    def check_dataset_configured(self, dataset_name: str) -> bool:
+        return DatasetConfigure.is_configured(dataset_type=dataset_enum_by_name(dataset_name))
 
-    def configure_dataset(self, dataset_name):
-        DatasetConfigure.configure(dataset_type=dataset_enum_by_name(dataset_name))
+    def configure_dataset(self):
+        self.configuration_thread = DatasetConfigurationThread(self.combo_box.currentText())
+        self.configuration_thread.finished.connect(self.on_configuration_finished)
+        self.configure_button.setEnabled(False)
+        self.combo_box.setEnabled(False)
+        self.configuration_thread.start()
+
+    def on_configuration_finished(self):
+        self.combo_box.setEnabled(True)
+        self.check_dataset_configured(self.combo_box.currentText())
+
+
+class DatasetConfigurationThread(QThread):
+    finished = pyqtSignal()
+
+    def __init__(self, dataset_name):
+        super().__init__()
+        self.dataset_name = dataset_name
+
+    def run(self):
+        DatasetConfigure.configure(dataset_type=dataset_enum_by_name(self.dataset_name))
+        self.finished.emit()
