@@ -1,19 +1,20 @@
 import numpy as np
 import sklearn.metrics as metrics
-from statistics import mean 
+from statistics import mean
 from statistics import median
 from statistics import pstdev
 from Database.DatabaseMetrics import DatabaseMetrics
 from Metric.Evaluation import Evaluation
 import Metric.EvaluatorConverter as Converter
 
+
 class Evaluator:
     """
-
+    Class: Evaluator
     """
+
     def __init__(self, dataset_name, model_name, model_data_domain, model_window_length):
-        """
-        """
+        """ """
         self.dataset_name = dataset_name
         self.model_name = model_name
         self.model_data_domain = model_data_domain
@@ -33,11 +34,11 @@ class Evaluator:
         self.false_negatives = [evaluation.false_negatives for evaluation in self.evaluations]
         self.total_samples = [evaluation.total_samples for evaluation in self.evaluations]
 
-        self.accuracy = [evaluation.accuracy*100 for evaluation in self.evaluations]
-        self.precision = [evaluation.precision*100 for evaluation in self.evaluations]
-        self.sensitivity = [evaluation.sensitivity*100 for evaluation in self.evaluations]
-        self.specificity = [evaluation.specificity*100 for evaluation in self.evaluations]
-        self.f1_score = [evaluation.f1_score*100 for evaluation in self.evaluations]
+        self.accuracy = [evaluation.accuracy * 100 for evaluation in self.evaluations]
+        self.precision = [evaluation.precision * 100 for evaluation in self.evaluations]
+        self.sensitivity = [evaluation.sensitivity * 100 for evaluation in self.evaluations]
+        self.specificity = [evaluation.specificity * 100 for evaluation in self.evaluations]
+        self.f1_score = [evaluation.f1_score * 100 for evaluation in self.evaluations]
 
         self.true_positive_rate = [evaluation.true_positive_rate for evaluation in self.evaluations]
         self.false_positive_rate = [evaluation.false_positive_rate for evaluation in self.evaluations]
