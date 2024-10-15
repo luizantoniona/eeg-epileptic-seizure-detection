@@ -1,6 +1,7 @@
 import gc
 import mne
 
+
 class Signal:
     """
     A class representing an MNE signal model.
@@ -17,12 +18,12 @@ class Signal:
         List to store labels about data segments.
     """
 
-    def __init__(self, mne_object: mne.io.Raw):
-        self.mne_data: mne.io.Raw = mne_object
+    def __init__(self, mne_object: mne.io.BaseRaw):
+        self.mne_data: mne.io.BaseRaw = mne_object
 
         self.data = None
-        self.data_segmented = []
-        self.label_segmented = []
+        self.data_segmented: list = []
+        self.label_segmented: list = []
 
     def get_data(self):
         return self.data
@@ -32,11 +33,11 @@ class Signal:
 
     def get_label_segmented(self):
         return self.label_segmented
-    
+
     def generate_data(self):
         raise NotImplementedError()
-    
-    def generate_segmented_data(self):
+
+    def generate_segmented_data(self, t_min, t_max):
         raise NotImplementedError()
 
     def delete_mne_data(self):
@@ -46,5 +47,4 @@ class Signal:
         if self.mne_data is not None:
             self.mne_data.close()
             del self.mne_data
-            self.mne_data = None
             gc.collect()

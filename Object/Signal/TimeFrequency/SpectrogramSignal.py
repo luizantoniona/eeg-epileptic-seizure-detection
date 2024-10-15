@@ -3,23 +3,21 @@ import gc
 import mne
 import numpy as np
 
+
 class SpectrogramSignal(Signal):
     """
     A class representing a Spectrogram signal model.
     """
 
-    def __init__(self, mne_object: mne.io.Raw):
+    def __init__(self, mne_object: mne.io.BaseRaw):
         super().__init__(mne_object)
 
     def generate_data(self):
         """
         Generate Spectrogram data for all file.
         """
-        spectrogram = self.mne_data.compute_tfr(method='multitaper',
-                                                freqs=self.frequencies(),
-                                                n_jobs=4,
-                                                n_cycles=self.frequencies())
-        
+        spectrogram = self.mne_data.compute_tfr(method="multitaper", freqs=self.frequencies(), n_jobs=4, n_cycles=self.frequencies())
+
         self.data = spectrogram.get_data()
         del spectrogram
         gc.collect()
@@ -28,12 +26,8 @@ class SpectrogramSignal(Signal):
         """
         Generate segmented Spectrogram data for a specified time interval.
         """
-        spectrogram = self.mne_data.compute_tfr(method='multitaper',
-                                                freqs=self.frequencies(),
-                                                tmin=t_min, tmax=t_max,
-                                                n_jobs=4,
-                                                n_cycles=self.frequencies())
-        
+        spectrogram = self.mne_data.compute_tfr(method="multitaper", freqs=self.frequencies(), tmin=t_min, tmax=t_max, n_jobs=4, n_cycles=self.frequencies())
+
         self.data_segmented.append(spectrogram.get_data())
         del spectrogram
         gc.collect()
