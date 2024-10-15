@@ -1,11 +1,13 @@
 """
 Module: ConvolutionalRecurrentNNFactory
 """
+
 from Object.Signal.SignalTypeEnum import SignalTypeEnum
 from IA.CRNN.CRNNBase import CRNNBase
 from IA.CRNN.CRNNTime import CRNNTime
 from IA.CRNN.CRNNPSD import CRNNPSD
 from IA.CRNN.CRNNSpectogram import CRNNSpectrogram
+
 
 def model_by_signal_type(signal_type: SignalTypeEnum, input_shape, window_length: int) -> CRNNBase:
     match signal_type:

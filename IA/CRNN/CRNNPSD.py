@@ -2,10 +2,12 @@ import keras
 import keras_tuner as kt
 from IA.CRNN.CRNNBase import CRNNBase
 
-class CRNNPSD( CRNNBase ):
+
+class CRNNPSD(CRNNBase):
     """
     CRNN Model for PSD data training
     """
+
     def __init__(self, input_shape, window_length: int):
         super().__init__(input_shape, window_length)
 

@@ -2,10 +2,12 @@ import keras
 import keras_tuner as kt
 from IA.CRNN.CRNNBase import CRNNBase
 
-class CRNNTime( CRNNBase ):
+
+class CRNNTime(CRNNBase):
     """
     CRNN Model for time data training
     """
+
     def __init__(self, input_shape, window_length: int):
         super().__init__(input_shape, window_length)
 

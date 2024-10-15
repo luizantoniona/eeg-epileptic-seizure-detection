@@ -2,17 +2,19 @@ import keras
 import keras_tuner as kt
 from IA.RNN.RNNBase import RNNBase
 
-class RNNSpectrogram( RNNBase ):
+
+class RNNSpectrogram(RNNBase):
     """
     RNN Model for Spectrogram data training
     """
+
     def __init__(self, input_shape, window_length: int):
         super().__init__(input_shape, window_length)
 
     def construct_model(self, hyper_param: kt.HyperParameters):
         self.model = keras.models.Sequential()
         self.model.add(keras.layers.InputLayer(shape=self.input_shape))
-        
+
         self.model.add(keras.layers.TimeDistributed(keras.layers.Flatten()))
 
         self.model.add(super().create_lstm_layer(hyper_param, min_value=8, max_value=64, step_value=8, default_value=32, return_sequences=True))

@@ -1,11 +1,13 @@
 """
 Module: RecurrentNNFactory
 """
+
 from Object.Signal.SignalTypeEnum import SignalTypeEnum
 from IA.RNN.RNNBase import RNNBase
 from IA.RNN.RNNTime import RNNTime
 from IA.RNN.RNNPSD import RNNPSD
 from IA.RNN.RNNSpectogram import RNNSpectrogram
+
 
 def model_by_signal_type(signal_type: SignalTypeEnum, input_shape, window_length: int) -> RNNBase:
     match signal_type:
