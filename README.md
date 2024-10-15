@@ -42,9 +42,9 @@ The database is created to store information about the datasets and training inf
 
 Used to store information about the files in the dataset.
 
-| dataset_name | record_name | file_name | start_time | end_time | nr_occurrence | start_occurrence | end_occurrence | nr_channels | ds_channels |
-|---|---|---|---|---|---|---|---|---|---|
-| CHBMIT | ch01 | chb01_01.edf | 12:34:22 | 13:13:07 | 2 | 1862, 2000 | 1963, 2213 | 24 | FP1-F7,F7-T7,... |
+| dataset_name | record_name | file_name | start_time | end_time | nr_occurrence | start_occurrence | end_occurrence | nr_channels | ds_channels | disease_type |
+|---|---|---|---|---|---|---|---|---|---|---|
+| CHBMIT | ch01 | chb01_01.edf | 12:34:22 | 13:13:07 | 2 | 1862, 2000 | 1963, 2213 | 24 | FP1-F7,F7-T7,... | epilepsy |
 
 ### metrics_info:
 
