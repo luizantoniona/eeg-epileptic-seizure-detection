@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QTextEdit
 from PyQt5.QtWidgets import QVBoxLayout
 from PyQt5.QtWidgets import QWidget
 
+
 class InfoPanelWidget(QWidget):
     def __init__(self):
         super().__init__()

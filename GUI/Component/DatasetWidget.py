@@ -1,3 +1,5 @@
+import Dataset.DatasetConfigure as DatasetConfigure
+from Dataset.DatasetTypeEnum import dataset_enum_by_name
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QComboBox
 from PyQt5.QtWidgets import QFrame
@@ -6,13 +8,14 @@ from PyQt5.QtWidgets import QPushButton
 from PyQt5.QtWidgets import QVBoxLayout
 from PyQt5.QtWidgets import QWidget
 
+
 class DatasetWidget(QWidget):
     currentIndexChanged = pyqtSignal()
 
     def __init__(self):
         super().__init__()
         self.checked: bool = False
-        self.dataset : str = ""
+        self.dataset: str = ""
         self.label = QLabel("Dataset:")
 
         self.separator = QFrame()
@@ -25,10 +28,12 @@ class DatasetWidget(QWidget):
 
         self.combo_box = QComboBox()
         self.combo_box.currentIndexChanged.connect(self.on_selected)
-        self.combo_box.addItems([
-            "Select Dataset",
-            "CHBMIT",
-        ])
+        self.combo_box.addItems(
+            [
+                "Select Dataset",
+                "CHBMIT",
+            ]
+        )
 
         self.custom_layout = QVBoxLayout()
         self.custom_layout.addWidget(self.separator)
@@ -51,7 +56,7 @@ class DatasetWidget(QWidget):
         self.currentIndexChanged.emit()
 
     def check_dataset_configured(self, dataset_name):
-        return #TODO Verificar se dataset configurado
+        DatasetConfigure.configure(dataset_type=dataset_enum_by_name(dataset_name))
 
     def configure_dataset(self):
-        return #TODO Configurar dataset
+        return  # TODO Configurar dataset

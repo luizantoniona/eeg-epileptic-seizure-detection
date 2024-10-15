@@ -5,13 +5,14 @@ from PyQt5.QtWidgets import QLabel
 from PyQt5.QtWidgets import QVBoxLayout
 from PyQt5.QtWidgets import QWidget
 
+
 class WindowSizeWidget(QWidget):
     currentIndexChanged = pyqtSignal()
 
     def __init__(self):
         super().__init__()
         self.checked: bool = False
-        self.window_size : int = 0
+        self.window_size: int = 0
         self.label = QLabel("Window Size:")
 
         self.separator = QFrame()
@@ -20,13 +21,15 @@ class WindowSizeWidget(QWidget):
 
         self.combo_box = QComboBox()
         self.combo_box.currentIndexChanged.connect(self.on_selected)
-        self.combo_box.addItems([
-            "Select Window Size",
-            "1",
-            "2",
-            "5",
-            "10",
-        ])
+        self.combo_box.addItems(
+            [
+                "Select Window Size",
+                "1",
+                "2",
+                "5",
+                "10",
+            ]
+        )
 
         self.custom_layout = QVBoxLayout()
         self.custom_layout.addWidget(self.separator)
@@ -38,7 +41,7 @@ class WindowSizeWidget(QWidget):
         return self.checked
 
     def on_selected(self):
-        if self.combo_box.currentIndex() > 0 :
+        if self.combo_box.currentIndex() > 0:
             self.checked = True
             self.window_size = int(self.combo_box.currentText())
 

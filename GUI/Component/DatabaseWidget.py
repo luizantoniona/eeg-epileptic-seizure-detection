@@ -6,13 +6,14 @@ from PyQt5.QtWidgets import QPushButton
 from PyQt5.QtWidgets import QVBoxLayout
 from PyQt5.QtWidgets import QWidget
 
+
 class DatabaseWidget(QWidget):
     currentIndexChanged = pyqtSignal()
 
     def __init__(self):
         super().__init__()
         self.checked: bool = False
-        self.domain : str = ""
+        self.domain: str = ""
         self.label = QLabel("Database:")
 
         self.configure_button = QPushButton("Configure")

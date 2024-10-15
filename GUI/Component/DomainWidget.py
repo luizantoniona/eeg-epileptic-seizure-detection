@@ -5,13 +5,14 @@ from PyQt5.QtWidgets import QLabel
 from PyQt5.QtWidgets import QVBoxLayout
 from PyQt5.QtWidgets import QWidget
 
+
 class DomainWidget(QWidget):
     currentIndexChanged = pyqtSignal()
 
     def __init__(self):
         super().__init__()
         self.checked: bool = False
-        self.domain : str = ""
+        self.domain: str = ""
         self.label = QLabel("Domain Type:")
 
         self.separator = QFrame()
@@ -20,12 +21,14 @@ class DomainWidget(QWidget):
 
         self.combo_box = QComboBox()
         self.combo_box.currentIndexChanged.connect(self.on_selected)
-        self.combo_box.addItems([
-            "Select Domain",
-            "Time",
-            "PSD",
-            "Spectrogram",
-        ])
+        self.combo_box.addItems(
+            [
+                "Select Domain",
+                "Time",
+                "PSD",
+                "Spectrogram",
+            ]
+        )
 
         self.custom_layout = QVBoxLayout()
         self.custom_layout.addWidget(self.separator)
@@ -37,7 +40,7 @@ class DomainWidget(QWidget):
         return self.checked
 
     def on_selected(self):
-        if self.combo_box.currentIndex() > 0 :
+        if self.combo_box.currentIndex() > 0:
             self.checked = True
             self.domain = self.combo_box.currentText()
 
