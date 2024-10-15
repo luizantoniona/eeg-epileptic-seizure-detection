@@ -1,10 +1,40 @@
-"""
-Module: DatabaserCHBMIT
-"""
-
 import os
 import re
+from wfdb import io
+from urllib.request import urlretrieve
 from Database.DatabaseSummary import DatabaseSummary
+
+
+def get_summary(part_code):
+    url = "https://physionet.org/physiobank/database/chbmit/" + part_code + "/" + part_code + "-summary.txt"
+    directory = "./data/CHBMIT/" + part_code + "/"
+    filename = part_code + "-summary.txt"
+
+    fullpath = os.path.join(directory, filename)
+
+    if not os.path.exists(fullpath):
+        os.makedirs(directory)
+        urlretrieve(url, fullpath)
+
+
+def get_edf_by_record(record, file):
+    url = "https://physionet.org/physiobank/database/chbmit/" + record + "/" + file
+    directory = "./data/CHBMIT/" + record + "/"
+    filename = file
+
+    fullpath = os.path.join(directory, filename)
+
+    if not os.path.exists(fullpath):
+        try:
+            print(f"Downloading: {fullpath}")
+            urlretrieve(url, fullpath)
+            print(f"Downloaded: {fullpath}")
+
+        except:
+            print(f"Not possible, verify!: {filename}")
+
+    else:
+        print(f"Already Exists: {fullpath}")
 
 
 def get_summary_info(record):
@@ -64,16 +94,18 @@ def summary_info(content, record_name):
             nr_seizures = re.findall("\\d+", line)[0]
 
         else:
-            if file_name != "":
+            if file_name != "" and int(nr_seizures) > 0:
                 directory = "data/CHBMIT/" + record_name + "/"
                 fullpath = os.path.join(directory, file_name)
 
+                get_edf_by_record(record_name, file_name)
+
                 if os.path.exists(fullpath):
-                    if database.summary_by_name(file_name) == None:
-                        print("Inserindo: " + file_name)
+                    if database.summary_by_name(file_name) is None:
+                        print(f"Inserting: {file_name}")
                         database.insert_sumarry_data("CHBMIT", record_name, file_name, start_time, end_time, int(nr_seizures), ",".join(start_seizure), ",".join(end_seizure), nr_channels, ",".join(ds_channels), "epilepsy")
                     else:
-                        print("Registro já inserido: " + file_name)
+                        print(f"Already inserted: {file_name}")
 
                 file_name = ""
                 start_time = ""
@@ -83,10 +115,12 @@ def summary_info(content, record_name):
                 nr_seizures = ""
 
 
-def execute():
-    records_list = os.listdir("data/CHBMIT/")
+def download_and_process():
+    records_list = io.get_record_list("chbmit", records="all")
     part_codes = sorted(list(set([record.split("/")[0] for record in records_list])))
 
-    for record in part_codes:
-        record_context = get_summary_info(record)
-        summary_info(record_context, record)
+    for part_code in part_codes:
+        print(f"Processing: {part_code}")
+        get_summary(part_code)
+        record_context = get_summary_info(part_code)
+        summary_info(record_context, part_code)
