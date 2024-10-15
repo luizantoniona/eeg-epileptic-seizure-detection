@@ -10,6 +10,10 @@ from GUI.Component.InfoPanelWidget import InfoPanelWidget
 from GUI.Component.NeuralNetworkWidget import NeuralNetworkWidget
 from GUI.Component.WindowSizeWidget import WindowSizeWidget
 from Metric.Evaluator import Evaluator
+from Preprocessor.Preprocessor import Preprocessor
+from Dataset.DatasetTypeEnum import dataset_enum_by_name
+from IA.NeuralNetworkTypeEnum import neural_network_enum_by_name
+from Object.Signal.SignalTypeEnum import signal_enum_by_name
 
 TITLE = "EEG Aplication"
 
@@ -79,12 +83,11 @@ class MainWindow(QWidget):
 
     def evaluate_model(self):
         self.info_panel_widget.clear()
-
-        DATASET = self.dataset_widget.dataset
-        MODEL = self.network_widget.network
-        DOMAIN = self.domain_widget.domain
+        DATASET = dataset_enum_by_name(self.dataset_widget.dataset)
+        MODEL = neural_network_enum_by_name(self.network_widget.network)
+        DOMAIN = signal_enum_by_name(self.domain_widget.domain)
         WINDOW = self.window_widget.window_size
-        model_evaluation = Evaluator(dataset_name=DATASET, model_name=MODEL, model_data_domain=DOMAIN, model_window_length=WINDOW)
+        model_evaluation = Evaluator(dataset_type=DATASET, model_type=MODEL, signal_type=DOMAIN, window_length=WINDOW)
 
         try:
             model_evaluation.info()
@@ -97,4 +100,11 @@ class MainWindow(QWidget):
             print("MODEL NOT TRAINED")
 
     def train_model(self):
-        print("Training the model...")
+        self.info_panel_widget.clear()
+        DATASET = dataset_enum_by_name(self.dataset_widget.dataset)
+        MODEL = neural_network_enum_by_name(self.network_widget.network)
+        DOMAIN = signal_enum_by_name(self.domain_widget.domain)
+        WINDOW = self.window_widget.window_size
+
+        print("PREPROCESSOR STARTED")
+        data, labels = Preprocessor.preprocess(dataset_type=DATASET, model_type=MODEL, signal_type=DOMAIN, window_length=WINDOW)

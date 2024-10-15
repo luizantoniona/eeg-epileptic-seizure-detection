@@ -6,6 +6,9 @@ from statistics import pstdev
 from Database.DatabaseMetrics import DatabaseMetrics
 from Metric.Evaluation import Evaluation
 import Metric.EvaluatorConverter as Converter
+from Dataset.DatasetTypeEnum import DatasetTypeEnum
+from IA.NeuralNetworkTypeEnum import NeuralNetworkTypeEnum
+from Object.Signal.SignalTypeEnum import SignalTypeEnum
 
 
 class Evaluator:
@@ -13,15 +16,15 @@ class Evaluator:
     Class: Evaluator
     """
 
-    def __init__(self, dataset_name, model_name, model_data_domain, model_window_length):
+    def __init__(self, dataset_type: DatasetTypeEnum, model_type: NeuralNetworkTypeEnum, signal_type: SignalTypeEnum, window_length: int):
         """ """
-        self.dataset_name = dataset_name
-        self.model_name = model_name
-        self.model_data_domain = model_data_domain
-        self.model_window_length = model_window_length
+        self.dataset_name = dataset_type.name
+        self.model_name = model_type.name
+        self.model_data_domain = signal_type.name
+        self.window_length = window_length
 
         database = DatabaseMetrics()
-        db_objects = database.metrics_by_model_domain_window(dataset_name, model_name, model_data_domain, model_window_length)
+        db_objects = database.metrics_by_model_domain_window(self.dataset_name, self.model_name, self.model_data_domain, window_length)
 
         self.evaluations: list[Evaluation] = []
 
@@ -48,7 +51,7 @@ class Evaluator:
         print(f"[DATASET]: {self.dataset_name}")
         print(f"[MODEL]: {self.model_name}")
         print(f"[DOMAIN]: {self.model_data_domain}")
-        print(f"[WINDOW]: {self.model_window_length}")
+        print(f"[WINDOW]: {self.window_length}")
         print("------------------------------------")
 
     def samples(self):

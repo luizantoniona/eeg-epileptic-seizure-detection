@@ -58,5 +58,5 @@ class DatasetWidget(QWidget):
     def check_dataset_configured(self, dataset_name):
         DatasetConfigure.configure(dataset_type=dataset_enum_by_name(dataset_name))
 
-    def configure_dataset(self):
-        return  # TODO Configurar dataset
+    def configure_dataset(self, dataset_name):
+        DatasetConfigure.configure(dataset_type=dataset_enum_by_name(dataset_name))

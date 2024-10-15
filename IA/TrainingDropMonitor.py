@@ -1,11 +1,13 @@
 import keras
 import numpy as np
 
+
 class TrainingDropMonitor(keras.callbacks.Callback):
     """
     Custom callback to stop training if the monitored metric drops by more than a specified delta.
     """
-    def __init__(self, monitor='val_accuracy', min_delta=0.2, patience=1):
+
+    def __init__(self, monitor="val_accuracy", min_delta=0.2, patience=1):
         super(TrainingDropMonitor, self).__init__()
         self.monitor = monitor
         self.min_delta = min_delta
@@ -23,7 +25,7 @@ class TrainingDropMonitor(keras.callbacks.Callback):
         if self.previous is None:
             self.previous = current
             return
-        
+
         if current > self.best:
             self.best = current
             self.best_weights = self.model.get_weights()

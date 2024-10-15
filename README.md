@@ -1,6 +1,6 @@
 # Epileptic Seizure Detection in EEG
 
-This project focuses on the detection of epileptic seizures in EEG data using various machine learning models. The data used in this project is sourced from the CHB-MIT Scalp EEG Database, and the models implemented aim to classify EEG signals using different data domains: temporal, frequency, and time-frequency.
+This project focuses on the detection of epileptic seizures in EEG data using various machine learning models. The models implemented aim to classify EEG signals using different data domains: temporal, frequency, and time-frequency.
 
 ## Table of Contents
 - [Packages](#packages)
@@ -20,6 +20,7 @@ The following Python libraries were used in this project:
 - `MNE` – For EEG signal processing.
 - `Keras Tuner` – For hyperparameter optimization.
 - `PyQt` – Used to develop the front-end interface for the application.
+- `sqlite3` - Used to store info on database.
 
 ## Graphical Application
 
@@ -117,7 +118,7 @@ The pre-processing step is segmented into two different phases: one for generati
 
 - **Balance:** This step involves balancing the distribution of samples within the training data to prevent the model from being biased towards certain value.
 
-- **Training:** This stage involves training the machine learning model using the balanced and shuffled training data.
+- **Training:** This stage involves training the machine learning model using the balanced training data.
 
 - **Evaluation:** After training, the model's performance is evaluated using the test datasets to acess its generalization ability and effectiveness.
 
