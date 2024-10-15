@@ -1,3 +1,6 @@
+from PyQt5.QtCore import Q_ARG
+from PyQt5.QtCore import QMetaObject
+from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QTextEdit
 from PyQt5.QtWidgets import QVBoxLayout
 from PyQt5.QtWidgets import QWidget
@@ -14,7 +17,7 @@ class InfoPanelWidget(QWidget):
         self.setLayout(self.custom_layout)
 
     def write(self, message):
-        self.info_panel.insertPlainText(message)
+        QMetaObject.invokeMethod(self.info_panel, "insertPlainText", Qt.ConnectionType.AutoConnection, Q_ARG(str, message))
 
     def clear(self):
         self.info_panel.clear()
