@@ -13,6 +13,7 @@ from Metric.Evaluator import Evaluator
 
 TITLE = "EEG Aplication"
 
+
 class MainWindow(QWidget):
     def __init__(self):
         super().__init__()
@@ -69,7 +70,7 @@ class MainWindow(QWidget):
 
     def check_conditions(self):
         if self.database_widget.get_checked() and self.dataset_widget.get_checked() and self.network_widget.get_checked() and self.domain_widget.get_checked() and self.window_widget.get_checked():
-            self.train_button.setEnabled(False) #TODO HABILITAR E CRIAR ROTINA PARA TREINO
+            self.train_button.setEnabled(True)
             self.evaluate_button.setEnabled(True)
 
         else:
@@ -89,7 +90,7 @@ class MainWindow(QWidget):
             model_evaluation.info()
             model_evaluation.samples()
             model_evaluation.report()
-        
+
         except:
             self.info_panel_widget.clear()
             model_evaluation.info()
