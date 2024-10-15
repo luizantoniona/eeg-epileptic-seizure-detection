@@ -1,58 +1,74 @@
-"""
-Module: Preprocessor
-"""
+import gc
 import mne
-import random
-import Preprocessor.Balancer.Balancer as Balancer
-import Preprocessor.Loader.Loader as Loader
-import Preprocessor.Normalizer.Normalizer as Normalizer
-import Preprocessor.Splitter.Splitter as Splitter
-import Preprocessor.Transposer.Transposer as Transposer
+import numpy as np
+from Object.Summary import Summary
+from sklearn.preprocessing import LabelEncoder
+from IA.NeuralNetworkTypeEnum import NeuralNetworkTypeEnum
 from Dataset.DatasetTypeEnum import DatasetTypeEnum
 from Object.Signal.SignalTypeEnum import SignalTypeEnum
+from Preprocessor.Balancer.Balancer import Balancer
+from Preprocessor.Loader.Loader import Loader
+from Preprocessor.Normalizer.Normalizer import Normalizer
+from Preprocessor.Transposer.Transposer import Transposer
 
-def preprocess( dataset_type: DatasetTypeEnum, signal_type: SignalTypeEnum, window_length: int,
-                train_size=0.70, val_size=0.20, test_size=0.10,
-                balance_train = True, balance_val = True, balance_test = True ):
+
+class Preprocessor:
     """
-    Preprocess the data by loading, normalizing, splitting, and balancing it.
-
-    Args:
-        dataset_type (DatasetTypeEnum): Type of dataset to load.
-        signal_type (SignalTypeEnum): Type of signal to load.
-        balance_train (bool): Whether to balance the training data.
-        balance_val (bool): Whether to balance the validation data.
-        balance_test (bool): Whether to balance the test data.
-        train_size (float): Proportion of data to use for training.
-        val_size (float): Proportion of data to use for validation.
-        test_size (float): Proportion of data to use for testing.
-
-    Returns:
-        tuple: Processed data split into training, validation, and test sets.
+    The Preprocessor class provides static methods to handle the end-to-end data preprocessing pipeline,
+    including data loading, normalization, balancing, and transposition.
     """
-    summaries = Loader.load_anomalous_summaries(dataset_type=dataset_type)
 
-    mne.set_log_level("CRITICAL")
+    @staticmethod
+    def preprocess(dataset_type: DatasetTypeEnum, signal_type: SignalTypeEnum, model_type: NeuralNetworkTypeEnum, window_length: int):
+        """
+        Preprocess the data by loading, normalizing, balancing, and transposing it.
 
-    Loader.load_segmented_data(summaries, signal_type=signal_type, window_length=window_length)
+        Args:
+            dataset_type (DatasetTypeEnum): Type of dataset to load.
+            signal_type (SignalTypeEnum): Type of signal to load.
+            model_type (NeuralNetworkTypeEnum): Type of neural network model to use for data adaptation.
+            window_length (int): Length of the window used for segmenting the data.
 
-    Normalizer.normalize(summaries)
+        Returns:
+            tuple: Processed data and corresponding labels.
+        """
+        mne.utils.set_log_level("CRITICAL")
 
-    X_train, y_train, X_validation, y_validation, X_test, y_test = Splitter.split(summaries, train_size, val_size, test_size)
+        summaries = Loader.load_anomalous_summaries(dataset_type=dataset_type)
 
-    if( balance_train ):
-        X_train, y_train = Balancer.balance(X_train, y_train)
+        Loader.load_segmented_data(summaries, signal_type=signal_type, window_length=window_length)
 
-    if( balance_val ):
-        X_validation, y_validation = Balancer.balance(X_validation, y_validation)
-    
-    if ( balance_test ):
-        X_test, y_test = Balancer.balance(X_test, y_test)
+        Normalizer.normalize(summaries=summaries)
 
-    print("TRAIN SHAPE:", X_train.shape)
-    print("VALIDATION SHAPE:", X_validation.shape)
-    print("TEST SHAPE:", X_test.shape)
+        data, labels = Preprocessor.prepare(summaries=summaries)
+        data, labels = Balancer.balance(data=data, labels=labels)
 
-    Transposer.transpose() # TODO: Implementar
+        print("DATA SHAPE:", data.shape)
 
-    return X_train, y_train, X_validation, y_validation, X_test, y_test
+        Transposer.transpose(signal_type=signal_type, model_type=model_type, data=data)
+
+        del summaries
+        gc.collect()
+
+        return data, labels
+
+    @staticmethod
+    def prepare(summaries: list[Summary]):
+        """
+        Prepares data by concatenating segmented data and labels from the provided summaries.
+
+        Args:
+            summaries (list[Summary]): List of Summary objects containing data segments and labels.
+
+        Returns:
+            tuple: A tuple containing the concatenated segmented data (ndarray) and encoded labels (ndarray).
+        """
+
+        all_segmented_data = np.concatenate([summary.signal.get_data_segmented() for summary in summaries])
+        all_segmented_label = np.concatenate([summary.signal.get_label_segmented() for summary in summaries])
+
+        label_encoder = LabelEncoder()
+        label_encoder.fit(all_segmented_label)
+        all_segmented_label = label_encoder.transform(all_segmented_label)
+
+        return all_segmented_data, all_segmented_label

@@ -1,61 +1,74 @@
-"""
-Module: Loader
-
-This module provides functions to load and process summary data from a database, as well as generate various types of data and segmented data from the loaded summaries.
-"""
-
 import concurrent.futures
 import Object.SummaryConverter as Converter
 from Database.DatabaseSummary import DatabaseSummary
 from Dataset.DatasetTypeEnum import DatasetTypeEnum
-from Object.Summary import Summary
 from Object.Signal.SignalTypeEnum import SignalTypeEnum
+from Object.Summary import Summary
 
-def load_summaries() -> list[Summary]:
+
+class Loader:
     """
-    Load summary data from the database and convert it into a list of Summary objects.
+    Class: Loader
+    This class provides functions to load and process summary data from a database, as well as generate various types of data and segmented data from the loaded summaries.
     """
-    summaries = []
 
-    database = DatabaseSummary()
-    db_objects = database.summaries()
+    @staticmethod
+    def load_summaries(dataset_type: DatasetTypeEnum) -> list[Summary]:
+        """
+        Load summary data from the database and convert it into a list of Summary objects.
+        """
+        summaries = []
 
-    for db_object in db_objects:
-        summaries.append(Converter.model_from_tuple(db_object))
+        database = DatabaseSummary()
+        db_objects = database.summaries(dataset_type)
 
-    return summaries
+        for db_object in db_objects:
+            summaries.append(Converter.model_from_tuple(db_object))
 
-def load_anomalous_summaries(dataset_type: DatasetTypeEnum) -> list[Summary]:
-    """
-    Load anomalous summary data from the database and convert it into Summary objects.
-    """
-    summaries = []
+        return summaries
 
-    database = DatabaseSummary()
-    db_objects = database.summaries_with_anomaly(dataset_type.name)
+    @staticmethod
+    def load_anomalous_summaries(dataset_type: DatasetTypeEnum) -> list[Summary]:
+        """
+        Load anomalous summary data from the database and convert it into Summary objects.
+        """
+        summaries = []
 
-    for db_object in db_objects:
-        summaries.append(Converter.model_from_tuple(db_object))
+        database = DatabaseSummary()
+        db_objects = database.summaries_with_anomaly(dataset_type.name)
 
-    return summaries
+        for db_object in db_objects:
+            summaries.append(Converter.model_from_tuple(db_object))
 
-def load_segmented_data(summaries: list[Summary], signal_type: SignalTypeEnum, window_length: int, full_file=False) -> None:
-    """
-    Generate segmented data of specified type for a list of Summary objects.
+        return summaries
 
-    Args:
-    - summaries (list[Summary]): List of Summary objects to process.
-    - signal_type (SignalTypeEnum): Type of signal data to generate ("Time", "PSD", "Spectrogram").
-    - window_length (int): Length of the time window wich the data will be segmented.
-    - full_file (bool, optional): Whether to generate full file data. Defaults to False.
-    """
-    def generate(summary: Summary):
-        print(f"GENERATE [SIGNAL_TYPE]:{signal_type.name} [WINDOW]:{str(window_length)} [FILE]:{summary.fullpath()}")
+    @staticmethod
+    def load_segmented_data(summaries: list[Summary], signal_type: SignalTypeEnum, window_length: int, full_file=False, max_workers=8) -> None:
+        """
+        Generate segmented data of specified type for a list of Summary objects.
 
-        if full_file:
-            summary.generate_segmented_data_full_file(signal_type=signal_type, window_length=window_length)
-        else:
-            summary.generate_segmented_data_around_seizures(signal_type=signal_type, window_length=window_length)
+        Args:
+        - summaries (list[Summary]): List of Summary objects to process.
+        - signal_type (SignalTypeEnum): Type of signal data to generate ("Time", "PSD", "Spectrogram").
+        - window_length (int): Length of the time window wich the data will be segmented.
+        - full_file (bool, optional): Whether to generate full file data. Defaults to False.
+        """
 
-    with concurrent.futures.ThreadPoolExecutor() as executor:
-        executor.map(generate, summaries)
+        def generate(summary: Summary):
+            print(f"GENERATE [SIGNAL_TYPE]:{signal_type.name} [WINDOW]:{str(window_length)} [FILE]:{summary.fullpath()}")
+
+            if full_file:
+                summary.generate_segmented_data_full_file(signal_type=signal_type, window_length=window_length)
+            else:
+                summary.generate_segmented_data_around_seizures(signal_type=signal_type, window_length=window_length)
+
+        if not summaries:
+            print("No summaries provided. Exiting.")
+            return
+
+        if window_length <= 0:
+            print("Invalid window length. Exiting.")
+            return
+
+        with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+            executor.map(generate, summaries)

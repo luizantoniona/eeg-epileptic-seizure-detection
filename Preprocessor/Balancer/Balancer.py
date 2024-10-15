@@ -1,29 +1,32 @@
-"""
-Module: data_balancer
-"""
-
 import numpy as np
 
-def balance(data, labels) -> None:
-    """ 
-    Function used to balance data and labels
+
+class Balancer:
     """
-    unique_labels, counts = np.unique(labels, return_counts=True)
+    Class: Balancer
+    """
 
-    min_count = np.min(counts)
+    @staticmethod
+    def balance(data, labels):
+        """
+        Function used to balance data and labels
+        """
+        unique_labels, counts = np.unique(labels, return_counts=True)
 
-    balanced_features = []
-    balanced_labels = []
+        min_count = np.min(counts)
 
-    for label in unique_labels:
-        indices = np.where(labels == label)[0]
+        balanced_features = []
+        balanced_labels = []
 
-        selected_indices = np.random.choice(indices, size=min_count, replace=False)
+        for label in unique_labels:
+            indices = np.where(labels == label)[0]
 
-        balanced_features.extend(data[selected_indices])
-        balanced_labels.extend(labels[selected_indices])
+            selected_indices = np.random.choice(indices, size=min_count, replace=False)
 
-    balanced_features = np.array(balanced_features)
-    balanced_labels = np.array(balanced_labels)
+            balanced_features.extend(data[selected_indices])
+            balanced_labels.extend(labels[selected_indices])
 
-    return balanced_features, balanced_labels
+        balanced_features = np.array(balanced_features)
+        balanced_labels = np.array(balanced_labels)
+
+        return balanced_features, balanced_labels
