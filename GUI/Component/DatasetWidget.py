@@ -1,7 +1,7 @@
 import Dataset.DatasetConfigure as DatasetConfigure
 from Dataset.DatasetTypeEnum import dataset_enum_by_name
+from GUI.Thread.DatasetConfigurationThread import DatasetConfigurationThread
 from PyQt5.QtCore import pyqtSignal
-from PyQt5.QtCore import QThread
 from PyQt5.QtWidgets import QComboBox
 from PyQt5.QtWidgets import QFrame
 from PyQt5.QtWidgets import QLabel
@@ -83,15 +83,3 @@ class DatasetWidget(QWidget):
     def on_configuration_finished(self):
         self.combo_box.setEnabled(True)
         self.check_dataset_configured(self.combo_box.currentText())
-
-
-class DatasetConfigurationThread(QThread):
-    finished = pyqtSignal()
-
-    def __init__(self, dataset_name):
-        super().__init__()
-        self.dataset_name = dataset_name
-
-    def run(self):
-        DatasetConfigure.configure(dataset_type=dataset_enum_by_name(self.dataset_name))
-        self.finished.emit()
