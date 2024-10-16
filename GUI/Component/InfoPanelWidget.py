@@ -10,8 +10,10 @@ from PyQt5.QtWidgets import QWidget
 
 
 class InfoPanelWidget(QWidget):
-    def __init__(self):
+    def __init__(self, max_lines=100):
         super().__init__()
+        self.max_lines = max_lines
+        self.current_lines = 0
         self.info_panel = QTextEdit()
         self.info_panel.setReadOnly(True)
 
@@ -26,10 +28,18 @@ class InfoPanelWidget(QWidget):
     def write(self, message):
         QMetaObject.invokeMethod(self.info_panel, "insertPlainText", Qt.ConnectionType.AutoConnection, Q_ARG(str, message))
         QMetaObject.invokeMethod(self, "move_cursor_to_end", Qt.ConnectionType.AutoConnection)
+        QMetaObject.invokeMethod(self, "check_line_count", Qt.ConnectionType.AutoConnection)
 
     @pyqtSlot()
     def move_cursor_to_end(self):
         self.info_panel.moveCursor(QTextCursor.End)
+
+    @pyqtSlot()
+    def check_line_count(self):
+        self.current_lines = self.current_lines + 1
+        if self.current_lines > self.max_lines:
+            self.clear()
+            self.current_lines = 0
 
     def clear(self):
         self.info_panel.clear()
