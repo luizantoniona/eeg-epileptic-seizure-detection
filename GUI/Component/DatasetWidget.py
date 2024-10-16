@@ -50,24 +50,27 @@ class DatasetWidget(QWidget):
 
     def on_selected(self):
         dataset_name = self.combo_box.currentText()
+        message = ""
 
         if self.combo_box.currentIndex() > 0:
             if self.check_dataset_configured(dataset_name):
-                self.configured_label.setText("Dataset Configured")
+                message = "Dataset Configured"
                 self.checked = True
                 self.dataset = dataset_name
 
             else:
-                self.configured_label.setText("Dataset Not Configured")
+                message = "Dataset Not Configured"
                 self.checked = False
                 self.configure_button.setEnabled(True)
 
         else:
-            self.configured_label.setText("Select Dataset")
+            message = "Select Dataset"
             self.checked = False
             self.dataset = ""
             self.configure_button.setEnabled(False)
 
+        print(message)
+        self.configured_label.setText(message)
         self.currentIndexChanged.emit()
 
     def check_dataset_configured(self, dataset_name: str) -> bool:
@@ -81,5 +84,6 @@ class DatasetWidget(QWidget):
         self.configuration_thread.start()
 
     def on_configuration_finished(self):
+        print("CONFIGURATION FINISHED")
         self.combo_box.setEnabled(True)
         self.check_dataset_configured(self.combo_box.currentText())
