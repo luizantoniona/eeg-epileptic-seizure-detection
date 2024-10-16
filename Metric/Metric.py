@@ -8,7 +8,7 @@ class Metric:
     Class: Metric
     """
 
-    def __init__(self, test, predictions, dataset_name, model_name, model_data_domain, model_window_length):
+    def __init__(self, test, predictions, dataset_name: str, model_name: str, model_data_domain: str, model_window_length: int):
 
         self.dataset_name = dataset_name
         self.model_name = model_name
