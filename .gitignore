@@ -1,8 +1,9 @@
 #Folders
 *_checkpoints/
 *pycache*/
-data/Models/
 data/CHBMIT/
+data/Models/
+data/Tuner/
 
 #Files
 *.db
