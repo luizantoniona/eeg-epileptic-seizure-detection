@@ -32,4 +32,4 @@ class Transposer:
         else:
             print("TRANSPOSER - Não implementado")
 
-        print("DATA SHAPE:", data.shape)
+        return data
