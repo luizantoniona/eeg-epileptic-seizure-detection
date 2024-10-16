@@ -17,6 +17,7 @@ class NNBase:
         self.dense_count: int = 0
         self.dropout_count: int = 0
         self.callbacks = []
+        self.predictions: np.ndarray
 
     def construct_model(self, hyper_param: kt.HyperParameters):
         raise NotImplementedError()
