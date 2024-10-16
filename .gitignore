@@ -2,9 +2,9 @@
 *_checkpoints/
 *pycache*/
 data/Models/
+data/CHBMIT/
 
 #Files
 *.db
 *.edf
 *.h5
-*.txt

@@ -1,0 +1,6 @@
+wfdb
+tensorflow
+mne
+keras_tuner
+pyqt5
+sqlite3
