@@ -16,7 +16,7 @@ def configure(dataset_type: DatasetTypeEnum):
 def is_configured(dataset_type: DatasetTypeEnum) -> bool:
     match dataset_type:
         case DatasetTypeEnum.CHBMIT:
-            return len(DatabaseSummary().summaries_with_anomaly(dataset_name=dataset_type.name)) > 120
+            return len(DatabaseSummary().summaries_with_anomaly(dataset_name=dataset_type.name)) >= 112
 
         case _:
             print("Not Mapped")
