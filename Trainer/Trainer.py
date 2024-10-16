@@ -30,7 +30,7 @@ class Trainer:
             X_train, X_val = data_train[train_index], data_train[val_index]
             y_train, y_val = labels_train[train_index], labels_train[val_index]
 
-            neural_network_model = Trainer.build_and_compile_model(model_type, signal_type, X_train[0].shape, window_length, best_hps)
+            neural_network_model = Trainer.build_and_compile_model(model_type, signal_type, window_length, data_train[0].shape, best_hps)
             neural_network_model.fit(X_train, y_train, num_epochs=NR_EPOCHS, batch_size=BATCH_SIZE, val_data=X_val, val_labels=y_val)
 
             neural_network_model.predict(data_test)
@@ -64,7 +64,7 @@ class Trainer:
 
     @staticmethod
     def save_model(dataset_type: DatasetTypeEnum, model_type: NeuralNetworkTypeEnum, signal_type: SignalTypeEnum, window_length: int, accuracy: float, neural_network_model: NNBase):
-        model_filepath = f"data/Models/{dataset_type.name}/{signal_type.name}/{window_length}/{model_type.name}_{accuracy}.keras"
+        model_filepath = f"data/Models/{dataset_type.name}/{signal_type.name}/{window_length}/{model_type.name}/{accuracy}.keras"
         neural_network_model.save_model(filepath=model_filepath)
 
     @staticmethod
