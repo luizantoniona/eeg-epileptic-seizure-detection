@@ -1,9 +1,8 @@
 """
 Module: Trainer
 """
+
 import keras_tuner as kt
-import os
-import tensorflow as tf
 import IA.NeuralNetworkModelFactory as NNModelFactory
 from Dataset.DatasetTypeEnum import DatasetTypeEnum
 from IA.NeuralNetworkTypeEnum import NeuralNetworkTypeEnum
@@ -20,8 +19,6 @@ class Trainer:
     def train(dataset_type: DatasetTypeEnum, model_type: NeuralNetworkTypeEnum, signal_type: SignalTypeEnum,
             window_length: int, data, labels):
 
-        os.environ['TF_GPU_ALLOCATOR'] = 'cuda_malloc_async'
-        os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
         def build(hp):
             neural_network_model = NNModelFactory.model_by_type(model_type, signal_type, data[0].shape, window_length)

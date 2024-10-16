@@ -45,7 +45,9 @@ class Preprocessor:
 
         print("DATA SHAPE:", data.shape)
 
-        Transposer.transpose(signal_type=signal_type, model_type=model_type, data=data)
+        data = Transposer.transpose(signal_type=signal_type, model_type=model_type, data=data)
+
+        print("DATA SHAPE:", data.shape)
 
         del summaries
         gc.collect()
