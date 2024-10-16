@@ -10,6 +10,7 @@ from GUI.Component.InfoPanelWidget import InfoPanelWidget
 from GUI.Component.NeuralNetworkWidget import NeuralNetworkWidget
 from GUI.Component.WindowSizeWidget import WindowSizeWidget
 from GUI.Thread.EvaluateThread import EvaluateThread
+from GUI.Thread.TrainThread import TrainThread
 
 TITLE = "EEG Aplication"
 
@@ -86,10 +87,10 @@ class MainWindow(QWidget):
 
     def train_model(self):
         self.info_panel_widget.clear()
-        DATASET = dataset_enum_by_name(self.dataset_widget.dataset)
-        MODEL = neural_network_enum_by_name(self.network_widget.network)
-        DOMAIN = signal_enum_by_name(self.domain_widget.domain)
-        WINDOW = self.window_widget.window_size
+        self.train_thread = TrainThread(self.dataset_widget.dataset, self.network_widget.network, self.domain_widget.domain, self.window_widget.window_size)
+        self.train_thread.finished.connect(self.on_thread_finished)
+        self.on_thread_start()
+        self.train_thread.start()
 
     def on_thread_start(self):
         self.train_button.setEnabled(False)
