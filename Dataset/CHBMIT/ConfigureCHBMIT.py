@@ -26,15 +26,15 @@ def get_edf_by_record(record, file):
 
     if not os.path.exists(fullpath):
         try:
-            print(f"Downloading: {fullpath}")
+            print(f"DOWNLOADING: {fullpath}")
             urlretrieve(url, fullpath)
-            print(f"Downloaded: {fullpath}")
+            print(f"DOWNLOADING: {fullpath}")
 
         except:
-            print(f"Not possible, verify!: {filename}")
+            print(f"DOWNLOAD NOT POSSIBLE: {filename}")
 
     else:
-        print(f"Already Exists: {fullpath}")
+        print(f"EXISTS: {fullpath}")
 
 
 def get_summary_info(record):
@@ -102,10 +102,10 @@ def summary_info(content, record_name):
 
                 if os.path.exists(fullpath):
                     if database.summary_by_name(file_name) is None:
-                        print(f"Inserting: {file_name}")
+                        print(f"INSERTING: {file_name}")
                         database.insert_sumarry_data("CHBMIT", record_name, file_name, start_time, end_time, int(nr_seizures), ",".join(start_seizure), ",".join(end_seizure), nr_channels, ",".join(ds_channels), "epilepsy")
                     else:
-                        print(f"Already inserted: {file_name}")
+                        print(f"INSERTED: {file_name}")
 
                 file_name = ""
                 start_time = ""
@@ -120,7 +120,7 @@ def download_and_process():
     part_codes = sorted(list(set([record.split("/")[0] for record in records_list])))
 
     for part_code in part_codes:
-        print(f"Processing: {part_code}")
+        print(f"PROCESSING: {part_code}")
         get_summary(part_code)
         record_context = get_summary_info(part_code)
         summary_info(record_context, part_code)

@@ -37,7 +37,7 @@ class DatabaseSummary(Database):
             self.db.commit()
 
         except:
-            print("Registro já existe:", file_name)
+            print(f"DatabaseSummary [ALREADY_EXIST]: {file_name}")
 
     def summary_by_name(self, file_name) -> object:
         """
@@ -52,7 +52,7 @@ class DatabaseSummary(Database):
             return self.cursor.fetchone()
 
         except:
-            print("Não há registro para o nome:", file_name)
+            print(f"DatabaseSummary: [DONT_EXIST]: {file_name}")
 
     def summaries(self, dataset_name) -> list[object]:
         """
@@ -67,7 +67,7 @@ class DatabaseSummary(Database):
             return self.cursor.fetchall()
 
         except:
-            print("Não há registros")
+            print(f"DatabaseSummary: [DONT_EXIST]")
             return []
 
     def summaries_with_anomaly(self, dataset_name) -> list[object]:
@@ -83,5 +83,5 @@ class DatabaseSummary(Database):
             return self.cursor.fetchall()
 
         except:
-            print("Não há registros")
+            print(f"DatabaseSummary: [DONT_EXIST]")
             return []

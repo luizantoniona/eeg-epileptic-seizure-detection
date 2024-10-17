@@ -10,7 +10,7 @@ def configure(dataset_type: DatasetTypeEnum):
             return
 
         case _:
-            print("Not Mapped")
+            print(f"DatasetConfigure [NOT_MAPPED]: {dataset_type.name}")
 
 
 def is_configured(dataset_type: DatasetTypeEnum) -> bool:
@@ -19,5 +19,5 @@ def is_configured(dataset_type: DatasetTypeEnum) -> bool:
             return len(DatabaseSummary().summaries_with_anomaly(dataset_name=dataset_type.name)) >= 112
 
         case _:
-            print("Not Mapped")
+            print(f"DatasetConfigure [NOT_MAPPED]: {dataset_type.name}")
             return False

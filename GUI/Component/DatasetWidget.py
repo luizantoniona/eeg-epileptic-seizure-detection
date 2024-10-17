@@ -54,17 +54,17 @@ class DatasetWidget(QWidget):
 
         if self.combo_box.currentIndex() > 0:
             if self.check_dataset_configured(dataset_name):
-                message = "Dataset Configured"
+                message = f"CONFIGURED: {dataset_name}"
                 self.checked = True
                 self.dataset = dataset_name
 
             else:
-                message = "Dataset Not Configured"
+                message = f"NOT CONFIGURED: {dataset_name}"
                 self.checked = False
                 self.configure_button.setEnabled(True)
 
         else:
-            message = "Select Dataset"
+            message = ""
             self.checked = False
             self.dataset = ""
             self.configure_button.setEnabled(False)

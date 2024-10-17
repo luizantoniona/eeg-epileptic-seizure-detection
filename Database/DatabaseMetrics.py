@@ -59,7 +59,7 @@ class DatabaseMetrics(Database):
             )
             self.db.commit()
         except:
-            print("Não foi possível inserir")
+            print("DatabaseMetrics [ERROR]")
 
     def metrics_by_model_domain_window(self, dataset_name, model_name, domain_name, window_length) -> list[object]:
         """
@@ -82,5 +82,5 @@ class DatabaseMetrics(Database):
             return self.cursor.fetchall()
 
         except:
-            print("Não há registros")
+            print("DatabaseMetrics [EMPTY]")
             return []

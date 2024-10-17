@@ -18,12 +18,12 @@ class TrainThread(QThread):
         self.WINDOW = window_size
 
     def run(self):
-        print("----- PREPROCESSOR STARTED -----")
+        print("PREPROCESSOR STARTED")
         data, labels = Preprocessor.preprocess(dataset_type=self.DATASET, model_type=self.MODEL, signal_type=self.DOMAIN, window_length=self.WINDOW)
-        print("----- PREPROCESSOR FINISHED -----")
+        print("PREPROCESSOR FINISHED")
 
-        print("----- TRAINING STARTED -----")
+        print("TRAINING STARTED")
         Trainer.train(dataset_type=self.DATASET, model_type=self.MODEL, signal_type=self.DOMAIN, window_length=self.WINDOW, data=data, labels=labels)
-        print("----- TRAINING FINISHED -----")
+        print("TRAINING FINISHED")
 
         self.finished.emit()

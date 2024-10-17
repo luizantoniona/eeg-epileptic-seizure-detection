@@ -18,5 +18,5 @@ def signal_enum_by_name(signal_name: str) -> SignalTypeEnum:
     if signal_name in dataset_map:
         return dataset_map[signal_name]
 
-    print(f"Unknown signal name: {signal_name}")
+    print(f"SignalTypeEnum [NOT_MAPPED]: {signal_name}")
     return SignalTypeEnum.NONE

@@ -18,5 +18,5 @@ def neural_network_enum_by_name(neural_network_name: str) -> NeuralNetworkTypeEn
     if neural_network_name in dataset_map:
         return dataset_map[neural_network_name]
 
-    print(f"Unknown neural network name: {neural_network_name}")
+    print(f"NeuralNetworkTypeEnum [NOT_MAPPED]: {neural_network_name}")
     return NeuralNetworkTypeEnum.NONE

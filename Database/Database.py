@@ -32,7 +32,7 @@ class Database:
                 self.cursor.execute(command)
 
             except:
-                print("Erro ao executar")
+                print("Database [ERROR]")
 
     def verify_table(self, table_name) -> bool:
         fd = open("./Database/SQL/Structure/verify_table_by_name.sql", "r")

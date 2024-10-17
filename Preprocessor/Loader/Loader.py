@@ -55,7 +55,7 @@ class Loader:
         """
 
         def generate(summary: Summary):
-            print(f"GENERATE [SIGNAL_TYPE]:{signal_type.name} [WINDOW]:{str(window_length)} [FILE]:{summary.fullpath()}")
+            print(f"GENERATING:{signal_type.name} WINDOW:{str(window_length)} FILE:{summary.file_name}")
 
             if full_file:
                 summary.generate_segmented_data_full_file(signal_type=signal_type, window_length=window_length)
@@ -63,11 +63,11 @@ class Loader:
                 summary.generate_segmented_data_around_seizures(signal_type=signal_type, window_length=window_length)
 
         if not summaries:
-            print("No summaries provided. Exiting.")
+            print("NO SUMMARIES. EXITING.")
             return
 
         if window_length <= 0:
-            print("Invalid window length. Exiting.")
+            print("INVALID WINDOW LENGTH. EXITING.")
             return
 
         with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
