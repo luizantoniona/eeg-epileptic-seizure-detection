@@ -43,8 +43,8 @@ class Evaluator:
         self.specificity = [evaluation.specificity * 100 for evaluation in self.evaluations]
         self.f1_score = [evaluation.f1_score * 100 for evaluation in self.evaluations]
 
-        self.true_positive_rate = [evaluation.true_positive_rate for evaluation in self.evaluations]
-        self.false_positive_rate = [evaluation.false_positive_rate for evaluation in self.evaluations]
+        self.true_positive_rate = [evaluation.true_positive_rate * 100 for evaluation in self.evaluations]
+        self.false_positive_rate = [evaluation.false_positive_rate * 100 for evaluation in self.evaluations]
 
     def info(self):
         print("[MODEL INFORMATION]")
