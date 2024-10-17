@@ -2,6 +2,7 @@
 Module: Trainer
 """
 
+import os
 import keras_tuner as kt
 import IA.NeuralNetworkModelFactory as NNModelFactory
 from sklearn.model_selection import KFold
@@ -64,7 +65,9 @@ class Trainer:
 
     @staticmethod
     def save_model(dataset_type: DatasetTypeEnum, model_type: NeuralNetworkTypeEnum, signal_type: SignalTypeEnum, window_length: int, accuracy: float, neural_network_model: NNBase):
-        model_filepath = f"data/Models/{dataset_type.name}/{signal_type.name}/{str(window_length)}/{model_type.name}/{str(accuracy)}.keras"
+        model_dir = f"data/Models/{dataset_type.name}/{signal_type.name}/{str(window_length)}/{model_type.name}"
+        os.makedirs(model_dir, exist_ok=True)
+        model_filepath = f"{model_dir}/{str(accuracy)}.keras"
         neural_network_model.save_model(filepath=model_filepath)
 
     @staticmethod
