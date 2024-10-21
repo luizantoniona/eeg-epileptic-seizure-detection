@@ -42,6 +42,7 @@ class InfoPanelWidget(QWidget):
             self.current_lines = 0
 
     def clear(self):
+        self.current_lines = 0
         self.info_panel.clear()
 
     def flush(self):
