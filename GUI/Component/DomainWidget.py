@@ -25,7 +25,8 @@ class DomainWidget(QWidget):
             [
                 "Select Domain",
                 "Time",
-                "PSD",
+                "PSDWelch",
+                "PSDMultitaper",
                 "Spectrogram",
             ]
         )

@@ -3,7 +3,7 @@ import gc
 import mne
 
 
-class PSDSignal(Signal):
+class PSDWelchSignal(Signal):
     """
     A class representing a Power Spectral Density signal model.
     """

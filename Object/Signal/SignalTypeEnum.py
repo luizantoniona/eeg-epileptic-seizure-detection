@@ -4,14 +4,16 @@ from enum import Enum
 class SignalTypeEnum(Enum):
     NONE = 0
     Time = 1
-    PSD = 2
-    Spectrogram = 3
+    PSDWelch = 2
+    PSDMultitaper = 3
+    Spectrogram = 4
 
 
 def signal_enum_by_name(signal_name: str) -> SignalTypeEnum:
     dataset_map = {
         "Time": SignalTypeEnum.Time,
-        "PSD": SignalTypeEnum.PSD,
+        "PSDWelch": SignalTypeEnum.PSDWelch,
+        "PSDMultitaper": SignalTypeEnum.PSDMultitaper,
         "Spectrogram": SignalTypeEnum.Spectrogram,
     }
 
