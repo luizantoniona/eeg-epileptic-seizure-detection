@@ -3,7 +3,10 @@ Module: Trainer
 """
 
 import os
+from xmlrpc.client import boolean
 import keras_tuner as kt
+import keras
+import time
 import IA.NeuralNetworkModelFactory as NNModelFactory
 from sklearn.model_selection import KFold
 from sklearn.model_selection import train_test_split
@@ -36,6 +39,7 @@ class Trainer:
 
             neural_network_model.predict(data_test)
             Trainer.evaluate_metrics(labels_test, dataset_type, model_type, signal_type, window_length, neural_network_model)
+            Trainer.clear_memory()
 
     @staticmethod
     def optimize_hyperparameters(dataset_type: DatasetTypeEnum, model_type: NeuralNetworkTypeEnum, signal_type: SignalTypeEnum, window_length: int, data, labels):
@@ -48,10 +52,20 @@ class Trainer:
             neural_network_model.compile(hp)
             return neural_network_model.model
 
-        tuner = kt.BayesianOptimization(build, objective="val_accuracy", max_trials=20, directory="data/Tuner", project_name=f"{dataset_type.name}/{signal_type.name}/{window_length}_{model_type.name}")
+        tuner = kt.BayesianOptimization(build, objective="val_accuracy", max_trials=20, max_consecutive_failed_trials=1, directory="data/Tuner", project_name=f"{dataset_type.name}/{signal_type.name}/{window_length}_{model_type.name}")
+        success: bool = False
+        max_attempts: int = 3
+        attempts: int = 0
 
-        tuner.search_space_summary()
-        tuner.search(data_train, labels_train, epochs=50, batch_size=BATCH_SIZE, validation_data=(data_val, labels_val))
+        while not success and attempts < max_attempts:
+            try:
+                tuner.search_space_summary()
+                tuner.search(data_train, labels_train, epochs=50, batch_size=BATCH_SIZE, validation_data=(data_val, labels_val))
+                success = True
+            except:
+                Trainer.clear_memory()
+                attempts += 1
+
         best_hps = tuner.get_best_hyperparameters()[0]
         return best_hps
 
@@ -76,3 +90,8 @@ class Trainer:
         metric.all_metrics()
         metric.metrics_to_database()
         Trainer.save_model(dataset_type, model_type, signal_type, window_length, metric.accuracy, neural_network_model)
+
+    @staticmethod
+    def clear_memory():
+        keras.backend.clear_session()
+        time.sleep(1)
