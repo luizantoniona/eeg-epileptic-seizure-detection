@@ -26,7 +26,7 @@ class SpectrogramSignal(Signal):
         """
         Generate segmented Spectrogram data for a specified time interval.
         """
-        spectrogram = self.mne_data.compute_tfr(method="multitaper", freqs=self.frequencies(), tmin=t_min, tmax=t_max, n_jobs=4, n_cycles=self.frequencies())
+        spectrogram = self.mne_data.compute_tfr(method="multitaper", freqs=self.frequencies(), tmin=t_min, tmax=t_max, n_jobs=4, n_cycles=(self.frequencies() / 2))
 
         self.data_segmented.append(spectrogram.get_data())
         del spectrogram
@@ -34,11 +34,11 @@ class SpectrogramSignal(Signal):
 
     def frequencies(self):
         """
-        Return the interest frequencies:
-        0.5 - 3.5 -> Delta
-        3.5 - 7.5 -> Theta
-        7.5 - 12.5 -> Alpha
-        12.5 - 30 -> Beta
-        30+ -> Gamma
+        Return the frequencies of interest for EEG bands:
+        Delta: 0.5 - 3.5 Hz
+        Theta: 3.5 - 7.5 Hz
+        Alpha: 7.5 - 12.5 Hz
+        Beta: 12.5 - 30 Hz
+        Gamma: 30+ Hz
         """
-        return np.arange(1, 60, 10)
+        return np.array([0.5, 4, 8, 12, 16, 30, 60])
