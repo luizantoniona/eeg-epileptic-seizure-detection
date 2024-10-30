@@ -22,7 +22,7 @@ class Transposer:
             if model_type != NeuralNetworkTypeEnum.RNN:
                 data = np.expand_dims(data, axis=-1)
 
-        elif signal_type == SignalTypeEnum.PSD:
+        elif signal_type == SignalTypeEnum.PSDWelch or signal_type == SignalTypeEnum.PSDMultitaper:
             if model_type != NeuralNetworkTypeEnum.RNN:
                 data = np.expand_dims(data, axis=-1)
 

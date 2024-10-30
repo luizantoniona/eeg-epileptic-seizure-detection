@@ -56,7 +56,7 @@ class Trainer:
             neural_network_model.compile(hp)
             return neural_network_model.model
 
-        tuner = kt.BayesianOptimization(build, objective="val_accuracy", max_trials=20, max_consecutive_failed_trials=1, directory="data/Tuner", project_name=f"{dataset_type.name}/{signal_type.name}/{window_length}_{model_type.name}")
+        tuner = kt.BayesianOptimization(build, objective="val_accuracy", max_trials=20, max_consecutive_failed_trials=2, directory="data/Tuner", project_name=f"{dataset_type.name}/{signal_type.name}/{window_length}_{model_type.name}")
         success: bool = False
         max_attempts: int = 3
         attempts: int = 0

@@ -14,7 +14,10 @@ def model_by_signal_type(signal_type: SignalTypeEnum, input_shape, window_length
         case SignalTypeEnum.Time:
             return CRNNTime(input_shape=input_shape, window_length=window_length)
 
-        case SignalTypeEnum.PSD:
+        case SignalTypeEnum.PSDWelch:
+            return CRNNPSD(input_shape=input_shape, window_length=window_length)
+
+        case SignalTypeEnum.PSDMultitaper:
             return CRNNPSD(input_shape=input_shape, window_length=window_length)
 
         case SignalTypeEnum.Spectrogram:
