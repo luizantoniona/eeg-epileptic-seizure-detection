@@ -3,7 +3,7 @@ Module: Trainer
 """
 
 import os
-from xmlrpc.client import boolean
+import gc
 import keras_tuner as kt
 import keras
 import time
@@ -101,4 +101,5 @@ class Trainer:
     @staticmethod
     def clear_memory():
         keras.backend.clear_session()
+        gc.collect()
         time.sleep(1)
