@@ -1,7 +1,4 @@
-import numpy as np
-import sklearn.metrics as metrics
 from statistics import mean
-from statistics import median
 from statistics import pstdev
 from Database.DatabaseMetrics import DatabaseMetrics
 from Metric.Evaluation import Evaluation
@@ -56,6 +53,7 @@ class Evaluator:
 
     def samples(self):
         print("[SAMPLE STATISTICS]")
+        print(f"[LEN]: {len(self.accuracy)}")
         print(f"[True Positives]: {mean(self.true_positives):.2f}")
         print(f"[True Negatives]: {mean(self.true_negatives):.2f}")
         print(f"[False Positives]: {mean(self.false_positives):.2f}")
@@ -73,14 +71,3 @@ class Evaluator:
         print(f"[TPR]: {mean(self.true_positive_rate):.2f}% ± {pstdev(self.true_positive_rate):.2f}%")
         print(f"[FPR]: {mean(self.false_positive_rate):.2f}% ± {pstdev(self.false_positive_rate):.2f}%")
         print("------------------------------------")
-
-    def generate_roc_auc_data(self):
-        tpr = median(self.true_positive_rate)
-        fpr = median(self.false_positive_rate)
-
-        tpr_result = np.concatenate([np.linspace(0, tpr, num=50), np.linspace(tpr, 1, num=50)])
-        fpr_result = np.concatenate([np.linspace(0, fpr, num=50), np.linspace(fpr, 1, num=50)])
-
-        auc = metrics.auc(fpr_result, tpr_result)
-
-        return tpr_result, fpr_result, auc
