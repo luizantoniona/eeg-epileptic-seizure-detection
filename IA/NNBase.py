@@ -99,7 +99,7 @@ class NNBase:
         Make predictions on the test data.
         """
         predictions = self.model.predict(X_test)
-        self.predictions = np.array([prediction > 0.5 for prediction in predictions])
+        self.predictions = predictions
 
     def print_predictions(self, y_test):
         """
