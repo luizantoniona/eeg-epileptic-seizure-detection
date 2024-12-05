@@ -15,7 +15,7 @@ class PSDWelchSignal(Signal):
         """
         Generate PSD data for all file.
         """
-        psd = self.mne_data.compute_psd(method="welch")
+        psd = self.mne_data.compute_psd(method="welch", n_jobs=4)
 
         self.data = psd.get_data()
         del psd
@@ -25,7 +25,7 @@ class PSDWelchSignal(Signal):
         """
         Generate segmented PSD data for a specified time interval.
         """
-        psd = self.mne_data.compute_psd(method="welch", tmin=t_min, tmax=t_max)
+        psd = self.mne_data.compute_psd(method="welch", tmin=t_min, tmax=t_max, n_jobs=4)
 
         self.data_segmented.append(psd.get_data())
         del psd
