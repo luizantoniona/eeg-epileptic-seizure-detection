@@ -32,15 +32,17 @@ class Trainer:
             kf = KFold(n_splits=10)
 
             for train_index, val_index in kf.split(data_train):
+
+                Trainer.clear_memory()
+
                 X_train, X_val = data_train[train_index], data_train[val_index]
                 y_train, y_val = labels_train[train_index], labels_train[val_index]
 
                 neural_network_model = Trainer.build_and_compile_model(model_type, signal_type, window_length, data_train[0].shape, best_hps)
                 neural_network_model.fit(X_train, y_train, num_epochs=NR_EPOCHS, batch_size=BATCH_SIZE, val_data=X_val, val_labels=y_val)
 
-                neural_network_model.predict(data_test)
+                neural_network_model.predict_classes(data_test)
                 Trainer.evaluate_metrics(labels_test, dataset_type, model_type, signal_type, window_length, neural_network_model)
-                Trainer.clear_memory()
 
         except Exception as e:
             print(f"FAILED {e}")

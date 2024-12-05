@@ -94,6 +94,11 @@ class NNBase:
         plt.ylim([0.5, 1])
         plt.legend(loc="lower right")
 
+    def predict_classes(self, X_test):
+        """ """
+        predictions = self.model.predict(X_test)
+        self.predictions = np.array([prediction > 0.5 for prediction in predictions])
+
     def predict(self, X_test):
         """
         Make predictions on the test data.
