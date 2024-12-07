@@ -84,3 +84,24 @@ class DatabaseMetrics(Database):
         except:
             print("DatabaseMetrics [EMPTY]")
             return []
+
+    def higher_metrics_by_model_domain_window(self, dataset_name, model_name, domain_name, window_length) -> object:
+        fd = open("./Database/SQL/Metrics/select_metrics_by_model_domain_window.sql", "r")
+        sql_file = fd.read()
+        fd.close()
+
+        try:
+            self.cursor.execute(
+                sql_file,
+                (
+                    dataset_name,
+                    model_name,
+                    domain_name,
+                    window_length,
+                ),
+            )
+            return self.cursor.fetchone()
+
+        except:
+            print("DatabaseMetrics [EMPTY]")
+            return None
