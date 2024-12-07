@@ -26,6 +26,10 @@ The following Python libraries were used in this project:
 
 TODO
 
+## CMD Application
+
+TODO
+
 ## Datasets
 
 ### CHB-MIT
@@ -108,43 +112,16 @@ The pre-processing step is segmented into two different phases: one for generati
 
 - **Normalization:** The pre-processed data is normalized to ensure that all features have a similar scale, which helps improve the convergence speed of the training algorithm and prevents any particular feature from dominating the learning process.
   
-- **Data split:** The normalized data is split into three subsets: training data, validation data, and test data.
+- **Data split:** The normalized data is split into two subsets: training data, and test data.
 
   - **Train:** This subset is used to train the machine learning model.
 
-  - **Validation:** This subset is used to tune the hyperparameters of the model and to prevent overfitting.
-
   - **Test:** This subset is used to evaluate the performance of the trained model on unseen data.
 
-- **Balance:** This step involves balancing the distribution of samples within the training data to prevent the model from being biased towards certain value.
-
-- **Training:** This stage involves training the machine learning model using the balanced training data.
+- **Training:** This stage involves training the machine learning model using the training data.
 
 - **Evaluation:** After training, the model's performance is evaluated using the test datasets to acess its generalization ability and effectiveness.
 
-```mermaid
-   flowchart LR
-   A[Pre-processed data]
-   B[Normalization]
-   A-->B
-   B-->C
-   subgraph C [Data split]
-   D[Train]
-   E[Validation]
-   F[Test]
-   end
-   G[Balance]
-   H[Balance]
-   I[Balance]
-   D-->G
-   E-->H
-   F-->I
-   J((Training))
-   K((Evaluation))
-   G-->J
-   H-->J
-   I-->K
-```
 ## Models and Training
 
 ### Data Domains
