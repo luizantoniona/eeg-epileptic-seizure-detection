@@ -6,6 +6,6 @@ data/Models/
 data/Tuner/
 
 #Files
-*.db
+#*.db
 *.edf
 *.h5
