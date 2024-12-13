@@ -7,6 +7,6 @@ data/Tuner/
 data/images/
 
 #Files
-#*.db
+*.db
 *.edf
 *.h5
