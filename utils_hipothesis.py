@@ -24,11 +24,12 @@ def models_competition():
         for j, (model_2, signal_2, window_2) in enumerate(combinations):
             second = Evaluator(dataset_type=cm.datasets(), model_type=model_2, signal_type=signal_2, window_length=window_2)
 
-            p_value = generate_hipothesis(first.accuracy, second.accuracy)
-            #            if p_value > 0.05:
-            #                p_value = 1.0
-            #            elif p_value <= 0.05:
-            #                p_value = 0.0005
+            p_value = generate_hipothesis(first.precision, second.precision)
+
+            if p_value > 0.05:
+                p_value = 1.0
+            elif p_value <= 0.05:
+                p_value = 0.0005
 
             confusion_matrix[i, j] = p_value
 

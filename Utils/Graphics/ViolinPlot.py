@@ -18,7 +18,7 @@ class ViolinPlot:
         self.group_col = group_col
         self.palette = palette
 
-    def plot(self, title="Violin Plot", xlabel="Model", ylabel="Metric", figsize=(10, 6), inner="quartile"):
+    def plot(self, title="", xlabel="", ylabel="", figsize=(10, 8), inner="quartile"):
         """ """
         plt.figure(figsize=figsize)
         sns.violinplot(

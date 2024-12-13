@@ -1,35 +1,61 @@
+import Utils.Commons as cm
+from Utils.Graphics.ViolinPlot import ViolinPlot
 from Metric.Evaluator import Evaluator
 from Dataset.DatasetTypeEnum import dataset_enum_by_name
-from IA.NeuralNetworkTypeEnum import neural_network_enum_by_name
 from Object.Signal.SignalTypeEnum import signal_enum_by_name
+import pandas as pd
 
-cnn_time_1 = Evaluator(dataset_type=dataset_enum_by_name("CHBMIT"), model_type=neural_network_enum_by_name("CNN"), signal_type=signal_enum_by_name("Time"), window_length=1)
-cnn_multi_1 = Evaluator(dataset_type=dataset_enum_by_name("CHBMIT"), model_type=neural_network_enum_by_name("CNN"), signal_type=signal_enum_by_name("PSDMultitaper"), window_length=1)
-cnn_welch_1 = Evaluator(dataset_type=dataset_enum_by_name("CHBMIT"), model_type=neural_network_enum_by_name("CNN"), signal_type=signal_enum_by_name("PSDWelch"), window_length=1)
-cnn_spec_1 = Evaluator(dataset_type=dataset_enum_by_name("CHBMIT"), model_type=neural_network_enum_by_name("CNN"), signal_type=signal_enum_by_name("Spectrogram"), window_length=1)
+DATASET = dataset_enum_by_name("CHBMIT")
+MODELS = cm.models()
+SIGNAL = signal_enum_by_name("PSDWelch")
+WINDOW = 5
+
+dados_acumulados = []
+
+for model in MODELS:
+    model_evaluation = Evaluator(dataset_type=DATASET, model_type=model, signal_type=SIGNAL, window_length=WINDOW)
+
+    dados = {
+        "Grupo": (
+            [f"{model.name} Accuracy"] * len(model_evaluation.accuracy)
+            + [f"{model.name} Precision"] * len(model_evaluation.precision)
+            + [f"{model.name} Sensitivity"] * len(model_evaluation.sensitivity)
+            + [f"{model.name} Specificity"] * len(model_evaluation.accuracy)
+            + [f"{model.name} F1-Score"] * len(model_evaluation.f1_score)
+        ),
+        "Valor": (model_evaluation.accuracy + model_evaluation.precision + model_evaluation.sensitivity + model_evaluation.specificity + model_evaluation.f1_score),
+    }
+
+    dados_acumulados.append(pd.DataFrame(dados))
 
 import seaborn as sns
 import matplotlib.pyplot as plt
-import pandas as pd
 
-dados = {
-    "Grupo": (["CNN - Time"] * len(cnn_time_1.accuracy) + ["CNN - Multitaper"] * len(cnn_multi_1.accuracy) + ["CNN - Welch"] * len(cnn_welch_1.accuracy) + ["CNN - Spectrogram"] * len(cnn_spec_1.accuracy)),
-    "Métrica": (cnn_time_1.accuracy + cnn_multi_1.accuracy + cnn_welch_1.accuracy + cnn_spec_1.accuracy),
-}
+df_consolidado = pd.concat(dados_acumulados, ignore_index=True)
 
-# Criar DataFrame para o gráfico
-df = pd.DataFrame(dados)
+df_consolidado["Modelo"] = df_consolidado["Grupo"].str.extract(r"^(.*?) ")
+df_consolidado["Métrica"] = df_consolidado["Grupo"].str.extract(r" (.*?)$")
 
-# Gerar o Violin Plot
-plt.figure(figsize=(10, 10))  # Ajustar tamanho do gráfico
-sns.violinplot(x="Grupo", y="Métrica", data=df, palette="muted", inner="quartile", density_norm="width")
+# Criar um FacetGrid com gráficos de violino por métrica
+g = sns.catplot(data=df_consolidado, x="Modelo", y="Valor", col="Métrica", kind="violin", palette="muted", sharey=False, col_wrap=2, inner="quartile")
 
-# Adicionar títulos e rótulos
-plt.title("Violin Plot - Comparação de Sinais e Janelas")
-plt.ylabel("Acurácia")
-plt.xlabel("Grupos de Modelos/Sinais")
+# Ajustar o layout e adicionar título
+g.fig.set_size_inches(12, 8)
+g.fig.subplots_adjust(top=0.9)
+g.fig.subplots_adjust(bottom=0.1)
+g.fig.suptitle(f"Metrics distribution {SIGNAL.name} - {WINDOW} seconds", fontsize=16)
 
-# Exibir o gráfico
-plt.xticks(rotation=30)  # Rodar os nomes no eixo X para melhorar a legibilidade
-plt.tight_layout()  # Melhorar o espaçamento do gráfico
+# Personalizar os eixos
+g.set_axis_labels("Models", "Metric value")
+g.set_titles("{col_name}")  # Mostrar o nome da métrica em cada gráfico
+
 plt.show()
+
+# plt.figure(figsize=(10, 8))
+# sns.violinplot(x="Grupo", y="Métrica", data=df, palette="muted", inner="quartile", density_norm="width")
+
+# plt.title("Distribution of metric value for CNN")
+# plt.ylabel("Value")
+
+# plt.tight_layout()
+# plt.show()

@@ -9,8 +9,8 @@ class ConfusionMatrixPlotter:
         self.labels = [f"{model.name}-{signal.name}-{window}s" for model, signal, window in combinations]
 
     def plot(self):
-        plt.figure(figsize=(8, 8))
-        sns.heatmap(self.confusion_matrix, xticklabels=self.labels, yticklabels=self.labels, cmap="coolwarm", cbar=True, linewidths=0.5, linecolor="black", square=True)
+        plt.figure(figsize=(9, 9))
+        sns.heatmap(self.confusion_matrix, xticklabels=self.labels, yticklabels=self.labels, cmap="coolwarm", cbar=False, linewidths=0.5, linecolor="black", square=True)
 
         plt.title("p-values")
         plt.xlabel("Configuration")
