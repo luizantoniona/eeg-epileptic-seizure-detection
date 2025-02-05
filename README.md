@@ -24,11 +24,12 @@ The following Python libraries were used in this project:
 
 ## Graphical Application
 
-TODO
+The graphical application is developed using `PyQt` and provides an interface for users to interact with the EEG data, visualize results, and configure model parameters.
 
-## CMD Application
-
-TODO
+To run:
+```
+python3 main.py
+```
 
 ## Datasets
 
@@ -40,7 +41,8 @@ The dataset comes with a summary for each patient, containing crucial details ab
 
 ## Database
 
-The database is created to store information about the datasets and training information.
+The database is implemented using `sqlite3` and stores information about the EEG files, including metadata and seizure annotations. The database schema is designed to facilitate efficient querying and retrieval of data for preprocessing and model training.
+
 
 ### summary_info:
 
@@ -59,8 +61,6 @@ Used to store information about the training sessions of models.
 | CHBMIT | CNN | Time | 5 | 0.876 | 0.876 | 0.876 | 0.876 | 0.876 | 0.876 | 0.876 |
 
 ## Pre-processing
-
-The pre-processing step is segmented into two different phases: one for generating segmented domain data and the other for preparing the data for training, validation, and testing.
 
 ###  Generate segmented data:
 
@@ -114,7 +114,7 @@ The pre-processing step is segmented into two different phases: one for generati
   
 - **Data split:** The normalized data is split into two subsets: training data, and test data.
 
-  - **Train:** This subset is used to train the machine learning model.
+  - **Train:** This subset is splited in 80% used to train the machine learning model, and 20% to tune the hyperparameters.
 
   - **Test:** This subset is used to evaluate the performance of the trained model on unseen data.
 
@@ -130,10 +130,11 @@ The data will be processed and inserted into the models in three different domai
    - Raw EEG.
 
 - Frequency:
-   - Power Spectral Density - PSD.
+   - Power Spectral Density - Welch method.
+   - Power Spectral Density - Multitaper method.
 
 - Time-frequency 
-   - Spectrogram.
+   - Spectrogram - Multitaper method.
 
 ### Models:
 - CNN (Convolutional Neural Network)
