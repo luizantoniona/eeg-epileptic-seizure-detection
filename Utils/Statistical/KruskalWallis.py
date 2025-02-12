@@ -29,7 +29,7 @@ def kruskal_wallis_with_dunn_windows():
             labels.append(f"{model}_{signal}")
             heatmap_data.append(p_value)
 
-            print(f"Kruskal-Wallis {model} - {signal}: H={stat:.4f}, p={p_value:.4f}")
+            print(f"Kruskal-Wallis {model} - {signal}: H={stat:.8f}, p={p_value:.8f}")
 
             if p_value < 0.05:
                 print(f"Realizando o teste de Dunn para {model} - {signal}...")
@@ -63,7 +63,7 @@ def kruskal_wallis_with_dunn_representations():
             labels.append(f"{model}_{window}s")
             heatmap_data.append(p_value)
 
-            print(f"Kruskal-Wallis {model} - {window}s: H={stat:.4f}, p={p_value:.4f}")
+            print(f"Kruskal-Wallis {model} - {window}s: H={stat:.8f}, p={p_value:.8f}")
 
             if p_value < 0.05:
                 print(f"Realizando o teste de Dunn para {model} - {window}s...")

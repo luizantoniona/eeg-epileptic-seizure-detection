@@ -24,7 +24,7 @@ class ROCPlotter:
         auc_value = metrics.auc(fpr, tpr)
 
         self.curves.append((fpr, tpr, auc_value))
-        self.labels.append(f"{label} (AUC = {auc_value:.2f})")
+        self.labels.append(f"{label} (AUC = {auc_value:.8f})")
         self.colors.append(color)
 
     def plot(self, plot_random_guess=False):

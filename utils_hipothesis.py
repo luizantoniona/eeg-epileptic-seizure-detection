@@ -12,8 +12,8 @@ def manwhitneyu():
 
 # manwhitneyu()
 
-# kruskalwallis_w = KW.kruskal_wallis_with_dunn_windows()
+kruskalwallis_w = KW.kruskal_wallis_with_dunn_windows()
 
 # kruskalwallis_r = KW.kruskal_wallis_with_dunn_representations()
 
-friedman_a = FD.friedman_test_models()
+# friedman_a = FD.friedman_test_models()
