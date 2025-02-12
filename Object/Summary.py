@@ -97,7 +97,7 @@ class Summary:
         while current_time + window_length <= self.duration():
             self.signal.generate_segmented_data(current_time, current_time + window_length)
             self.signal.label_segmented.append(self.has_anomaly_in_interval(current_time, current_time + window_length))
-            current_time += 0.5 * window_length
+            current_time += 1
 
         self.signal.delete_mne_data()
 
@@ -127,7 +127,7 @@ class Summary:
             while current_time + window_length <= fragment_end:
                 self.signal.generate_segmented_data(current_time, current_time + window_length)
                 self.signal.label_segmented.append(self.has_anomaly_in_interval(current_time, current_time + window_length))
-                current_time += 0.5 * window_length
+                current_time += 1
 
         self.signal.data_segmented = np.array(self.signal.data_segmented) if self.signal.data_segmented else None
         self.signal.label_segmented = np.array(self.signal.label_segmented) if self.signal.label_segmented else None
