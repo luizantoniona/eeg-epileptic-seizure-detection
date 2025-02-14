@@ -17,7 +17,7 @@ class Transposer:
         """
 
         if signal_type == SignalTypeEnum.Time:
-            # data = np.transpose(data, axes=(0, 2, 1))
+            data = np.transpose(data, axes=(0, 2, 1))
 
             if model_type != NeuralNetworkTypeEnum.RNN:
                 data = np.expand_dims(data, axis=-1)
@@ -26,8 +26,8 @@ class Transposer:
             if model_type != NeuralNetworkTypeEnum.RNN:
                 data = np.expand_dims(data, axis=-1)
 
-        # elif signal_type == SignalTypeEnum.Spectrogram:
-        # data = np.transpose(data, axes=(0, 3, 2, 1))
+        elif signal_type == SignalTypeEnum.Spectrogram:
+            data = np.transpose(data, axes=(0, 3, 2, 1))
 
         else:
             print("TRANSPOSER - Não implementado")
