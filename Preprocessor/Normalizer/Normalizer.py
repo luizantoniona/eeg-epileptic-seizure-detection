@@ -2,32 +2,33 @@ from Object.Summary import Summary
 from sklearn.preprocessing import MinMaxScaler
 import numpy as np
 
+
 class Normalizer:
     """
     Class: Normalizer
 
     This class provides functions to normalize data.
     """
+
     @staticmethod
-    def normalize(summaries: list[Summary]):
+    def normalize(data: np.ndarray):
         """
-        Normalize the data in each summary.
+        Normalize the provided data using MinMaxScaler.
         """
         scaler = MinMaxScaler()
 
-        shape_size = len(summaries[0].signal.data_segmented[0].shape)
+        if data.ndim == 2:
+            data[:] = scaler.fit_transform(data)
 
-        if shape_size == 2:
-            for summary in summaries:
-                all_samples = np.concatenate(summary.signal.data_segmented)
-                scaler.fit_transform(all_samples)
-                summary.signal.data_segmented = [scaler.transform(sample) for sample in summary.signal.data_segmented]
+        elif data.ndim == 3:
+            for i in range(data.shape[0]):
+                data[i] = scaler.fit_transform(data[i])
 
-        elif shape_size == 3:
-            for summary in summaries:
-                all_samples = np.concatenate([sample for segment in summary.signal.data_segmented for sample in segment])
-                scaler.fit(all_samples)
-                summary.signal.data_segmented = [[scaler.transform(sample) for sample in segment] for segment in summary.signal.data_segmented]
-                
+        elif data.ndim == 4:
+            samples, channels, _, _ = data.shape
+
+            for i in range(samples):
+                for j in range(channels):
+                    data[i, j] = scaler.fit_transform(data[i, j])
         else:
-            raise ValueError(f"Unsupported data shape: {summaries[0].signal.data_segmented[0].shape}")
+            raise ValueError(f"Unsupported data shape: {data.shape}")

@@ -38,18 +38,17 @@ class Preprocessor:
 
         Loader.load_segmented_data(summaries, signal_type=signal_type, window_length=window_length)
 
-        Normalizer.normalize(summaries=summaries)
-
         data, labels = Preprocessor.prepare(summaries=summaries)
-        data, labels = Balancer.balance(data=data, labels=labels)
-
-        print("DATA SHAPE:", data.shape)
-
-        data = Transposer.transpose(signal_type=signal_type, model_type=model_type, data=data)
-        print("DATA SHAPE:", data.shape)
 
         del summaries
         gc.collect()
+
+        Normalizer.normalize(data=data)
+
+        data, labels = Balancer.balance(data=data, labels=labels)
+
+        data = Transposer.transpose(signal_type=signal_type, model_type=model_type, data=data)
+        print("DATA SHAPE:", data.shape)
 
         return data, labels
 
@@ -73,3 +72,40 @@ class Preprocessor:
         all_segmented_label = label_encoder.transform(all_segmented_label)
 
         return all_segmented_data, all_segmented_label
+
+    @staticmethod
+    def preprocess_with_size(dataset_type: DatasetTypeEnum, signal_type: SignalTypeEnum, model_type: NeuralNetworkTypeEnum, window_length: int, nr_files: int = 0):
+        """
+        Preprocess the data by loading, normalizing, balancing, and transposing it.
+
+        Args:
+            dataset_type (DatasetTypeEnum): Type of dataset to load.
+            signal_type (SignalTypeEnum): Type of signal to load.
+            model_type (NeuralNetworkTypeEnum): Type of neural network model to use for data adaptation.
+            window_length (int): Length of the window used for segmenting the data.
+
+        Returns:
+            tuple: Processed data and corresponding labels.
+        """
+
+        mne.utils.set_log_level("CRITICAL")
+
+        summaries = Loader.load_anomalous_summaries(dataset_type=dataset_type)[0:nr_files]
+
+        Loader.load_segmented_data(summaries, signal_type=signal_type, window_length=window_length)
+
+        data, labels = Preprocessor.prepare(summaries=summaries)
+
+        del summaries
+        gc.collect()
+
+        Normalizer.normalize(data=data)
+
+        data, labels = Balancer.balance(data=data, labels=labels)
+
+        print("DATA SHAPE:", data.shape)
+
+        data = Transposer.transpose(signal_type=signal_type, model_type=model_type, data=data)
+        print("DATA SHAPE:", data.shape)
+
+        return data, labels
