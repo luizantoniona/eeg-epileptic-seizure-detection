@@ -25,7 +25,7 @@ for window, color in zip(windows, colors):
 
     evaluation = Converter.model_from_tuple(db_object)
 
-    data, labels = Preprocessor.preprocess(dataset_type=DATASET, model_type=MODEL, signal_type=DOMAIN, window_length=window)
+    data, labels = Preprocessor.preprocess_with_size(dataset_type=DATASET, model_type=MODEL, signal_type=DOMAIN, window_length=window, nr_files=10)
 
     model = NNBase(0, 0)
     model.load_model(f"data/Models/{DATASET.name}/{DOMAIN.name}/{MODEL.name}/{window}/{evaluation.accuracy}.keras")

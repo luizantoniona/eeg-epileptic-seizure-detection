@@ -43,7 +43,7 @@ class Preprocessor:
         del summaries
         gc.collect()
 
-        Normalizer.normalize(data=data)
+        data = Normalizer.normalize(data=data)
 
         data, labels = Balancer.balance(data=data, labels=labels)
 

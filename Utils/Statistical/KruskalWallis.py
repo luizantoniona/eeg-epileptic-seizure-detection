@@ -12,9 +12,6 @@ def kruskal_wallis_with_dunn_windows():
 
     for model in cm.models():
         for signal in cm.signals():
-            # TODO Remove when spectrogram is ok
-            if signal == signal_enum_by_name("Spectrogram"):
-                continue
 
             data = []
             window_labels = []
@@ -50,9 +47,6 @@ def kruskal_wallis_with_dunn_representations():
             window_labels = []
 
             for signal in cm.signals():
-                # TODO Remove when spectrogram is ok
-                if signal == signal_enum_by_name("Spectrogram"):
-                    continue
 
                 evaluator = Evaluator(dataset_type=cm.datasets(), model_type=model, signal_type=signal, window_length=window)
                 data.append(evaluator.accuracy)

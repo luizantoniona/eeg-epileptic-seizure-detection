@@ -12,9 +12,6 @@ def friedman_test_models():
     labels = []
 
     for signal in cm.signals():
-        if signal == signal_enum_by_name("Spectrogram"):
-            continue
-
         data = []
 
         for window in cm.windows():
