@@ -38,12 +38,12 @@ class Preprocessor:
 
         Loader.load_segmented_data(summaries, signal_type=signal_type, window_length=window_length)
 
+        Normalizer.normalize(summaries=summaries)
+
         data, labels = Preprocessor.prepare(summaries=summaries)
 
         del summaries
         gc.collect()
-
-        data = Normalizer.normalize(data=data)
 
         data, labels = Balancer.balance(data=data, labels=labels)
 
@@ -94,12 +94,12 @@ class Preprocessor:
 
         Loader.load_segmented_data(summaries, signal_type=signal_type, window_length=window_length)
 
+        Normalizer.normalize(summaries=summaries)
+
         data, labels = Preprocessor.prepare(summaries=summaries)
 
         del summaries
         gc.collect()
-
-        Normalizer.normalize(data=data)
 
         data, labels = Balancer.balance(data=data, labels=labels)
 

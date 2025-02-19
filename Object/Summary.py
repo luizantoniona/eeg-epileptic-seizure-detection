@@ -6,6 +6,8 @@ from Object.Signal.Signal import Signal
 from Object.Signal.SignalTypeEnum import SignalTypeEnum
 import Reader.ReaderCommons as Commons
 
+OVERLAP_SHIFT_SIZE = 1
+
 
 class Summary:
     """
@@ -97,7 +99,7 @@ class Summary:
         while current_time + window_length <= self.duration():
             self.signal.generate_segmented_data(current_time, current_time + window_length)
             self.signal.label_segmented.append(self.has_anomaly_in_interval(current_time, current_time + window_length))
-            current_time += 1
+            current_time += OVERLAP_SHIFT_SIZE
 
         self.signal.delete_mne_data()
 
@@ -127,7 +129,7 @@ class Summary:
             while current_time + window_length <= fragment_end:
                 self.signal.generate_segmented_data(current_time, current_time + window_length)
                 self.signal.label_segmented.append(self.has_anomaly_in_interval(current_time, current_time + window_length))
-                current_time += 1
+                current_time += OVERLAP_SHIFT_SIZE
 
         self.signal.data_segmented = np.array(self.signal.data_segmented) if self.signal.data_segmented else None
         self.signal.label_segmented = np.array(self.signal.label_segmented) if self.signal.label_segmented else None

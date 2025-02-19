@@ -9,7 +9,7 @@ from Utils.Graphics.ROCPlotter import ROCPlotter
 
 DATASET = dataset_enum_by_name("CHBMIT")
 MODEL = neural_network_enum_by_name("CNN")
-DOMAIN = signal_enum_by_name("PSDWelch")
+DOMAIN = signal_enum_by_name("Time")
 windows = [1, 2, 5, 10]
 colors = ["r", "g", "b", "y"]
 
@@ -25,7 +25,7 @@ for window, color in zip(windows, colors):
 
     evaluation = Converter.model_from_tuple(db_object)
 
-    data, labels = Preprocessor.preprocess_with_size(dataset_type=DATASET, model_type=MODEL, signal_type=DOMAIN, window_length=window, nr_files=10)
+    data, labels = Preprocessor.preprocess_with_size(dataset_type=DATASET, model_type=MODEL, signal_type=DOMAIN, window_length=window, nr_files=20)
 
     model = NNBase(0, 0)
     model.load_model(f"data/Models/{DATASET.name}/{DOMAIN.name}/{MODEL.name}/{window}/{evaluation.accuracy}.keras")

@@ -6,9 +6,9 @@ from Trainer.Trainer import Trainer
 
 
 DATASET = dataset_enum_by_name("CHBMIT")
-MODEL = neural_network_enum_by_name("CRNN")
-DOMAIN = signal_enum_by_name("PSDWelch")
-WINDOW = 10
+MODEL = neural_network_enum_by_name("RNN")
+DOMAIN = signal_enum_by_name("Spectrogram")
+WINDOW = 5
 
 
 def run():
