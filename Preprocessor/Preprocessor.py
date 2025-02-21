@@ -83,6 +83,7 @@ class Preprocessor:
             signal_type (SignalTypeEnum): Type of signal to load.
             model_type (NeuralNetworkTypeEnum): Type of neural network model to use for data adaptation.
             window_length (int): Length of the window used for segmenting the data.
+            nr_files (int): Number of files to preprocess.
 
         Returns:
             tuple: Processed data and corresponding labels.
@@ -103,9 +104,41 @@ class Preprocessor:
 
         data, labels = Balancer.balance(data=data, labels=labels)
 
-        print("DATA SHAPE:", data.shape)
+        data = Transposer.transpose(signal_type=signal_type, model_type=model_type, data=data)
+
+        return data, labels
+
+    @staticmethod
+    def preprocess_with_file_name(dataset_type: DatasetTypeEnum, signal_type: SignalTypeEnum, model_type: NeuralNetworkTypeEnum, window_length: int, file_name: str = ""):
+        """
+        Preprocess the data by loading, normalizing, balancing, and transposing it.
+
+        Args:
+            dataset_type (DatasetTypeEnum): Type of dataset to load.
+            signal_type (SignalTypeEnum): Type of signal to load.
+            model_type (NeuralNetworkTypeEnum): Type of neural network model to use for data adaptation.
+            window_length (int): Length of the window used for segmenting the data.
+            file_name (str): Name of the file to preprocess.
+
+        Returns:
+            tuple: Processed data and corresponding labels.
+        """
+
+        mne.utils.set_log_level("CRITICAL")
+
+        summaries = Loader.load_summary(dataset_type=dataset_type, file_name=file_name)
+
+        Loader.load_segmented_data(summaries, signal_type=signal_type, window_length=window_length)
+
+        Normalizer.normalize(summaries=summaries)
+
+        data, labels = Preprocessor.prepare(summaries=summaries)
+
+        del summaries
+        gc.collect()
+
+        data, labels = Balancer.balance(data=data, labels=labels)
 
         data = Transposer.transpose(signal_type=signal_type, model_type=model_type, data=data)
-        print("DATA SHAPE:", data.shape)
 
         return data, labels
