@@ -6,8 +6,6 @@ from Object.Signal.Signal import Signal
 from Object.Signal.SignalTypeEnum import SignalTypeEnum
 import Reader.ReaderCommons as Commons
 
-OVERLAP_SHIFT_SIZE = 1
-
 
 class Summary:
     """
@@ -89,7 +87,7 @@ class Summary:
 
         return has_anomaly
 
-    def generate_segmented_data_full_file(self, signal_type: SignalTypeEnum, window_length: int):
+    def generate_segmented_data_full_file(self, signal_type: SignalTypeEnum, window_length: int, overlap_shift_size: int):
         """
         Generate segmented data based on type and a specified time window for full file.
         """
@@ -99,11 +97,11 @@ class Summary:
         while current_time + window_length <= self.duration():
             self.signal.generate_segmented_data(current_time, current_time + window_length)
             self.signal.label_segmented.append(self.has_anomaly_in_interval(current_time, current_time + window_length))
-            current_time += OVERLAP_SHIFT_SIZE
+            current_time += overlap_shift_size
 
         self.signal.delete_mne_data()
 
-    def generate_segmented_data_around_seizures(self, signal_type: SignalTypeEnum, window_length: int):
+    def generate_segmented_data_around_seizures(self, signal_type: SignalTypeEnum, window_length: int, overlap_shift_size: int):
         """
         Generate segmented data based on type and a specified time window around disease ocurrence.
         """
@@ -129,7 +127,7 @@ class Summary:
             while current_time + window_length <= fragment_end:
                 self.signal.generate_segmented_data(current_time, current_time + window_length)
                 self.signal.label_segmented.append(self.has_anomaly_in_interval(current_time, current_time + window_length))
-                current_time += OVERLAP_SHIFT_SIZE
+                current_time += overlap_shift_size
 
         self.signal.data_segmented = np.array(self.signal.data_segmented) if self.signal.data_segmented else None
         self.signal.label_segmented = np.array(self.signal.label_segmented) if self.signal.label_segmented else None

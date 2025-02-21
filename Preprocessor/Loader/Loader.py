@@ -5,6 +5,8 @@ from Dataset.DatasetTypeEnum import DatasetTypeEnum
 from Object.Signal.SignalTypeEnum import SignalTypeEnum
 from Object.Summary import Summary
 
+OVERLAP_SHIFT_SIZE_DEFAULT = 1
+
 
 class Loader:
     """
@@ -57,7 +59,7 @@ class Loader:
         return summaries
 
     @staticmethod
-    def load_segmented_data(summaries: list[Summary], signal_type: SignalTypeEnum, window_length: int, full_file=False, max_workers=8) -> None:
+    def load_segmented_data(summaries: list[Summary], signal_type: SignalTypeEnum, window_length: int, overlap_shift_size: int = OVERLAP_SHIFT_SIZE_DEFAULT, full_file=False, max_workers=8) -> None:
         """
         Generate segmented data of specified type for a list of Summary objects.
 
@@ -65,6 +67,7 @@ class Loader:
         - summaries (list[Summary]): List of Summary objects to process.
         - signal_type (SignalTypeEnum): Type of signal data to generate ("Time", "PSD", "Spectrogram").
         - window_length (int): Length of the time window wich the data will be segmented.
+        - overlap_shift_size (int): Lenght of the overlap shift.
         - full_file (bool, optional): Whether to generate full file data. Defaults to False.
         """
 
@@ -72,9 +75,9 @@ class Loader:
             print(f"GENERATING:{signal_type.name} WINDOW:{str(window_length)} FILE:{summary.file_name}")
 
             if full_file:
-                summary.generate_segmented_data_full_file(signal_type=signal_type, window_length=window_length)
+                summary.generate_segmented_data_full_file(signal_type=signal_type, window_length=window_length, overlap_shift_size=overlap_shift_size)
             else:
-                summary.generate_segmented_data_around_seizures(signal_type=signal_type, window_length=window_length)
+                summary.generate_segmented_data_around_seizures(signal_type=signal_type, window_length=window_length, overlap_shift_size=overlap_shift_size)
 
         if not summaries:
             print("NO SUMMARIES. EXITING.")
