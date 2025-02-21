@@ -43,6 +43,20 @@ class Loader:
         return summaries
 
     @staticmethod
+    def load_summary(dataset_type: DatasetTypeEnum, file_name: str = "") -> list[Summary]:
+        """
+        Load summary data from the database and convert it into Summary object.
+        """
+        summaries = []
+
+        database = DatabaseSummary()
+        db_object = database.summary_by_name(dataset_type.name, file_name)
+
+        summaries.append(Converter.model_from_tuple(db_object))
+
+        return summaries
+
+    @staticmethod
     def load_segmented_data(summaries: list[Summary], signal_type: SignalTypeEnum, window_length: int, full_file=False, max_workers=8) -> None:
         """
         Generate segmented data of specified type for a list of Summary objects.
