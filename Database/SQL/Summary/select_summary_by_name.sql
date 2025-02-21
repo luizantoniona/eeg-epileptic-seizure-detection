@@ -1,2 +1,3 @@
 SELECT * FROM summary_info
-    WHERE file_name = ?;
+    WHERE dataset_name = ?
+    AND file_name = ?;

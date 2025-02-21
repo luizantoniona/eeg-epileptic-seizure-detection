@@ -39,7 +39,7 @@ class DatabaseSummary(Database):
         except:
             print(f"DatabaseSummary [ALREADY_EXIST]: {file_name}")
 
-    def summary_by_name(self, file_name) -> object:
+    def summary_by_name(self, dataset_name, file_name) -> object:
         """
         Retrieve summary data from the database based on the file name.
         """
@@ -48,7 +48,13 @@ class DatabaseSummary(Database):
         fd.close()
 
         try:
-            self.cursor.execute(sql_file, (file_name,))
+            self.cursor.execute(
+                sql_file,
+                (
+                    dataset_name,
+                    file_name,
+                ),
+            )
             return self.cursor.fetchone()
 
         except:
