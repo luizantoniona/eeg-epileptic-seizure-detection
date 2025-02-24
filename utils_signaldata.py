@@ -32,4 +32,4 @@ for i in indexes:
         plot_2d_heatmap(signal[index][0], labels[index], index, SIGNAL_TYPE, 256)
 
     else:
-        plot_signal(signal[index][0], labels[index], index, SIGNAL_TYPE, 256)
+        plot_signal(signal[index][0], labels[index], SIGNAL_TYPE, 256)

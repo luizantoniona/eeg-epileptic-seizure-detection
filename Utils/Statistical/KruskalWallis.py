@@ -2,7 +2,6 @@ from scipy.stats import kruskal
 import scikit_posthocs as sp
 from Metric.Evaluator import Evaluator
 import Utils.Commons as cm
-from Object.Signal.SignalTypeEnum import signal_enum_by_name
 
 
 def kruskal_wallis_with_dunn_windows():
@@ -23,13 +22,13 @@ def kruskal_wallis_with_dunn_windows():
 
             stat, p_value = kruskal(*data)
             results[f"{model}_{signal}"] = (stat, p_value)
-            labels.append(f"{model}_{signal}")
+            labels.append(f"{model.name}_{signal.name}")
             heatmap_data.append(p_value)
 
-            print(f"Kruskal-Wallis {model} - {signal}: H={stat:.8f}, p={p_value:.8f}")
+            print(f"Kruskal-Wallis {model.name} - {signal.name}: H={stat:.8f}, p={p_value:.8f}")
 
             if p_value < 0.05:
-                print(f"Realizando o teste de Dunn para {model} - {signal}...")
+                print(f"Realizando o teste de Dunn para {model.name} - {signal.name}")
                 dunn_results = sp.posthoc_dunn(data, p_adjust="bonferroni")
                 print(dunn_results)
 
@@ -50,17 +49,17 @@ def kruskal_wallis_with_dunn_representations():
 
                 evaluator = Evaluator(dataset_type=cm.datasets(), model_type=model, signal_type=signal, window_length=window)
                 data.append(evaluator.accuracy)
-                window_labels.append(f"Signal {signal}")
+                window_labels.append(f"Signal {signal.name}")
 
             stat, p_value = kruskal(*data)
             results[f"{model}_{window}s"] = (stat, p_value)
-            labels.append(f"{model}_{window}s")
+            labels.append(f"{model.name}_{window}s")
             heatmap_data.append(p_value)
 
-            print(f"Kruskal-Wallis {model} - {window}s: H={stat:.8f}, p={p_value:.8f}")
+            print(f"Kruskal-Wallis {model.name} - {window}s: H={stat:.8f}, p={p_value:.8f}")
 
             if p_value < 0.05:
-                print(f"Realizando o teste de Dunn para {model} - {window}s...")
+                print(f"Realizando o teste de Dunn para {model.name} - {window}s")
                 dunn_results = sp.posthoc_dunn(data, p_adjust="bonferroni")
                 print(dunn_results)
 

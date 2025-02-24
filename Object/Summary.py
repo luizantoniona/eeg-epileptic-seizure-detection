@@ -50,6 +50,9 @@ class Summary:
         """
         return "./data/" + self.dataset_name + "/" + self.record_name + "/" + self.file_name
 
+    def get_nr_occurrence(self):
+        return self.nr_occurrence
+
     def duration(self):
         """
         Return the duration of the data in seconds.

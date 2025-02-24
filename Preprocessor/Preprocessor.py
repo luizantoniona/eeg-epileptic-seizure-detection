@@ -109,7 +109,7 @@ class Preprocessor:
         return data, labels
 
     @staticmethod
-    def preprocess_with_file_name(dataset_type: DatasetTypeEnum, signal_type: SignalTypeEnum, model_type: NeuralNetworkTypeEnum, window_length: int, file_name: str = ""):
+    def preprocess_with_file_name(dataset_type: DatasetTypeEnum, signal_type: SignalTypeEnum, model_type: NeuralNetworkTypeEnum, window_length: int, overlap_shift_size: int, file_name: str = ""):
         """
         Preprocess the data by loading, normalizing, balancing, and transposing it.
 
@@ -128,7 +128,7 @@ class Preprocessor:
 
         summaries = Loader.load_summary(dataset_type=dataset_type, file_name=file_name)
 
-        Loader.load_segmented_data(summaries, signal_type=signal_type, window_length=window_length)
+        Loader.load_segmented_data(summaries, signal_type=signal_type, window_length=window_length, overlap_shift_size=overlap_shift_size)
 
         Normalizer.normalize(summaries=summaries)
 
@@ -137,7 +137,7 @@ class Preprocessor:
         del summaries
         gc.collect()
 
-        data, labels = Balancer.balance(data=data, labels=labels)
+        # data, labels = Balancer.balance(data=data, labels=labels)
 
         data = Transposer.transpose(signal_type=signal_type, model_type=model_type, data=data)
 
