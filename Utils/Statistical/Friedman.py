@@ -7,33 +7,35 @@ import Utils.Commons as cm
 
 def friedman_test_models():
     results = {}
-    heatmap_data = []
-    labels = []
 
     for signal in cm.signals():
-        data = []
-
         for window in cm.windows():
-            accuracies = []
+            data = []
+            window_labels = []
+            flattened_data = []
+            groups = []
 
             for model in cm.models():
                 evaluator = Evaluator(dataset_type=cm.datasets(), model_type=model, signal_type=signal, window_length=window)
-                accuracies.append(evaluator.accuracy)
+                accuracies = evaluator.accuracy
+                data.append(accuracies)
 
-            stat, p_value = friedmanchisquare(*accuracies)
-            data.append((stat, p_value))
+                window_label = f"{signal.name}_{window}_MOD{model}"
+                window_labels.append(window_label)
 
-        results[f"{signal}"] = data
-        labels.append(f"{signal.name}")
-        heatmap_data.append([p_value for _, p_value in data])
+                flattened_data.extend(accuracies)
+                groups.extend([window_label] * len(accuracies))
 
-        print(f"Friedman Test for Signal={signal.name}:")
-        for idx, (stat, p_value) in enumerate(data):
-            print(f"Window {cm.windows()[idx]}s: H={stat:.8f}, p={p_value:.8f}")
+            friedman_result, p_value = friedmanchisquare(*data)
+            results[f"{signal}_{str(window)}"] = (friedman_result, p_value)
+            print(f"Friedman {signal.name} - {window}: H={friedman_result:.8f}, p={p_value:.8f}")
 
             if p_value < 0.05:
-                print(f"Performing Nemenyi Post-Test for Signal={signal.name}, Window={cm.windows()[idx]}s...")
-                pairwise_results = pairwise_tukeyhsd(np.array(accuracies).flatten(), np.repeat(range(len(accuracies)), len(accuracies[0])), alpha=0.05)
-                print(pairwise_results)
+                print(f"Performing Tukey's Post-Test for Signal={signal.name}, Window={window}s...")
+
+                assert len(flattened_data) == len(groups), f"Mismatch in lengths: {len(flattened_data)} vs {len(groups)}"
+
+                tukey_result = pairwise_tukeyhsd(np.array(flattened_data), np.array(groups), alpha=0.05)
+                print(tukey_result.summary())
 
     return results
