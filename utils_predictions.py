@@ -15,9 +15,9 @@ from IA.NeuralNetworkTypeEnum import neural_network_enum_by_name
 
 DATASET = dataset_enum_by_name("CHBMIT")
 MODELS = [
-    # neural_network_enum_by_name("RNN"),
-    neural_network_enum_by_name("CNN"),
-    # neural_network_enum_by_name("CRNN"),
+    neural_network_enum_by_name("RNN"),
+    # neural_network_enum_by_name("CNN"),
+    neural_network_enum_by_name("CRNN"),
 ]
 DOMAINS = [
     # signal_enum_by_name("PSDWelch"),
@@ -30,6 +30,8 @@ WINDOWS = [
 
 
 database = DatabaseMetrics()
+
+all_wrong_pred = []
 
 for model in MODELS:
     for domain in DOMAINS:
@@ -51,6 +53,8 @@ for model in MODELS:
             labels_original = summaries[0].signal.get_label_segmented()
             signal_combined = np.concatenate(signal_original, axis=1)
 
+            # plot_signal(signal_combined, "chb04_28.edf", SignalTypeEnum.Time, 256)
+
             data, labels = Preprocessor.preprocess_with_file_name(dataset_type=DATASET, model_type=model, signal_type=domain, window_length=window, overlap_shift_size=window, file_name="chb04_28.edf")
 
             for evaluation in evaluations:
@@ -65,11 +69,13 @@ for model in MODELS:
                     if modelNN.predictions[i] != bool(labels[i]):
                         index.append(i)
 
-                print(f"Model: {model.name} | Domain: {domain.name} | Window: {window} | INDEXES: {index} | Acc: {evaluation.accuracy}")
+                all_wrong_pred.append(f"Model: {model.name} | Domain: {domain.name} | Window: {window} | INDEXES: {index} | Acc: {evaluation.accuracy}")
 
                 for i in range(summaries[0].get_nr_occurrence()):
                     print(f"START: {summaries[0].start_time_of_ocurrence(i)} | END: {summaries[0].end_time_of_ocurrence(i)}")
 
                 for i in index:
-                    plot_signal(signal_original[i], f"Model: {model.name} | Window: {window} | Index: {i} | GT: {bool(labels[i])} | PRED: {modelNN.predictions[i]}", SignalTypeEnum.Time, 256)
-                    plot_signal(data[i], f"Model: {model.name} | Window: {window} | Index: {i} | GT: {bool(labels[i])} | PRED: {modelNN.predictions[i]}", domain, 256)
+                    plot_signal(signal_original[i], f"Index: {i} | GROUND TRUTH: {labels_original[i]} | PREDICTION: {'normal' if modelNN.predictions[i] else 'epilepsy'}", SignalTypeEnum.Time, 256)
+                    plot_signal(data[i], f"Index: {i} | GROUND TRUTH: {'normal' if bool(labels[i]) else 'epilepsy'} | PREDICTION: {'normal' if modelNN.predictions[i] else 'epilepsy'}", domain, 256)
+
+print(all_wrong_pred)
