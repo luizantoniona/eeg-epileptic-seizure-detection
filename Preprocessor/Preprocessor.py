@@ -137,8 +137,6 @@ class Preprocessor:
         del summaries
         gc.collect()
 
-        # data, labels = Balancer.balance(data=data, labels=labels)
-
         data = Transposer.transpose(signal_type=signal_type, model_type=model_type, data=data)
 
         return data, labels
