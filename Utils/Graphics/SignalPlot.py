@@ -47,7 +47,7 @@ def plot_signal(signal, label: str, signal_type, sampling_rate):
         y_label = "Power (dB)"
         plt.xlim(0, sampling_rate / 2)
         plt.ylim(bottom=0)
-        plt.title(f"{signal_type.name} - {label.capitalize()}")
+        plt.title(f"{signal_type.name} - {label}")
         plt.xlabel(x_label)
         plt.ylabel(y_label)
         plt.legend()
