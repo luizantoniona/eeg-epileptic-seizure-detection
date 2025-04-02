@@ -100,7 +100,8 @@ Used to store information about the training sessions of models.
    I[Compute Spectrogram]
    J[Pre-processed data]
    G-->|Time| J
-   G-->|Frequency| H
+   G-->|Frequency Welch| H
+   G-->|Frequency Multitaper| H
    G-->|Time-Frequency| I
    H-->J
    I-->J
