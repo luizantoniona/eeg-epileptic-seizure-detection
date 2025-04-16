@@ -31,6 +31,14 @@ To run:
 python3 main.py
 ```
 
+## Main Scripts
+
+These scripts use the project's modules to configure the dataset and database, train the models, and generate useful graphics for analysis.
+
+- **[Database configuration:](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/utils_configure.py)** Configures the database and dataset.
+
+- **[Training:](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/blob/main/utils_train.py)** Handles the training of machine learning models.
+
 ## Datasets
 
 ### CHB-MIT
@@ -100,7 +108,8 @@ Used to store information about the training sessions of models.
    I[Compute Spectrogram]
    J[Pre-processed data]
    G-->|Time| J
-   G-->|Frequency| H
+   G-->|Frequency Welch| H
+   G-->|Frequency Multitaper| H
    G-->|Time-Frequency| I
    H-->J
    I-->J
@@ -116,7 +125,15 @@ Used to store information about the training sessions of models.
 
   - **Train:** This subset is splited in 80% used to train the machine learning model, and 20% to tune the hyperparameters.
 
+      - **20%:** Used for hyperparameter tuning
+
+      - **64%:** Used for training
+
+      - **16%:** Used for validations
+
   - **Test:** This subset is used to evaluate the performance of the trained model on unseen data.
+
+- **Hyperparameter tuning:** Optimization of model parameters to improve performance.
 
 - **Training:** This stage involves training the machine learning model using the training data.
 
