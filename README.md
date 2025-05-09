@@ -17,9 +17,27 @@ This project focuses on the detection of epileptic seizures in EEG data using va
 - [References](#references)
 - [License](#license)
 
-## 📢 Releases and Publications
+## Releases and Publications
 
 📌 **NOTE:** If you use this software in academic work, please cite the following papers:
+
+### 🚀 Version 2.0 - Current main branch
+- 💻 [Release v2.0.0-Final](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/releases/tag/v2.0.0-Final)  
+- 📄 **The use of multi-domain electroencephalogram representations in the building of models based on convolutional and recurrent neural networks for epilepsy detection**  
+- 📅 **March 2025** — 🎓 *Master’s Thesis*  
+- 📚 **Preprint DOI:** [10.48550/arXiv.2504.17908](https://doi.org/10.48550/arXiv.2504.17908)  
+- 🔗 [Read on ResearchGate](https://www.researchgate.net/publication/391219682_The_use_of_Multi-domain_Electroencephalogram_Representations_in_the_building_of_Models_based_on_Convolutional_and_Recurrent_Neural_Networks_for_Epilepsy_Detection)
+- How to Cite:
+``` bibtex
+@article{anghinoni2025use,
+  title={The use of Multi-domain Electroencephalogram Representations in the building of Models based on Convolutional and Recurrent Neural Networks for Epilepsy Detection},
+  author={Anghinoni, Luiz Antonio Nicolau and Denardin, Gustavo Weber and Gertrudes, Jadson Castro and Casanova, Dalcimar and Oliva, Jefferson Tales},
+  journal={arXiv preprint arXiv:2504.17908},
+  year={2025}
+}
+```
+
+---
 
 ### 📌 Version 1.0  
 - 💻 [Release v1.0.0-CBIS](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/releases/tag/v1.0.0-CBIS)  
@@ -36,24 +54,6 @@ This project focuses on the detection of epileptic seizures in EEG data using va
   volume={16},
   number={Especial},
   year={2024}
-}
-```
-
----
-
-### 🚀 Version 2.0 - Current main branch
-- 💻 [Release v2.0.0-Final](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/releases/tag/v2.0.0-Final)  
-- 📄 **The use of multi-domain electroencephalogram representations in the building of models based on convolutional and recurrent neural networks for epilepsy detection**  
-- 📅 **March 2025** — 🎓 *Master’s Thesis*  
-- 📚 **Preprint DOI:** [arXiv:2504.17908v1](https://doi.org/10.48550/arXiv.2504.17908)  
-- 🔗 [Read on ResearchGate](https://www.researchgate.net/publication/391219682_The_use_of_Multi-domain_Electroencephalogram_Representations_in_the_building_of_Models_based_on_Convolutional_and_Recurrent_Neural_Networks_for_Epilepsy_Detection)
-- How to Cite:
-``` bibtex
-@article{anghinoni2025use,
-  title={The use of Multi-domain Electroencephalogram Representations in the building of Models based on Convolutional and Recurrent Neural Networks for Epilepsy Detection},
-  author={Anghinoni, Luiz Antonio Nicolau and Denardin, Gustavo Weber and Gertrudes, Jadson Castro and Casanova, Dalcimar and Oliva, Jefferson Tales},
-  journal={arXiv preprint arXiv:2504.17908},
-  year={2025}
 }
 ```
 
