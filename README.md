@@ -41,8 +41,8 @@ This project focuses on the detection of epileptic seizures in EEG data using va
 
 ---
 
-### 🚀 Current Version  
-- 💻 [Main Repository](https://github.com/luizantoniona/eeg-epileptic-seizure-detection)  
+### 🚀 Version 2.0 - Current main branch
+- 💻 [Release v2.0.0-Final](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/releases/tag/v2.0.0-Final)  
 - 📄 **The use of multi-domain electroencephalogram representations in the building of models based on convolutional and recurrent neural networks for epilepsy detection**  
 - 📅 **March 2025** — 🎓 *Master’s Thesis*  
 - 📚 **Preprint DOI:** [arXiv:2504.17908v1](https://doi.org/10.48550/arXiv.2504.17908)  
