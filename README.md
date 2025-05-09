@@ -1,4 +1,4 @@
-# Epileptic Seizure Detection in EEG
+![eeg](https://github.com/user-attachments/assets/fc6201f5-8c0a-4a16-bfb6-692cd9c834ad)
 
 This project focuses on the detection of epileptic seizures in EEG data using various machine learning models. The models implemented aim to classify EEG signals using different data domains: temporal, frequency, and time-frequency.
 
