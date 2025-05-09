@@ -17,7 +17,9 @@ This project focuses on the detection of epileptic seizures in EEG data using va
 - [References](#references)
 - [License](#license)
 
-## Releases and Publications
+## 📢 Releases and Publications
+
+📌 **NOTE:** If you use this software in academic work, please cite the following papers:
 
 ### 📌 Version 1.0  
 - 💻 [Release v1.0.0-CBIS](https://github.com/luizantoniona/eeg-epileptic-seizure-detection/releases/tag/v1.0.0-CBIS)  
@@ -316,5 +318,8 @@ A set of metrics was used to evaluate the performance of the models. For those m
 [1] Guttag J. CHB-MIT Scalp EEG Database (version 1.0.0). PhysioNet. 2010. Available from: https://doi.org/10.13026/C2K01R
 
 ## License
+
+- This work is licensed under the Creative Commons Attribution 4.0 International License.  
+- To view a copy of this license, visit http://creativecommons.org/licenses/by/4.0/.
 
 Copyright © 2025 [Luiz Antonio Nicolau Anghinoni](https://github.com/luizantoniona)
